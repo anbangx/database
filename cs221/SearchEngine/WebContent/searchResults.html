@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Show Search Results</title>
+<link href="css/inner.css" rel="stylesheet" type="text/css" />
+<link href="css/prettyPhoto.css" rel="stylesheet" type="text/css" />
+</head>
+
+<style type="text/css">
+#searchBoxOne #search{
+    display: inline;
+    margin-left: 0px;
+    margin-top: 14px;
+    font-size: 24px;
+    height:40px;
+    width:500px;
+    color: #999;
+    padding: 6px;
+    -moz-box-shadow:inset 2px 2px 5px #ccc;
+    box-shadow:inset 2px 2px 5px #ccc;
+    border: 1px solid #b8b8b8;
+}
+#searchBoxOne #in{
+      height:44px;
+      width:44px;
+      cursor:pointer;
+      position:relative;
+      top:-34px;
+      right:60px;
+      border:0px;
+}
+*{
+	  margin:0px;
+	  padding:0px
+}
+.page_split{
+	  text-align:center;
+	  margin:15px 0px;
+  	  font-size:12px;
+	  line-height:23px
+}
+.page_split a,.page_split span{
+	  border:1px solid #CCC;
+	  padding:2px 5px;
+	  text-decoration:none;
+	  color:#787878;
+}
+.page_split a:hover{
+	  background-color:#8cb900;
+	  color:#FFF;
+}
+span.current{
+	  color:#FFF;
+	  background-color:#8cb900;
+	  border:1px solid #436206;
+}
+</style>
+
+
+<body>
+<!--******************************  Main Wrapper  ******************************-->
+
+<div id="main_wrapper"><!-- Start of main_wrapper -->
+	
+    <div id="top_phone">
+    Outstanding Search Engine
+    </div>
+    
+    <div id="searchBoxOne">
+	  <form action="show-search-result" method="get">
+	    <input type="text" NAME="query" value="Type in Keywords" onfocus="javascript:this.value=''" id="search" />
+	    <input type="image" src="images/search_icon.png" id="in" onClick="document.formname.submit();" />
+	  </form>
+	</div>
+   
+    <div class="full_width"><!-- Start of full_width -->
+        
+    <h3>URL link example1!</h3>
+    <h4>URL content example1!</h4>    
+    <p>Content example: Nunc auctor bibendum eros. Maecenas porta accumsan mauris. Etiam enim enim, elementum sed, bibendum quis, rhoncus non, metus. Fusce neque dolor, adipiscing sed, consectetuer et, lacinia sit amet, quam. Suspendisse wisi quam, <a href="#">consectetuer in</a>, blandit sed, suscipit eu, eros. Etiam ligula enim, tempor ut, blandit nec, mollis eu, lectus. Nam cursus. Vivamus iaculis. Aenean risus purus, pharetra in, blandit quis, gravida a, turpis. Donec nisl. Aenean eget mi. Fusce mattis est id diam. Phasellus faucibus interdum sapien. Duis quis nunc. Sed enim.</p>
+    <blockquote>Content example: Nunc auctor bibendum eros. Maecenas porta accumsan mauris. Etiam enim enim, elementum sed, bibendum quis, rhoncus non, metus. Fusce neque dolor, adipiscing sed, consectetuer et, lacinia sit amet, quam. Suspendisse wisi quam, <a href="#">consectetuer in</a>, blandit sed, suscipit eu, eros. Etiam ligula enim, tempor ut, blandit nec, mollis eu, lectus. Nam cursus. Vivamus iaculis. Aenean risus purus, pharetra in, blandit quis, gravida a, turpis. Donec nisl. Aenean eget mi. Fusce mattis est id diam. Phasellus faucibus interdum sapien. Duis quis nunc. Sed enim.</blockquote>
+    <div class="hr"></div>
+    
+    <h3>URL link example2!</h3>
+    <h4>URL content example2!</h4>    
+    <p>Content example: Nunc auctor bibendum eros. Maecenas porta accumsan mauris. Etiam enim enim, elementum sed, bibendum quis, rhoncus non, metus. Fusce neque dolor, adipiscing sed, consectetuer et, lacinia sit amet, quam. Suspendisse wisi quam, <a href="#">consectetuer in</a>, blandit sed, suscipit eu, eros. Etiam ligula enim, tempor ut, blandit nec, mollis eu, lectus. Nam cursus. Vivamus iaculis. Aenean risus purus, pharetra in, blandit quis, gravida a, turpis. Donec nisl. Aenean eget mi. Fusce mattis est id diam. Phasellus faucibus interdum sapien. Duis quis nunc. Sed enim.</p>
+    <div class="hr"></div>
+    
+    <h3>URL link example3!</h3>
+    <h4>URL content example3!</h4>    
+    <blockquote>Content example: Nunc auctor bibendum eros. Maecenas porta accumsan mauris. Etiam enim enim, elementum sed, bibendum quis, rhoncus non, metus. Fusce neque dolor, adipiscing sed, consectetuer et, lacinia sit amet, quam. Suspendisse wisi quam, <a href="#">consectetuer in</a>, blandit sed, suscipit eu, eros. Etiam ligula enim, tempor ut, blandit nec, mollis eu, lectus. Nam cursus. Vivamus iaculis. Aenean risus purus, pharetra in, blandit quis, gravida a, turpis. Donec nisl. Aenean eget mi. Fusce mattis est id diam. Phasellus faucibus interdum sapien. Duis quis nunc. Sed enim.</blockquote>
+    <div class="hr"></div>
+    
+
+	<div class="page_split">  
+		<a href="http://www.google.com">Prev</a>
+		<a href="#">1</a>
+		<span class="current">2</span>
+		<a href="#">3</a>
+		<a href="#">4</a>
+		<a href="#">5</a>
+		<a href="#">Next</a>
+		<a href="#">Last</a>
+	</div>
+ 
+</div><!-- End of full_width -->
+    
+</div><!-- End of main_wrapper -->
+
+<!--******************************  FOOTER SECTION  ******************************-->
+
+<div id="footer_wrapper"><!-- start of footer wrapper -->
+
+<div id="footer_container"><!-- start of footer container -->
+
+<div id="footer_left"><!-- start of footer left -->
+    <div class="download_button"><!-- Start of download_button -->
+            &nbsp;&nbsp;&nbsp;<a href="about_our_work.html"><img src="img/learn_more_button.png" width="197" height="54" alt="Learn More" /></a>
+   	</div><!-- End of download_button -->            
+</div><!-- end of footer left -->
+
+<div id="footer_middle"><!-- start of footer middle -->
+	<img src="img/google_white.png" width="124" height="48" alt="logo" />
+    <br /><br />
+    Inspired by Google
+</div><!-- end of footer middle -->
+
+<div id="footer_right"><!-- start of footer right -->
+	<h4>Contact Us Through</h4>
+	<ul class="social">
+	       	<li><a href="https://www.facebook.com/" title="facebook" class='fade'><img src="img/social_facebook.png" width="30" height="30" alt="facebook" /></a></li>
+			<li><a href="http://www.linkedin.com/" title="LinkedIn" class='fade'><img src="img/social_linkedin.png" width="30" height="30" alt="linkedin" /></a></li>
+			<li><a href="https://mail.google.com" title="Email Us" class='fade'><img src="img/social_email.png" width="30" height="30" alt="email us" /></a></li>
+			<li><a href="https://twitter.com/" title="Twitter" class='fade'><img src="img/social_twitter.png" width="30" height="30" alt="Twitter" /></a></li>
+	    </ul>
+</div><!-- end of footer right -->
+
+</div><!-- end of footer container -->
+
+</div><!-- end of footer wrapper -->
+</body>
+</html>

@@ -1,0 +1,203 @@
+html {
+	-webkit-font-smoothing:antialiased;
+}
+body {
+	background:#f8f8f8 url("../images/bkg-pat.png") repeat scroll 0 0;
+	font: 12px/1.5em Arial, Helvetica, sans-serif, "Arial Narrow";
+	color:#757575;	
+}
+img {
+	border:0;
+}
+div{
+	position:relative;
+}
+ul, li {
+	list-style:none;
+	margin: 0px;
+	padding: 0px;a
+}
+a {
+	color:#9a9a9a;
+	text-decoration:none;
+}
+.column-clear {
+	clear:both;
+}
+
+.col1 {
+	width:48%;
+	margin-left:0px;
+	margin-right:4%;
+	float:left;
+	margin-bottom:15px;
+}
+.col-1-2 {
+	position:absolute;
+	top:-130px;
+	left:-320px;
+}
+.col2 {
+	top: -10;
+    margin-left: 340px;
+    margin-right: 10px;
+}
+a.go {
+	font-size:20px;
+	text-decoration:none;
+	color:#5AB73C;
+}
+a.go:hover {
+	text-decoration:none;
+}
+footer {
+	margin-top:180px;
+	text-align:center;
+}
+.title {
+	margin: 0 auto;
+	font-family:"Oswald";
+	font-size:40px;
+	line-height:40px;
+	font-weight:normal;
+	margin-bottom:50px;
+	border-bottom:1px solid #757575;
+}
+.container {
+	margin:80px auto;
+	width:960px;
+}
+/* MENU DEMO 1 */
+.demo1 li {
+	background-color: rgba(238, 238, 238, 1);
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	-o-transition: all 0.3s ease-in-out 0s;
+	-ms-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+	padding-left:1%;
+	height: 50px;
+	min-height: 50px;
+	width: 0;
+	font-family:"Oswald";
+	font-size:20px;
+}
+.demo1 li a {
+	width:50%;
+	height:50px;
+	line-height:50px;
+	padding-left:5px;
+	position:absolute;
+}
+.demo1 li:hover {
+	background-color: rgba(238, 238, 238, 1);
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	-o-transition: all 0.3s ease-in-out 0s;
+	-ms-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+	width:50%;
+}
+/* END MENU DEMO 1 */
+
+/* MENU DEMO 2 */
+.demo2 {
+	margin-top:80px;
+}
+.demo2 li {overflow: hidden;
+	float:left;
+	margin-left:20px;
+	font-family:"Oswald";
+	font-size:20px;
+	text-align:center;
+	background-color: rgba(255, 57, 57, 1);
+	width:120px;
+	height:60px;
+	position:relative;
+		color:#ffffff;
+}
+.demo2 li .mask {
+	width:120px;
+	height:60px;
+	position: absolute;
+
+	top: -60px;
+	left: 0;
+	background-color: rgba(170, 0, 0, 1);
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	-o-transition: all 0.3s ease-in-out 0s;
+	-ms-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+	-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	opacity: 0;
+	z-index:1;
+
+}
+.demo2 li:hover .mask {
+ 
+	top:0px;
+	 -webkit-transform: translateY(0px);
+   -moz-transform: translateY(0px);
+   -o-transform: translateY(0px);
+   -ms-transform: translateY(0px);
+   transform: translateY(0px);
+   -webkit-transition-delay: 0s;
+   -moz-transition-delay: 0s;
+   -o-transition-delay: 0s;
+   -ms-transition-delay: 0s;
+   transition-delay: 0s;
+	-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=1)";
+   filter: alpha(opacity=1);
+   opacity: 1;
+}
+
+.demo2 li:first-child {
+	margin-left:0px;
+}
+.demo2 li .link {z-index:2;}
+.link a{color:#ffffff;position:absolute;width:120px;height:40px;top:0;left:0;padding-top:20px;}
+
+/* END MENU DEMO 2 */
+/* MENU DEMO 3 */
+.demo3 {
+	margin-top:50px;
+	height:90px;
+}
+.demo3 li {
+	float:left;
+	background-color: rgba(90, 183, 60, 1);
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	-o-transition: all 0.3s ease-in-out 0s;
+	-ms-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+	height:0;
+	font-family:"Oswald";
+	font-size:20px;
+	padding:5px 0px 0px 0px;
+}
+.demo3 li a {
+	line-height:40px;
+	padding:0px 30px;
+	color:#5AB73C;
+}
+.demo3 li a:hover {
+	color:#FFFFFF;
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	-o-transition: all 0.3s ease-in-out 0s;
+	-ms-transition: all 0.3s ease-in-out 0s;
+}
+.demo3 li:hover {
+	background-color: rgba(90, 183, 60, 1);
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	-o-transition: all 0.3s ease-in-out 0s;
+	-ms-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+	height:40px;
+}
+.demo3 li:hover a {color:#ffffff;}
+/* END MENU DEMO 3 */
