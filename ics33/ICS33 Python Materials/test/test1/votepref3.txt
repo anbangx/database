@@ -1,0 +1,9 @@
+A;X;Y;Z
+B;X;Y;Z
+C;X;Y;Z
+D;X;Y;Z
+E;Y;Z;X
+F;Y;Z;X
+G;Y;Z;X
+H;Z;Y;X
+I;Z;Y;X

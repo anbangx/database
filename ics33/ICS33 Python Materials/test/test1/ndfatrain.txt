@@ -1,0 +1,8 @@
+start;e;engine
+engine;e;engine;e;rest
+rest;b;box1;p;pass1;c;done
+box1;b;rest
+pass1;d;rest;p;pass2
+pass2;d;rest;p;pass3
+pass3;d;rest;p;pass4
+pass4;d;rest

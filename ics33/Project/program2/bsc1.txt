@@ -1,0 +1,183 @@
+# Setup
+c-->from imp import reload
+c-->import dimensional
+c-->reload(dimensional)
+c-->from dimensional import Dimensional as Dim
+c-->from dimensional import DimensionError
+#c-->show_exception = True
+#c-->show_exception_message = True
+# Test init
+^-->Dim(0,'a',0,0)-->AssertionError
+^-->Dim(0,0,1.0,0)-->AssertionError
+^-->Dim(0,0,0,True)-->AssertionError
+c-->g = Dim(9.8,1,0,-2)
+# Test repr/str
+e-->repr(g)-->Dimensional(9.8,l=1,t=-2)
+e-->str(g)-->9.8(1,0,-2)
+# Test getitem
+e-->g['value']-->9.8
+e-->g['l']-->1
+e-->g['m']-->0
+e-->g['t']-->-2
+==-->g['d']-->(1,0,-2)
+^-->g['x']-->KeyError
+# Test format
+e-->g.format('mgs')-->9.8 m/s**2
+e-->Dim(1,2,3,-1).format('mgs')-->1 m**2g**3/s
+e-->Dim(1,0,0,-1).format('mgs')-->1 1/s
+e-->Dim(1,0,1,0).format('mgs')-->1 g
+e-->Dim(1,0,0,0).format('mgs')-->1
+# Test pos/neg
+e-->str(+g)-->9.8(1,0,-2)
+e-->str(-g)-->-9.8(1,0,-2)
+# Test add/radd
+e-->g + Dim(5,1,0,-2)-->14.8(1,0,-2)
+e-->g + Dim(5.,1,0,-2)-->14.8(1,0,-2)
+^-->g + Dim(5,0,0,-2)-->DimensionError
+^-->g + Dim(5,1,1,-2)-->DimensionError
+^-->g + Dim(5,1,0,-1)-->DimensionError
+^-->g + 1-->DimensionError
+^-->g + 1.-->DimensionError
+^-->1 + g-->DimensionError
+^-->1. + g-->DimensionError
+c-->dless = Dim(5)
+e-->1 + dless-->6(0,0,0)
+e-->1. + dless-->6.0(0,0,0)
+e-->dless + 1-->6(0,0,0)
+e-->dless + 1.-->6.0(0,0,0)
+^-->dless + 'a'-->TypeError
+^-->'a' + dless-->TypeError
+# Test sub/rsub
+e-->g - Dim(5,1,0,-2)-->4.800000000000001(1,0,-2)
+e-->g - Dim(5.,1,0,-2)-->4.800000000000001(1,0,-2)
+^-->g - Dim(5,0,0,-2)-->DimensionError
+^-->g - Dim(5,1,1,-2)-->DimensionError
+^-->g - Dim(5,1,0,-1)-->DimensionError
+^-->g - 1-->DimensionError
+^-->g - 1.-->DimensionError
+^-->1 - g-->DimensionError
+^-->1. - g-->DimensionError
+c-->dless = Dim(5)
+e-->1 - dless-->-4(0,0,0)
+e-->1. - dless-->-4.0(0,0,0)
+e-->dless - 1-->4(0,0,0)
+e-->dless - 1.-->4.0(0,0,0)
+^-->dless - 'a'-->TypeError
+^-->'a' - dless-->TypeError
+# Test mul/rmul
+e-->g * Dim(5,0,0,1)-->49.0(1,0,-1)
+e-->g * Dim(5.,1,0,-2)-->49.0(2,0,-4)
+e-->g * Dim(5,0,0,-2)-->49.0(1,0,-4)
+e-->g * Dim(5,1,1,-2)-->49.0(2,1,-4)
+e-->g * Dim(5,1,0,-1)-->49.0(2,0,-3)
+e-->g * 1-->9.8(1,0,-2)
+e-->g * 1.-->9.8(1,0,-2)
+e-->1 * g-->9.8(1,0,-2)
+e-->1. * g-->9.8(1,0,-2)
+^-->dless * 'a'-->TypeError
+^-->'a' * dless-->TypeError
+# Test div/rdiv
+e-->g / Dim(2,0,0,1)-->4.9(1,0,-3)
+e-->g / Dim(2.,1,0,-2)-->4.9(0,0,0)
+e-->g / Dim(2,0,0,-2)-->4.9(1,0,0)
+e-->g / Dim(2,1,1,-2)-->4.9(0,-1,0)
+e-->g / Dim(2,1,0,-1)-->4.9(0,0,-1)
+e-->g / 1-->9.8(1,0,-2)
+e-->g / 1.-->9.8(1,0,-2)
+e-->1 / g-->0.1020408163265306(-1,0,2)
+e-->1. / g-->0.1020408163265306(-1,0,2)
+^-->dless / 'a'-->TypeError
+^-->'a' / dless-->TypeError
+# Test pow
+e-->g ** 2-->96.04000000000002(2,0,-4)
+e-->g ** -2-->0.010412328196584756(-2,0,4)
+e-->g ** Dim(2,0,0,0)-->96.04000000000002(2,0,-4)
+^-->g ** 1.-->TypeError
+^-->g ** Dim(1,1,0,0)-->DimensionError
+^-->g ** Dim(1,0,1,0)-->DimensionError
+^-->g ** Dim(1,0,0,1)-->DimensionError
+^-->dless ** 'a'-->TypeError
+^-->'a' ** dless-->TypeError
+# Test ==
+e-->g == 9.8-->True
+e-->g == 9.7-->False
+e-->9.8 == g-->True
+e-->9.7 == g-->False
+e-->g == Dim(9.8,1,0,-2)-->True
+^-->g == Dim(9.8,0,0,0)-->DimensionError
+^-->Dim(9.8,0,0,0) == g-->DimensionError
+# Test !=
+e-->g != 9.8-->False
+e-->g != 9.7-->True
+e-->9.8 != g-->False
+e-->9.7 != g-->True
+e-->g != Dim(9.8,1,0,-2)-->False
+^-->g != Dim(9.8,0,0,0)-->DimensionError
+^-->Dim(9.8,0,0,0) != g-->DimensionError
+# Test <
+e-->g < 9.8-->False
+e-->g < 9.7-->False
+e-->g < 9.9-->True
+e-->9.8 < g-->False
+e-->9.7 < g-->True
+e-->9.9 < g-->False
+e-->g < Dim(9.8,1,0,-2)-->False
+e-->g < Dim(9.7,1,0,-2)-->False
+e-->g < Dim(9.9,1,0,-2)-->True
+^-->g < Dim(9.8,0,0,0)-->DimensionError
+^-->Dim(9.8,0,0,0) < g-->DimensionError
+# Test >
+e-->g > 9.8-->False
+e-->g > 9.7-->True
+e-->g > 9.9-->False
+e-->9.8 > g-->False
+e-->9.7 > g-->False
+e-->9.9 > g-->True
+e-->g > Dim(9.8,1,0,-2)-->False
+e-->g > Dim(9.7,1,0,-2)-->True
+e-->g > Dim(9.9,1,0,-2)-->False
+^-->g > Dim(9.8,0,0,0)-->DimensionError
+^-->Dim(9.8,0,0,0) > g-->DimensionError
+# Test <=
+e-->g <= 9.8-->True
+e-->g <= 9.7-->False
+e-->g <= 9.9-->True
+e-->9.8 <= g-->True
+e-->9.7 <= g-->True
+e-->9.9 <= g-->False
+e-->g <= Dim(9.8,1,0,-2)-->True
+e-->g <= Dim(9.7,1,0,-2)-->False
+e-->g <= Dim(9.9,1,0,-2)-->True
+^-->g <= Dim(9.8,0,0,0)-->DimensionError
+^-->Dim(9.8,0,0,0) <= g-->DimensionError
+# Test >=
+e-->g >= 9.8-->True
+e-->g >= 9.7-->True
+e-->g >= 9.9-->False
+e-->9.8 >= g-->True
+e-->9.7 >= g-->False
+e-->9.9 >= g-->True
+e-->g >= Dim(9.8,1,0,-2)-->True
+e-->g >= Dim(9.7,1,0,-2)-->True
+e-->g >= Dim(9.9,1,0,-2)-->False
+^-->g >= Dim(9.8,0,0,0)-->DimensionError
+^-->Dim(9.8,0,0,0) >= g-->DimensionError
+# Test +=,-1,*=,/=,**=
+c-->g += Dim(1,1,0,-2)
+e-->g-->10.8(1,0,-2)
+c-->g -= Dim(1,1,0,-2)
+e-->g-->9.8(1,0,-2)
+c-->g *= 1
+e-->g-->9.8(1,0,-2)
+c-->g /= 1
+e-->g-->9.8(1,0,-2)
+c-->g **= 2
+e-->g-->96.04000000000002(2,0,-4)
+^-->g += 1-->DimensionError
+^-->g -= 1-->DimensionError
+# Test abs
+==-->abs(g)-->g
+==-->abs(-g)-->g
+# Test bool
+e-->bool(g)-->True
+e-->bool(Dim(0,1,1,1))-->False

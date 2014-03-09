@@ -1,0 +1,73 @@
+# Setup
+c-->from imp import reload
+c-->import pcollections
+c-->reload(pcollections)
+c-->from pcollections import pnamedtuple as pnt
+# Test pnamedtuple (as pnt)
+c-->Triple1    = pnt('Triple1', 'a b c')
+c-->print(Triple1__.source
+c-->Triple2    = pnt('Triple2', 'a,  b,    c')
+c-->Triple3    = pnt('Triple3', ['a','b','c'])
+^-->Triple_Bad = pnt(1, 'a b c')-->SyntaxError
+^-->Triple_Bad = pnt('Triple_Bad', {'a','b','c'})-->SyntaxError
+^-->Triple_Bad = pnt('3', 'a b c')-->SyntaxError
+^-->Triple_Bad = pnt('Triple_Bad', 'a 3 c')-->SyntaxError
+^-->Triple_Bad = pnt('Triple_Bad', 'a b if')-->SyntaxError
+^-->Triple_Bad = pnt('Triple_Bad', '_a _b _c')-->SyntaxError
+c-->Triple_OK  = pnt('Triple_OK', 'a17 b__1 c__2')
+# Test init/repr
+c-->t1 = Triple1(1,2,3)
+e-->repr(t1)-->Triple1(a=1,b=2,c=3)
+c-->t2 = Triple2(1,2,3)
+e-->repr(t2)-->Triple2(a=1,b=2,c=3)
+c-->t3 = Triple3(1,2,3)
+e-->repr(t3)-->Triple3(a=1,b=2,c=3)
+c-->t3 = Triple3(c=3,b=2,a=1)
+e-->repr(t3)-->Triple3(a=1,b=2,c=3)
+c-->tok= Triple_OK(c__2=3,b__1=2,a17=1)
+e-->repr(tok)-->Triple_OK(a17=1,b__1=2,c__2=3)
+e-->t1.a-->1
+e-->t1.b-->2
+e-->t1.c-->3
+^-->t1.d-->AttributeError
+# Test get_ methods
+e-->t1.get_a()-->1
+e-->t1.get_b()-->2
+e-->t1.get_c()-->3
+^-->t1.get_d()-->AttributeError
+c-->l = [Triple1(a=1,b=2,c=3),Triple1(b=1,c=2,a=3),Triple1(c=1,a=2,b=3)]
+c-->l.sort(key=Triple1.get_a)
+e-->l-->[Triple1(a=1,b=2,c=3), Triple1(a=2,b=3,c=1), Triple1(a=3,b=1,c=2)]
+# Test __getitem__ functions
+e-->t1[0]-->1
+e-->t1[1]-->2
+e-->t1[2]-->3
+e-->t1['a']-->1
+e-->t1['b']-->2
+e-->t1['c']-->3
+^-->t1[4]-->IndexError
+^-->t1['d']-->IndexError
+^-->t1[3.2]-->IndexError
+# Test ==
+e-->t1 == t1-->True
+e-->t1 == t2-->False
+e-->t1 == Triple1(a=1,b=2,c=3)-->True
+e-->t1 == Triple1(a=1,b=1,c=3)-->False
+# Test replace (not mutable)
+==-->t1._replace(a=2)-->Triple1(2,2,3)
+==-->t1._replace(a=2,c=2)-->Triple1(2,2,2)
+^-->t1._replace(a=2,c=2,d=2)-->TypeError
+==-->t1-->Triple1(a=1,b=2,c=3)
+# Test _replace (mutable)
+c-->Triple1 = pnt('Triple1', 'a b c',mutable=True)
+c-->t1 = Triple1(1,2,3)
+e-->t1._replace(a=2,c=2)-->None
+==-->t1-->Triple1(a=2,b=2,c=2)
+# Test Extra Credit (prohibit mutation if immutable)
+c-->Triple1 = pnt('Triple1', 'a b c',mutable=False)
+c-->t1 = Triple1(1,2,3)
+^-->t1.a = 2-->AttributeError
+c-->Triple1 = pnt('Triple1', 'a b c',mutable=True)
+c-->t1 = Triple1(1,2,3)
+c-->t1.a = 2
+==-->t1-->Triple1(2,2,3)

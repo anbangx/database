@@ -1,0 +1,2 @@
+even;0;even;1;odd
+odd;0;odd;1;even

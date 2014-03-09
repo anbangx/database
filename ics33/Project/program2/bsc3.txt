@@ -1,0 +1,12 @@
+# Setup
+c-->from imp import reload
+c-->import generator
+c-->reload(generator)
+c-->from generator import transform, running_count, n_with_pad, sequence, alternate
+e-->' '.join([str(i) for i in transform('abCdeFg',str.upper)])-->A B C D E F G
+e-->' '.join([str(i) for i in running_count('bananastand',lambda x : x in 'aeiou')])-->0 1 1 2 2 3 3 3 4 4 4
+e-->' '.join([str(i) for i in n_with_pad('abcdefg',3)])-->a b c
+e-->' '.join([str(i) for i in n_with_pad('abcdefg',10,'?')])-->a b c d e f g ? ? ?
+e-->' '.join([str(i) for i in n_with_pad('abcdefg',10)])-->a b c d e f g None None None
+e-->' '.join([str(i) for i in sequence('abcde','fg','hijk')])-->a b c d e f g h i j k
+e-->' '.join([str(i) for i in alternate('abcde','fg','hijk')])-->a f h b g i c j d k e

@@ -1,0 +1,1026 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Program 5</title>
+</head>
+<body bgcolor="white">
+
+<center>
+<h1>Program 5</h1>
+<h1>
+Inheritance and using the Python Image Library
+</h1>
+<p>
+</p><h2>ICS-33: Intermediate Programming<br>
+</h2>
+<p>
+</p></center>
+
+
+<!-- Introduction -->
+
+<a name="Introduction">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Introduction</b></td>
+<td width="80%">
+This programming assignment is a bit of a throw-back to ICS-32, in that it
+  involves learning to use a module (designed to read/manipulate/display
+  images; we will use <b>.jpg</b> files), and also allows you to control the
+  code that you will write by using a GUI that I have written for the
+  assignment (which you are welcome to study, but you don't need to understand
+  to write this assignment).
+It breaks new ground in that besides defining standard classes, you will define
+  a few classes by using inheritance.
+<p>
+
+The software that you will write will produce photomosaics.
+Photomosaics are images created from one standard-sized picture and a database
+  of much smaller pictures, called tiles: in the photomosaic, rectangular
+  regions in the picture are rendered by the images of closesly matching tiles
+  (according to some metric that measures the distance between a region of the
+  real picture and the tile that will replace it).
+The resulting pictures produce an interesting visual effect.
+Often there is some interesting relationship between the picture and tiles:
+  for example, Robert Silvers, who developed Photomosaics on computers produced
+  a photomosaic of a picture of Bill Gates (when he was the world's richest
+  man) composed of tiles that were pictures of international currencies.
+</p><p>
+The best photomosaics have small enough tiles so that the picture in the photomosaic can
+  be easily seen (smaller tiles yield a clearer picture), but big enough so that the
+  contents of the tiles -pictures themselves- can be seen.
+</p><p>
+
+Here is an example, going left to right, of (a) a database not of pictures, but
+  of random color tiles (each is 10x10 pixels), (b) a picture, (c) and a
+  photomosaic made from that picture using the closest matching color tiles.
+Here the photomosaic is a low-resolution "pixelated" version of the picture.
+<br>
+<img src="Program%205_files/pdb.jpg">
+<img src="Program%205_files/avg1.jpg">
+<img src="Program%205_files/avg2.jpg">
+</p><p>
+
+We will first learn about a dozen functions in the Python Imaging Library (PIL)
+  and then write various modules and classes to read tile databases, read
+  pictures, and construct of various kinds of photomosaics from pictures using
+  tiles.
+</p><p>
+
+Download the 
+  <a href="http://www.ics.uci.edu/%7Epattis/ICS-33/assignments/program5/program5.zip">program5</a> project folder and use it to create an
+  Eclipse project.
+It contains a simple script that demonstates all the needed PIL functions
+  (read it, understand it, and experiment with it), and a GUI that will
+  construct objects from the classes that we write and then call their methods
+  to construct photomosaics.
+</p><p>
+
+You must work on your own for this assignment.
+You can discuss the material at a high-level with other students and the staff,
+  and may share ideas, but you must write you own code and not share that code
+  with other students.
+Include your name in a comment on the top each file that you submit, like
+</p><pre><b># Pat Onsnl, Lab 1</b></pre>
+<p>
+Print this document and carefully read it, marking any parts that contain
+  important detailed information that you find (for use while you are writing
+  the program and for review before you turn in the files).
+The code you write should be as compact and elegant as possible, using 
+  appropriate Python idioms.
+You will write base classes to produce basic photomosaics and then derive
+  classes from them, to inherit/override some of their methods to produce
+  different kinds of photomosaics.
+</p></td>
+</tr></tbody>
+</table>
+
+
+<!-- Problem 1 -->
+
+</a><a name="PIL">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Part #1: PIL and Pillow</b></td>
+<td width="80%">
+<h3>The Python Imaging Library:</h3>
+You must first download and install Pillow (the version of PIL we are using).
+<ul>
+<li>For PCs follow the 
+<a href="http://www.lfd.uci.edu/%7Egohlke/pythonlibs/">link</a>
+  to the page "Unofficial Windows Binaries for Python Extension Packages"
+  and find the <b>Pillow-2.2.1.win32-py3.3.exe</b> link; clicking this
+  link downloads an <b>.exe</b> file which you should be able to double click
+  to install.
+If you look at <b>Lib/site-packages</b> on the directory where you installed
+  Python, you should see a folder named <b>PIL</b> containing about a hundred
+  <b>.py</b> files.
+<p>
+</p></li><li>For Macs follow the instructions below.
+<ol>
+<li>Install <b>homebrew</b> in a terminal window: copy/paste the following
+command and press <b>enter</b>
+<b><pre>ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"</pre></b>
+<p>
+</p></li><li>Install the dependencies needed for Pillow in a terminal window: type
+(or copy/paste) the following command and press <b>enter</b>.
+<b><pre>brew install libtiff libjpeg webp littlecms</pre></b>
+</li><li>Create a development environment for Python 3.3 (Mac installs 2.7 as the
+  default) in a terminal window:
+  we will need to type the following into the terminal: type (or copy/paste) the
+    following command and press <b>enter</b>.
+<b><pre>brew install python3</pre></b>
+<p>
+Note: this installation can take minutes to complete, depending on your web
+connection speed.
+Test if Python 3.3 was installed correctly in a terminal window: type 
+(or copy/paste) the following command and press <b>enter</b>.
+<b></b></p><pre><b>python3</b></pre>
+<p>
+This should start a Python 3.3.2 interpreter in your terminal window.
+If you are on OSX 10.9 Mavericks (latest version of OSX) there is a bug where
+  if you type in more than one line into the interpreter in your terminal, the
+  terminal will crash.
+Fortunately, this bug will not cause any problems with what we want to do.
+<!---There is also an easy workaround for this bug.--->
+Press ctrl/D on your keyboard to terminate the interpreter (or simply close
+  your terminal window and open a new one).
+</p><p>By installing python3 via Homebrew, we can now use commands such as pip3 to
+    download and install packages and libraries from the Python Package Index
+    automatically.
+</p></li><li> To install Pillow in a terminal window: type (or copy/paste) the following
+command and press <b>enter</b>.
+<b><pre>pip3 install Pillow</pre></b>
+<p>
+If this fails (the message might be <b>"Error in linking, to try again type brew link --overwrite python3"</b>) students have recommended to...
+</p><ul>
+<li>... try closing and re-opening the terminal window and trying the command
+       <b>pip3 install Pillow</b> again.
+</li><li>... try closing and re-opening the terminal window and trying the command
+        <b>brew link --overwrite python3</b> and then trying the command
+        <b>pip3 install Pillow</b> again.
+</li></ul>
+<p>
+Wait for the installation to complete.
+Pillow should now be installed for Python3.
+</p></li><li>
+Finally, specify this newly installed Python3 as the interpreter to use with
+  Eclipse.
+Start Eclipse, and follow to the end, starting at <b>step 14</b>, the
+  instructions in the
+<a href="http://www.ics.uci.edu/%7Epattis/common/handouts/pythoneclipsejava/eclipsepython.html">Eclipse Download and Installation (for Python) Instructions</a>.
+<p>
+When it asks for "Interpreter Name" use <b>python3_with_pillow</b>.
+When it asks for "Interpreter Executable" use <b>/usr/local/bin/python3</b>
+  which is the location of the new intepreter.
+Add the <b>courselib</b> too (following the same instructions).
+</p></li></ol>
+These are new instructions this quarter.
+If you run into problems, please talk to other Mac users in lab
+  and post issues on the Message Boards.
+</li></ul>
+Once you have downloaded and installed this software, you should be able to run
+  the script <b>pildemo.py</b>.
+<ul>
+<li>
+This code prompts for the name of a <b>.jpg</b> file (two are provided; you
+  enter the number of the file you want to use or just press <b>enter</b> to 
+  use the default file name in the brackets); it first reads and displays the
+  file's image.
+<p>
+</p></li><li>
+Then it prompts for a multiplicity (1-10) <b>m</b>; it then creates an empty
+   image <b>m</b> times as large in each dimension, populates this new image
+   with <b>m<sup>2</sup></b> copies of the original image, and displays the
+   new image.
+<p>
+</p></li><li>
+It then creates a resized (shrunk by a factor of <b>m</b> in each dimension)
+  version of the original image, creates an empty image the same size as the
+  original image, and populates this new image with <b>m<sup>2</sup></b> copies
+  of the resized/shrunken original image, and displays the new image.
+<p>
+</p></li><li>
+Finally, it changes the original image by rotating the red, green, and blue
+  intensities for all the pixels, and displays the mutated image.
+</li></ul>
+<p>
+
+The <b>PIL</b> module defines the <b>Image</b> class (which is imported in this
+  code as <b>from PIL import Image</b>).
+Here is a list of the methods that the <b>Image</b> class defines, and are used,
+  in the <b>pildemo.py</b> script and in making photomosaics.
+</p><ol>
+<li>Read a file and return an <b>Image</b> object of its contents:<br>
+<b>i = Image.open(file-name)</b>
+<br>
+<p>
+
+</p></li><li>Return an empty <b>Image</b> object with the specified number of horizontal
+      and vertical pixels:<br>
+<b>i = Image.new ('RGB',(horizontal-pixels, vertical-pixels))</b>
+<p>
+
+</p></li><li>Compute a 2-<b>tuple</b> containing the size of an <b>Image</b> object:<br>
+<b>i.size</b> evaluates to a <b>(horizontal-pixels, vertical-pixels) 2-tuple</b>
+<br>
+Note that <b>Image.new ('RGB',i.size))</b> returns an empty <b>Image</b> that is
+  the same size as <b>Image i</b>.
+<p>
+
+</p></li><li>Return a new <b>Image</b> object with the same contents, but
+      expanded/shrunk to a new size, with the contents scaled appropriately:<br>
+<b>i_new = i.resize((new-horizontal-pixels,new_vertical-pixels))</b>
+<br>
+Note if <b>i_new = i.resize((h,v))</b> then <b>i_new.size</b> evaluates to
+  <b>(h,v)</b>.
+The <b>Image i</b> remains unchanged.
+<p>
+
+</p></li><li>Paste an entire <b>small_image</b> into <b>i</b> (copying all the
+      <b>small_image</b>'s pixels), putting the upper-left hand corner of the
+      <b>small_image</b> in the pixel whose coordinate in <b>i</b> is
+      specified by the 2-<b>tuple (upper_left_x,upper_left_y)</b>:<br>
+<b>i.paste(small_image, (upper_left_x,upper_left_y))</b>
+<br>
+Note that any pixels in <b>small_image</b> that would be pasted outside of 
+  <b>i</b> (beyond the size of its image) are ignored.
+<p>
+
+</p></li><li>Return a 3-<b>tuple</b> containing the red, green, and blue components of
+      the pixel in <b>i</b> specified by its <b>x</b> and <b>y</b> coordinates.
+      <br>
+<b>i.getpixel((x,y))</b> returns a <b>(r,g,b) 3-tuple</b>
+<br>
+Note that each component is an <b>int</b> in the range 0-255 (0 to 2**8 - 1).
+Also, if we attempt to get any pixel whose <b>(x,y)</b> coordinate is
+  outside of <b>i</b>, Python raises the <b>IndexError</b> exception.
+<p>
+
+</p></li><li>Update the red, green, and blue components of the pixel in <b>i</b>,
+      specified by its <b>x</b> and <b>y</b> coordinates, to the specified
+      3-<b>tuple</b>.
+<br>
+<b>i.putpixel((x,y),(r,g,b))</b>
+<br>
+Note that <b>i</b> is mutated.
+Again (see above) each component should be an <b>int</b> in the range 0-255
+  (0 to 2**8 - 1).
+Also, if we attempt to put any pixel in an <b>(x,y)</b> coordinate that is
+  outside of <b>i</b>, Python ignores this operation (unlike <b>getpixel</b>
+  it does not raise the <b>IndexError</b> exception).
+</li></ol>
+Finally, the <b>display_image</b> function, which appears in this script and in
+  the module <b>displayimage.py</b> displays any <b>Image</b> (the second
+  argument) in a window that is titled with a string (the first argument).
+<p>
+Please read and run the code in the <b>pildemo.py</b> module to ensure it 
+  works (and that you have installed <b>Pillow</b> correctly).
+Try to write some simple code that produces other kinds of images,
+  experimenting with the methods described above.
+</p></td>
+</tr></tbody>
+</table>
+
+
+</a><a name="Using the GUI">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Part #2: Photomosaic GUI</b></td>
+<td width="80%">
+<h3>Using the Photomosaic GUI:</h3>
+In thise section we will examine a GUI that you can run to test the classes
+  that you write.
+To run the GUI, run the module named <b>__init__.py</b> in the
+  <b>photomosaic</b> package: this module should appear below the
+  <b>zdbmovietiles</b> folder and above the <b>avengers.jpg</b> picture.
+There are a few modules named <b>__init__.py</b> so you must run the right one.
+It's body is just three lines:
+<b><pre>#Create the view (which creates the widgets) and run the GUI
+from photomosaicmvc.view import root
+root.mainloop()</pre></b>
+When first run the GUI looks as follows:
+<p>
+<img src="Program%205_files/empty.jpg">
+</p><p>
+To create a photomosaic, we need to manipulate the GUI as follows.
+</p><ol>
+<li>Choose a metric to use when choosing which tiles go in the photomosaic
+</li><li>Choose a database class (and possibly the Height/Width of its tiles) which
+       determines what information is stored for tiles and how tiles are chosen
+</li><li>Enter the name of a directory with the tiles
+</li><li>Load the tiles into the tile database (and display it)
+</li><li>Choose a photomosaic class to use
+</li><li>Enter the name of an image to make the photomosaic of
+</li><li>Load the image
+</li><li>Make the phomosaic (and display it)
+</li></ol>
+Here are some details for performing these actions to build the simplest kind of
+  photomasic.
+Follow these instructions when you are testing and debugging your software.
+<ol>
+<li>For the <b>Choose Metric</b> choice, choose the name of the
+  <b>Average_RGB</b> metric; the metric name you chose will appear in the entry 
+  to its right.
+This is the first metric class that you will write
+You can actually just type Average_RGB() in this entry as well.
+<p>
+</p></li><li>For the <b>Choose Database Class</b> choice, choose the name of the
+  <b>DB_Tiles</b> class.
+This is the first/simplest database class that you will write.
+<p>
+</p></li><li>Right-click in the entry to the right of the chosen database class.
+A file selection window will appear.
+Navigate to one of the <b>.jpg</b> files inside the <b>zdbcolortiles</b> folder
+  and double-click it; the file specification for all the files in the folder
+  containing it will appear in the entry to its right.
+<p>
+</p></li><li>Press the <b>Load</b> button to the right of this entry.
+The database of tiles should appear in a window (like the one shown above).
+Note the the backgrounds of the two entries turns from white to green,
+  indicating that this information has been used by the photomosaic software.
+<p>
+</p></li><li>For the <b>Choose Photomosaic Class</b> choice, choose the name of the
+  <b>Photomosaic</b> class.
+This is the first/simplest photomsaic class that you will write.
+<p>
+</p></li><li>Right-click in the entry to the right of the chosen photomosaic class.
+A file selection window will appear.
+Navigate to the file <b>avengers.jpg</b> and double-click it; the file
+  specification for it will appear in the entry to its right.
+<p>
+</p></li><li>Press the <b>Load</b> button to the right of this entry.
+The image for this file should appear in a window (like the one shown above).
+Note the the background of this entry turns from white to green, indicating
+  that this information has been used by the photomosaic software.
+<p>
+</p></li><li>Press the <b>Make</b> button to the right of the <b>Load</b> button.
+The software wll build and display the required photomosaic (like the one shown
+  above).
+Note that every time a new photomosaic is made, it is displayed on the screen
+  and also appears in the <b>photomosaic.jpg</b> file, which we can use like any
+  normal <b>.jpg</b> file (copy it; view it; print it; etc.)
+
+Here is what the GUI window will look like after successfully following these
+  steps.
+<p>
+<img src="Program%205_files/full.jpg">
+</p><p>
+Generally, any green entry has been used by the software, and all entries should
+  be green before pressing <b>make</b>.
+Pressing <b>Load</b> for <b>DB_Tiles</b> turns the <b>Average_RGB</b> and
+  <b>zdbcolortiles\*</b> entries green; pressing <b>Load</b> for
+  <b>Photomosaic</b> turns the <b>avengers.jpg</b> entry green.
+Notice also that the software puts messages in the scrolling window
+  (automatically numbered) for the <b>Load</b> and <b>Make</b> commands.
+</p><p>
+If you want to experiment with the  <b>zdbmovies</b> folder of images, make sure
+that you first specify the <b>Database Picture Width x Height</b> as
+ <b>14x26</b> (or for rougher photomosaics, but with easier to see tiles, <b>28x52</b>).
+</p></li></ol></td></tr></tbody>
+</table>
+
+</a><a name="Basic Classes">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Part #3: Details for Basic Photomosaics</b></td>
+<td width="80%">
+<h3>Details of Classes Needed for Basic Photomosaics:</h3>
+
+In this section you will be instructed to write various classes in modules that
+  can be used to construct basic photomosaics.
+These modules are all in the <b>model</b> package inside the <b>photomosaic</b>
+  packkage in  this project: they represent the <b>Model</b> part of the
+  <b>Model/View/Controller</b> implementation of a GUI.
+In the next sections you will be instructed to use some of these classes as base
+  classes and derive new classes from them, which produce more complicated
+  photomosaics.
+<p>
+Note that to print messages in the communications part of the GUI's window
+  (see above), call the
+  <b>photomosaicmvc.controller.the_message_textbox.add</b> method with a single
+  string argument.
+For your own debugging purposes, it is easier to print information into the
+  Console window associated with Eclipse.
+Also, unhandled exceptions appear in the Console window as well.
+</p><ol>
+  <li>
+  Write a <b>metrics.py</b> module, that contains two classes that each specify
+       the following two methods:
+    <ul>
+    <li><b>compute_stat</b> takes as parameters an image, an upper-left corner
+         2-<b>tuple</b>, and a size 2-<b>tuple</b> that determine which part
+         of the image to analyze.
+        It returns the statistic it computes on the part of the image to
+          analyze.
+        Note that the default value for the second parameter should be
+          <b>(0,0)</b> and the default value for the third parameter should be
+          <b>None</b>: if the size is <b>None</b> this method should
+             change size to a 2-<b>tuple</b> containing all the horizontal and
+             vertical pixels in the image that is the first parameter.
+        So, if the second and third parameters are <b>both</b> defaulted, the
+          statistic is computed for the whole first parameter image.
+    <p>
+    </p></li><li><b>distance</b> takes as parameters two statistics returned by calling
+         <b>compute_stat</b> and returns an <b>int</b> value computing how
+         close/far-away these two stastics are: 0 means exactly the same (best
+         match), and bigger numbers mean farther apart (less good match).
+    </li></ul>
+  <p>
+  We typically compute the distances between the statistic representing
+    a region in a picture and the statistics representing all of the
+    tiles, to find the tile that most closely matches the region in the
+    picture, using it in the same region in the photomosaic.
+  </p><p>
+  We can test our code by writing only the <b>Average_RGB</b> class.
+  But we will also will test it with the <b>Quad_Metric</b> decorator class,
+    which takes longer to compute statistics, but produces better matching
+    results for tiles that are not just uniform blobs of color (e.g., the
+    movies tiles database).
+  </p><p>
+  Write a <b>Average_RGB</b> class
+     </p><ul>
+     <li>It has no <b>__init__</b> method
+     <p>
+     </p></li><li>Its <b>compute_stat</b> method has the same parameters as all
+           <b>compute_stat</b> methods (specified above).
+         It returns a 3-<b>tuple</b> of <b>int</b> values, which it computes
+            by examining every pixel in the specified region and summing their
+            red, green, and blue values separately, and finally returning a
+            3-<b>tuple</b> of the averages of the red, green, and blue values
+            (sum//# of pixels examined).
+         This 3-<b>tuple</b> uses these three <b>int</b> values to show overall
+           how red, green, and blue an image is.
+     <p>
+     </p></li><li>Its <b>distance</b> method has two 3<b>tuple</b>s as parameters
+           (two statistics computed by its <b>compute_stat</b> method). 
+         It returns the sum of the absolute values of the differences in
+           average red, green, and blue intensities.
+         Note that if the average values for all three colors in both statistics
+           are the same, this method returns <b>0</b> as the distance between
+           them, otherwise it returns some positive value.
+     </li></ul>
+  <p>
+  Write a <b>Quad_Metric</b> class, which is a decorator for metrics: it is a
+    metric that is constructed by using any metric: it uses that metric in each
+    of the 4 quadrants in an image to produce a 4-part statistic from the
+    4 regions in the image.
+  It combines these into its own statistic (a 4-<b>tuple</b>) and implements
+    computing distances between these statistics.
+     </p><ul>
+     <li>Its <b>__init__</b> method's parameter is a metric, which it stores
+           in an instance variable.
+     <p>
+     </p></li><li>Its <b>compute_stat</b> method has the same parameters as all
+           <b>compute_stat</b> methods (specified above).
+         It returns a <b>4-tuple</b>, where each value in it is the result of
+           computing a statistic (using the metric supplied to <b>__init__</b>)
+           on one quadrant of the image being analyzed: e.g., it calls the
+           metric it is decorating 4 times; if that metric is <b>Average_RGB</b>
+           then <b>Quad_Metric</b> would return as its statistic a
+           4-<b>tuple</b> of 3-<b>tuple</b>s (4 because there are four
+           quadrants; 3-<b>tuple</b>s because that is what <b>Average_RGB</b>
+           returns as a statistic).
+     <p>
+     </p></li><li>Its <b>distance</b> method has two 4-<b>tuple</b>s as parameters
+           (two statistics each computed by its <b>compute_stat</b> method). 
+         It returns the sum of the 4 distances between the 4 statistics
+           computed (each distance will be a non-negative number, so the
+           sum will be non-negative). 
+     <p>
+     </p></li></ul>
+  <p>
+  </p></li><li>
+  Write a <b>Tile</b> class in the <b>tile.py</b> module.
+  Primarily objects in this class store an image, the file they came from, and
+    the statistic computed for that image by a metric object.
+     <ul>
+     <li>Its <b>__init__</b> method's parameters are the file name storing the
+           tile, the desired size for the tile (a 2-<b>tuple</b>), and an
+           object from one of the metric classes with which to compute the
+           tile's statistic.
+         Objects in this class should store as instance names the file name
+           of the tile, its image (use <b>Image.open</b> to read the image from
+           the file making it the correct size), and the computed statistic for
+           the image.
+     <p>
+     </p></li><li>Its <b>change_metric</b> method's parameter is a metric object;
+         it should recompute and store the computed statistic for this image
+           with the new metric.
+     <p>
+     </p></li><li>Its <b>reset</b> and <b>used</b> methods should do nothing: implement
+           them by <b>pass</b>; derived classes defined later will override
+           these methods to perform useful actions.
+     <p>
+     </p></li><li>Its <b>match_info</b> method returns a 2-<b>tuple</b> containing the
+           file name of the tile, and its computed statistic.
+     </li></ul>
+  <p>
+  </p></li><li>
+  Write a <b>DB_Tiles</b> class in the <b>dbtiles.py</b> module.
+  Primarily an object in this class stores a <b>list</b> of <b>Tile</b>
+    objects, the size of each of their images (all images will have the same
+    size), and the metric object used to compute the statistic for each
+    <b>Tile</b>'s image.
+  The methods in the <b>DB_Tiles</b> class process/manipulate these attributes,
+    primarily the <b>list</b>.
+     <ul>
+     <li>Its <b>__init__</b> method's parameters are (1) the size it should make
+           the tile images it loads (either a 2-<b>tuple</b>) or <b>None</b>,
+           (which means use the actual size of the first image that is loaded
+           for all the other images) and (2) the metric object to use for
+           computing the statistic for each tile.
+         It should stores these parameters as instance names (I suggest the
+           names <b>size</b> and <b>metric</b>), and should also store an
+           initially empty <b>list</b> of <b>Tile</b> objects as the
+           database.
+         I suggest the name <b>tiles</b> for this <b>list</b>.
+         See the description of the <b>load</b> method below for information
+           about how <b>Tile</b> objects are added to the <b>tiles list</b>).
+     <p>
+     </p></li><li>Its <b>load</b> method's parameters are (1) a <b>list</b> of file
+            names that specify images and (2) a <b>bool</b> specifying whether
+            or not to reset the database to empty first, before loading these
+            images as <b>Tile</b> objects: the default value of this
+            parameter should be <b>True</b>, which resets the database;
+            <b>False</b> doesn't; instead it appends the <b>Tile</b> objects
+            to the existing <b>tiles list</b>, allowing images to be loaded
+            from a variety of different folders).
+         The <b>load</b> method should construct a <b>Tile</b> object for
+           every file name and append it to the <b>tiles list</b>, printing its
+           progress in % done (10%..., 20%..., ..., 100% completed) as it loads
+           the images.
+         Resize every tile according to the <b>size</b> instance name
+           defined in <b>__init__</b>; but if <b>__init__</b> defined
+           <b>size</b> to be <b>None</b>, update the <b>size</b> name to store
+           the actual size of the <b>first</b> image loaded and use this size
+           for every other image loaded.
+         <p>
+         Hint: I wrote a <b>load_helper</b> method method that did moset of
+           the work; it has an additional parameter specifying the "tile class"
+           that is used to create the objects in the <b>tiles list</b>.
+         For this class it calls <b>load_helper</b> with <b>Tile</b>, the
+           "tiles class" <b>DB_Tile</b> manages: later, you will write other
+           tile classes and other database classes that manage them.
+     </p><p>
+     </p></li><li>Its <b>change_metric</b> method's parameter is a new metric object; it
+           should store this as the new <b>metric</b> for the database and
+           change the metric for every <b>Tile</b> object in the database by
+           calling its <b>change_metric</b> method (which recomputes the
+           statistic for that tile using the new metric).
+         This method should print a message that it is updating the database
+           at the beginning and that it is done updating the database at the
+           end.
+     <p>
+<!---
+     <li>Its <b>filter</b> method's parameter is a filter; it should filter
+           every picture in the database, and recompute the statistic for
+           each filter (now that the picture has changed) according to the
+           current metric.
+     <p>
+     <li>Its <b>sort</b> method's parameter is a key function; it should sort
+           the list of pictures according to this function.
+     <p>
+--->
+     </p></li><li>Its <b>display</b> method builds a large image containing all the
+           images of the <b>Tile</b> objects in the database and displays
+           this image in a window with the title <b>Database</b>.
+         Try to make this image approximately square (same number of pixels in
+           the x and y dimensions); in most cases the image will have some
+           "missing" images on the bottom line, because the area of the image
+           will exceed the area of the all the tiles from the database put
+           into the image (see the black bottom on the database image at the
+           top of this handout).
+         <p>
+         Hint: determine <b>xs</b> and <b>ys</b>: the number of tiles to
+           store in the x dimension and the number in the y dimension of the
+           database image.
+         Then, <b>xs*ys</b> should be approximately (equal to or slightly
+           greater) the number of tiles in the database.
+         Also, to keep the image approximately square, <b>xs</b> times the width
+           of each <b>Tile</b> object should approximately equal <b>ys</b>
+           times the height of each <b>Tile</b> object.
+     </p><p>
+     </p></li><li>Its <b>closest</b> method's parameter is a statistic (computed from
+           some region in the picture that we will replace by a <b>Tile</b>
+           object's image in the photomosaic that we are constructing): it
+           should find and return the <b>Tile</b> object whose computed
+           statistic is closest to the parameter statistic: use the
+           <b>distance</b> function stored in the <b>metric</b> object to find
+           the closest <b>Tile</b> object's image.
+     <p>
+     </p></li><li>Its <b>reset</b> method resets each of the <b>Tile</b> objects in
+           <b>tiles list</b>.
+         This method is called whenever a photomosaic is started to be
+           consructed.
+         See the <b>reset</b> method for the <b>Tile</b> class.
+     <p>
+     </p></li><li>Its <b>match_info</b> method returns a dictionary, whose keys/values
+           are the first/second tuple values for each <b>Tile</b> object
+           in the database.
+         See the <b>match_info</b> method for the <b>Tile</b> class.
+
+     </li></ul>
+  <p>
+  </p></li><li>
+  Write a <b>Photomosaic</b> class in the <b>photomosaic.py</b> module.
+  Primarily an object in this class stores the image of the picture to make a
+     photomosaic of; its methods make the photomosaic, using the previously
+     specified metric and tile database.
+     <ul>
+     <li>Its <b>__init__</b> method's parameters are (1) a file name whose image
+           you will read and construct the photomosaic from, and (2) the size
+           that this image should be: use <b>None</b> as the default value,
+           which means use the actual size of the image that is read).
+         It should store an instance variable for the image of that file name
+            (read via <b>Image.open</b>).
+     <p>
+<!---
+     <li>Its <b>filter</b> method's parameter is a filter; it should filter
+           the image to construct the photomosaic from.
+     <p>
+--->
+     </p></li><li>Its <b>create_lattice</b> method's parameter is a 2-<b>tuple</b>
+           specifying the <b>size</b> of each of the images in the tile
+           database.
+         It returns a <b>list</b> of upper-left hand corners (2-<b>tuple</b>s
+           containing an x and y coordiate) that will be processed in the
+           image to compute a photomosaic of.
+         For example, if the image's size is <b>(45,45)</b> and the parameter is
+           <b>(10,20)</b> (meaning <b>Tile</b> objects in the database have a
+           size of <b>(10,20)</b> -each picture is 10 pixels wide and 20 pixels
+            high- then return the list
+           <b>[(0,0), (10,0), (20,0), (30,0), (0,20), (10,20), (20,20),
+                (30,20)]</b>.
+          The lattice values go left-to-right and top-to-bottom.
+          Draw a picture to better understand these numbers.
+          The 2-<b>tuple</b> with the biggest coordinates <b>(30,20)</b>,
+            when the size of the tiles the database is added <b>(10,20)</b>
+           (with result <b>(40,40)</b>) still has coordinates inside the
+            original (45,45) picture.
+          So sometimes the right and bottom boundaries of the photomosaic may
+            not show any tiles: such is the case for the Avenger photomosaic:
+            look carefully at the those boundaries and you can see the black
+            background.
+         <p>
+     </p></li><li>Its <b>make</b> method's parameter is a database of tiles to use
+           when making the photomosaic (from the image created and stored in
+           <b>__init__</b>).
+         It returns an image that is the photomosaic made.
+         Here we use picture to refer to the image we are making the
+            photmosaic of.
+         This method fills in the photomosaic image using well-matched
+           images from the <b>Tile</b> objects in the database (see below for
+           details), printing its progress in % done
+           (10%..., 20%..., ..., 100% completed) as it fills in the photomosaic.
+         <p>
+         This method
+           </p><ol type="1">
+           <li>creates an empty image big enough for the photomosaic,
+           </li><li>calls the <b>create_lattice</b> method to compute a list of
+                 upper-left hand corners to use when making the photomosiac,
+           </li><li>calls <b>reset</b> on the database,
+           </li><li>iterates over the values in the lattice, using each as the
+                 upper-left hand corner of a region in the picture to replace by
+                 a tile: it finds the closest matching <b>Tile</b> object to
+                 the metric computed on the region of the picture specified by
+                 each lattice value, by calling the <b>closest</b> method from
+                 the database.
+           </li><li>calls the <b>used</b> method on that <b>Tile</b> object,
+           </li><li>pastes those pixels from the <b>Tile</b> object's image onto
+                 the photomosaic image
+           </li><li>returns the photomosaic image
+           </li></ol>
+           Note that if there is no closest <b>Tile</b> object found in part
+             4 (<b>None</b> is returned), this method should print an error
+             message and return photomosaic image as it is: this cannot happen
+             for the <b>closest</b> method in the <b>DB_Tiles</b> class, but
+             can in <b>DB_Tiles_Used</b> discussed in the next part of the
+             assignment.
+     </li></ul>
+</li></ol>
+Here is what the <b>zdbmovies</b> folder's database of tiles looked like (when
+  read in as 14x26 pixel images).
+These tiles all show the VHS covers of movies.
+You can double-click on any of the images in the <b>zdbmovies</b> folder to
+  see the actual/bigger images, which are 70x130 pixels.
+<p>
+<img src="Program%205_files/moviedb.jpg">
+</p><p>
+On the left is the photomosaic built from <b>avenger.jpg</b> using the movie
+  database and the <b>Average_RGB()</b> metric; the middle photomosaic uses
+  <b>Quad_Metric(Average_RGB())</b> (and takes longer to compute);
+  the right photomosaic uses <b>Quad_Metric(Quad_Metric(Average_RGB()))</b> 
+  (and takes much longer to compute).
+</p><p>
+<img src="Program%205_files/rgb.jpg">
+<img src="Program%205_files/quadrgb.jpg">
+<img src="Program%205_files/quadquadrgb.jpg">
+</p><p>
+The photomosaics get progressively clearer/sharper; the <b>Quad_Metric</b>
+  decorator computes the best match of average RGB values NOT over the entire
+  tile, but computes it independently for the 4 quadrants in the tiles and
+  combines these values.
+When the <b>Quad_Metric</b> decorator is applied to itself (applied to the
+  <b>RGB_Average</b> metric), it computes the 4 quadrants in each 4 quadrants
+  of the tile (so it is matchin 16 different regions).
+</p><p>
+Finally, I have reproduced below (on the left) the photomosaic on the far right
+  above (the <b>Quad_Metric</b> decorator composed twice).
+In the middle I have reproduced the original image.
+For the photomosaic below (on the right) I changed the <b>distance</b> function
+  in <b>Average_RGB</b> to multiply (not add) the differences bewtween the Red,
+  Green, and Blue statistics, and again composed the <b>Quad_Metric</b>
+  decorator twice.
+There are countless ways to produce photomosaics, inluding the extension
+  covered in the next two parts of this doccument.
+</p><p>
+<img src="Program%205_files/quadquadrgb.jpg">
+<img src="Program%205_files/avg1.jpg">
+<img src="Program%205_files/quadquadrgb-multiply.jpg">
+
+</p></td></tr></tbody>
+</table>
+
+
+</a><a name="Special 1">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Part #4: Special Photomosaic #1</b></td>
+<td width="80%">
+<h3>Details of Classes Needed for Special Photomosaic #1:</h3>
+
+In this section you will be instructed to write various derived classes and
+  their methods in modules that you have already written.
+These classes will inherit lots of behavior from their base classes, and they
+  are therefore much smaller.
+The GUI will be be able to use these classes to construct special photomosaics.
+The special photomosaic in this part restricts how often any tile can be
+  <b>used</b> in the photomosaic, and changes the order of the lattice points
+  that are processed.
+WORK HARD TO WRITE SMALL OVERRIDING METHODS WHICH CALL THE OVERRIDDEN METHODS
+  TO WORK.
+<ul>
+  <li>
+  Write a <b>Tile_Used</b> class in the <b>tile.py</b> module, derived from the
+    <b>Tile</b> base class.
+  This class is just like <b>Tile</b>, except it also keeps track of how often
+    the tile is used.
+  The overridden methods defined in this class are listed below.
+  <ol>
+    <li>Its <b>__init__</b> method's parameters are the same as in <b>Tile</b>;
+          it creates the same image/size/stat but also sets the number of times
+          the tile has been used to 0.
+    <p>
+    </p></li><li>Its <b>reset</b> method resets the number of times the tile has been
+          used to 0.
+    <p>
+    </p></li><li>Its <b>used</b> method increments the number of times the tile has been
+          used.
+    <p>
+    </p></li><li>Its <b>match_info</b> method returns a 2-<b>tuple</b> containing the
+           file name of the tile, and a 2<b>-tuple</b> of its computed
+           statistic and the number of times it has been used.
+  </li></ol>
+  <p>
+  </p></li><li>
+  Write a <b>DB_Tiles_Used</b> class in the <b>dbtiles.py</b> module, derived
+    from the <b>DB_Tiles</b> base class.
+  This class is just like <b>DB_Tiles</b>, except its <b>tiles list</b> uses
+    <b>Tiles_Used</b> objects instead of <b>Tiles</b> objects and when it
+    finds the closest matching tile, it ignores tiles that have been used too
+    many times.
+  The overridden methods defined in this class are listed below.
+  <ol>
+    <li>Its <b>__init__</b> method's parameters are the same as <b>DB_Tiles</b>
+          and it does the same initialization.
+    <p>
+    </p></li><li>Its <b>load</b> method's parameters are the same as <b>DB_Tiles</b>, 
+          but it calls the <b>load_helper</b> method with <b>Tile_Used</b>, the
+           "tiles class" <b>DB_Tiles_Used</b> manages instead of <b>Tile</b>.
+    <p>
+    </p></li><li>Its <b>closest</b> method's parameter is the same as in <b>DB_Tiles</b>:
+          It should find and return the <b>Tile_Used</b> object whose computed
+          statistic is closest to the parameter statistic AND which has been
+          used less than the maximum number of times.
+        The code will be similar but more complex here.
+        Note that the <b>make</b> method in the <b>Photomosaic_Limited_Repeat</b>
+          class below will prompt for the maximum number of times a tile can
+          be reused, and add that value to the <b>DB_Tiles_Used</b> object's
+          name space, so that value can be examined here.
+  </li></ol>
+  <p>
+  </p></li><li>
+  Write a <b>Photomosaic_Limited_Repeat</b> class in the <b>photmosaic.py</b>
+    module, derived from the <b>Photomosaic</b> base class.
+  This class is just like <b>Photomosaic</b>, except its <b>create_lattice</b>
+    method sorts the lattice and its <b>make</b> method prompts the user for
+    the maximim number of times to use any tile.
+  The overridden methods defined in this class are listed below.
+  <ol>
+    <li>Its <b>__init__</b> method's parameters are the same as in
+           <b>Photomosaic</b> and it does the same initialization.
+    <p>
+    </p></li><li>Its <b>create_lattice</b> method's parameters are the same as in
+          <b>Photomosaic</b>, but in addition it should sort the lattice that it
+          creates so that the regions in the picture are converted into tiles
+          spiraling from the center of the picture to its exterior.
+        With this strategy, the best tiles will be used towards the center of
+          the picture; they might not be usable (used too many times) towards
+          the exterior.
+        <b>Hint:</b> Sort the list of lattice values by how close they are to
+           the center pixel in the image.
+    <p>
+    </p></li><li>Its <b>make</b> method's parameters are the same as in
+          <b>Photomosaic</b>.
+        It should prompt the user on the console to enter the maximum number of
+          times to reuse a pixel and then store this value as an attribute in
+          the database it was passed, for use in the database's <b>closest</b>
+          method (see above).
+    </li></ol></li></ul>
+  
+  <p>
+On the left is the photomosaic having no limitation on the number of times a
+  tile is used (where colorblobs are tiles).
+In the middle is an example of a photomosaic limiting tile use to 5 times: there
+  are not enough tiles to finish the photomosaic: notice how <b>make</b> stops
+  when there is no closest tile that can be used.
+On the right is an example of a photomosaic limiting tile use to 10 times: it
+  can render the entire image, but the farther one gets from the center, the
+  worse the matches are because many better-matching tiles have already been
+  used their maximum number of times.
+</p><p>
+<img src="Program%205_files/avg2.jpg">
+<img src="Program%205_files/incompletephotomosaic.jpg">
+<img src="Program%205_files/limitedphotomosaic.jpg">
+</p></td></tr></tbody>
+</table>
+
+</a><a name="Special 2">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Part #5: Special Photomosaic #2</b></td>
+<td width="80%">
+<h3>Details of Classes Needed for Special Photomosaic #2:</h3>
+
+In this section you will be instructed to write various derived classes and
+  their methods in modules that you have already written.
+These classes will inherit lots of behavior from their base classes, and they
+  are therefore much smaller.
+The GUI will be be able to use these classes to construct special photomosaics.
+The special photomosaic here randomly chooses a tile, but then shifts its
+  Red, Green, and Blue intensities indpendently, so that its statistic matches
+  the statistic computed for the region.
+This version uses the standard <b>Tile</b> and <b>Photomosaic</b> classes
+  written above, but derives the <b>DB_Tiles_Random_Shift</b> class from
+  <b>DB_Tiles</b>, which uses a new method we must write in <b>AVG_Metric</b>
+  and <b>Quad_Metric</b>.
+WORK HARD TO WRITE SMALL OVERRIDING METHODS WHICH CALL THE OVERRIDDEN METHODS
+  TO WORK.
+<ul>
+  <li>
+  Write a <b>DB_Tiles_Random_Shifted</b> class in the <b>dbtiles.py</b> module,
+    derived from the <b>DBTile</b> base class.
+  This class is just like <b>DB_Tiles</b>, except for its <b>closest</b> method.
+  The overridden methods defined in this class are listed below.
+  <ol>
+    <li>Its <b>__init__</b> method's parameters are the same as <b>DB_Tiles</b>
+          and it does the same initialization.
+    <p>
+    </p></li><li>Its <b>closest</b> method's parameter is the same as in <b>DB_Tiles</b>:
+          It should (a) choose a random <b>Tile</b>
+             (see the <b>random.choice</b> function),
+             (b) use the <b>reduce_distance</b> method newly written in
+             the <b>Average_RGB</b> metric (see below) to shift the RGB values
+             of the chosen image to match the statistic of the region, and
+             (c) return this image inside an object constructed from a
+             special local class (see below).
+          <p>
+          The <b>closest</b> method should return a <b>Tile</b> object,
+             but <b>Tile</b> objects are constructed by reading images from
+             files; but here we have computed an image.
+          So, we should instead define a local class derived from <b>Tile</b>;
+            its <b>__init__</b> method's parameters are the image, the file
+            name of the image (gotten from the random <b>Tile</b>) and its
+            statistic: all are computed in <b>closest</b> and passed as
+            argument when constructing an object of this class.
+          The <b>closest</b> method returns the resulting <b>Tile</b>-like
+            object (which inherits all methods defined in <b>Tile</b>) that
+            store the same instance names defined in <b>Tile</b>, which
+            the <b>__init__</b> method of the local <b>Tile</b>-like object
+            returns.
+  </p></li></ol>
+  <p>
+  </p></li><li>
+  Update the <b>Average_RGB</b> class in the <b>metrics.py</b> module
+  <ol>
+    <li>Its new <b>reduce_distance</b> method's parameters are a tile image,
+          the statistic for that tile, and the statistic for a picture that the
+          tile should match; it constructs and returns a new image the same
+          size as the tile, based on the tile.
+        This method should first compute the difference between each of the
+          three RGB values in the statistic of the picture and the statistic of
+          the tile.
+        Then this method should shift the RGB value of the new tile image to
+          be the RGB value from the tile parameter plus the computed
+          difference; it should constrain these shifted values to be between 0
+          and 255 (for values smaller than 0, use 0; for values bigger than
+          255, use 255).
+        <p>
+        For example if the tile's red statistic is 100 but the picture's red
+           statistic is 80, then each pixel in the tile needs to be shifted
+           up (redder) by 20.
+        Then the red statistic for the tile will exactly match the red
+          statistic for the picture (although the amount of red in its
+          individual pixels may still be different).
+    </p><p>
+  </p></li></ol>
+</li></ul>
+On the left is an example of the photomosaic built from random tiles (not
+  much similarity to the picture).
+But on the right is an example of a photomosaic also built from random tiles,
+  but these tiles have been shifted so their statistic more closely matches the
+  statistic in the picture.
+<p>
+<img src="Program%205_files/random.jpg">
+<img src="Program%205_files/randomshifted.jpg">
+</p><p>
+The random/shifted photomosaic is a bit coarser than the standard photomosaic,
+  but it uses many more different tiles.
+</p><p>
+It is also possible to update the <b>Quad_Metric</b> decorator so that it too
+  has a <b>reduce_distance</b> method, which shifts the RGB values of the 4
+  quadrants independently, by assuming that the metric that is being decorated
+  has a <b>reduce_distance</b> method, which <b>Quad_Metric</b> can call 4
+  times.
+I wrote this method, but it is complicated.
+
+</p></td></tr></tbody>
+</table>
+
+</a><a name="Special 3">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Part #6: Special Photomosaic #3</b></td>
+<td width="80%">
+<h3>Details of Classes Needed for Special Photomosaic #3:</h3>
+
+Write a <b>DB_Tiles_Best_Shifted</b> class in the <b>dbtiles.py</b> module,
+  derived from the <b>DBTile</b> base class.
+This class is just like <b>DB_Tiles_Random_Shifted</b>, except for its
+  <b>closest</b> method.
+The overridden methods defined in this class are listed below.
+  <ol>
+    <li>Its <b>__init__</b> method's parameters are the same as <b>DB_Tiles</b>
+          and it does the same initialization.
+    <p>
+    </p></li><li>Its <b>closest</b> method's parameter is the same as in <b>DB_Tiles</b>:
+          It should (a) choose the closest <b>Tile</b> (not a random one), and
+             (b) use the <b>reduce_distance</b> method newly written in
+             the <b>Average_RGB</b> metric (see below) to shift the RGB values
+             of the chosen image to match the statistic of the region, and
+             (c) return this image inside an object constructed from a
+             special local class (see below).
+          <p>
+          See the description of the <b>closest</b> method in the
+              <b>DB_Tiles_Random_Shifted</b>.
+  </p></li></ol>
+
+On the left is an example of a photomosaic built from random tiles, with these
+  tiles shifted so their statistic more closely matches the statistic in the
+  picture (same as the right-most picture above).
+In the center is an example of a photomosaic  built from the closest tiles,
+  with these tiles  shifted so their statistic more closely matches the
+  statistic in the picture.
+Both of these used the <b>Average_RGB</b> metric.
+On the right is an example of a photomosaic  built from the closest tiles,
+  with these tiles  shifted so their statistic more closely matches the
+  statistic in the picture, using th <b>Quad_Metric</b> decorator applied
+  twice to the <b>Average_RGB</b> metric: here, 16 subregions of the tile
+  have had their color shifted to make better.
+<p>
+<img src="Program%205_files/randomshifted.jpg">
+<img src="Program%205_files/bestshifted.jpg">
+<img src="Program%205_files/bestshiftedquad.jpg">
+</p><p>
+
+
+</p></td></tr></tbody>
+</table>
+
+
+</a></body></html>

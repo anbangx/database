@@ -1,0 +1,543 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Program 2</title>
+</head>
+<body bgcolor="white">
+
+<center>
+<h1>Program 2</h1>
+<h1>
+Classes, Overloaded Operators, and Iterators
+</h1>
+<p>
+</p><h2>ICS-33: Intermediate Programming<br>
+</h2>
+<p>
+</p></center>
+
+
+<!-- Introduction -->
+
+<a name="Introduction">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Introduction</b></td>
+<td width="80%">
+This programming assignment is designed first to ensure that you know how to
+  write a simple (numeric) class that overloads many of the standard Python
+  operators by defining various double-underscore methods.
+It also ensures that you know how to write a class that implements iterators,
+  by defining both the <b>__iter__</b> and <b>__next__</b> methods.
+Finally it ensure that you know how to write iterator decorators by using
+  special generators (similar to functions, but using <b>yield</b> instead of
+  <b>return</b>) in a module.
+<p>
+There are three separate parts to this assignment.
+In the first part you will write a module defining a single, large numeric
+  class that overloads many operators (including those performing arithmetic
+  and relational comparisons).
+In the second part you will write a medium-size class, which defines various
+  methods, including some double-underscore methods and specifically the
+  iterator protocol methods (<b>__iter__</b> and <b>__next__</b>).
+In the third part you will write a module that defines various iterator
+  decorators implemented by generators: each iterator decorator has argument(s)
+  that are iterators and is itself used an iterator.
+</p><p>
+You should download the 
+  <a href="http://www.ics.uci.edu/%7Epattis/ICS-33/assignments/program2/program2.zip">program2</a> project folder and unzip it to produce
+  an Eclipse project with three modules.
+You will write classes in the first two modules, which can be tested in the
+  standard driver using the batch self-check files I supplied; you will write
+  generators in the third module, which are tested by a special
+  <b>generatordriver.py</b> module included in this project.
+Eventually you will submit each of the three modules you write separately to
+  Checkmate.
+</p><p>
+It is recommend that you work on this assignment in pairs, with someone in your
+  lab section.
+Try to find someone who lives near you, with similar programming skills,
+  and work habits/schedule: e.g., talk about whether you prefer to work
+  mornings, nights, or weekends; what kind of commitment you will make to submit
+  program early.
+<!---
+If you believe that it is impossible for you to work with someone, because of
+  some special reason(s), you should send me email stating them and asking for
+  special permission to work alone (which I do grant, but not frequently).
+--->
+</p><p>
+<b>Only one student should submit all parts of the the assignment</b>, but both
+  student's names should appear in the comments at the top of
+  <b>each submitted .py</b> file.
+It should look something like
+</p><pre><b>
+# Romeo Montague, Lab 1
+# Juliet Capulet, Lab 1
+# We certify that we worked cooperatively on this programming
+#   assignment, according to the rules for pair programming</b></pre>
+If you do not know what the terms <b>cooperatively</b> and/or
+  <b>rules for pair programming</b> mean, please read about
+  <a href="http://www.ics.uci.edu/%7Epattis/common/handouts/pairprogramming.html">Pair Programming</a> 
+  before starting this assignment.
+Please turn in each program <b>as you finish it</b>, so that I can accurately
+  assess the progress of the class as a whole during this assignment.
+<p>
+Print this document and carefully read it, marking any parts that contain
+  important detailed information that you find (for review before you turn in
+  the files).
+The code you write should be as compact and elegant as possible, using 
+  appropriate Python idioms.
+</p></td>
+</tr></tbody>
+</table>
+
+
+<!-- Problem 1 -->
+
+</a><a name="problem1">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Problem #1: Dimensional Class (operators)</b></td>
+<td width="80%">
+<h3>Problem Summary:</h3>
+Write a class that represents and defines operators for <b>Dimensional</b>
+  numbers, which are represented by an <b>int</b> or <b>float</b> value
+  and 3 integers representing the dimensions: length, mass, and time.
+With this class we can write scripts that perform numeric calculations on
+   values of this new numeric type, which automatically keeps track of the
+   dimensions for each value (and prohibits operations that mix dimensions in
+   illegal ways).
+<p>
+For example, to represent the standard acceleration due to gravity at the
+  Earth's surface we might write <b>g = Dimensional(9.8,l=1,t=-2)</b> which
+  represents <b>9.8 l/t**2</b>: the dimensions are length per time squared
+  (where the unstated <b>length</b> unit is is meters and the unstated
+  <b>time</b> unit is seconds: so this really represents <b>9.8 m/s**2</b>).
+Each of the three integers represents the power of that dimension, with 
+  positive powers in the numerator and negative powers in the denominator.
+There are two important rules for operating on <b>Dimensional</b> values.
+</p><ol>
+<li>Whenever we add, subtract or relationally compare <b>Dimensional</b> values,
+      the dimensions of the operands must be identical: e.g., we cannot add 10
+      meters to 10 seconds and get a meaningful result, and trying to do so
+      should raise the <b>DimensionError</b> (whose definition is supplied in
+      the <b>dimensional.py</b> module).
+<p>
+</p></li><li>Whenever we multiply, divide, or raise to a power <b>Dimensional</b>
+     values, the result must have the correct dimensions: e.g., multiplying
+     <b>9.8 l/t**2</b> by <b>10 t</b> produces the result <b>98.0 l/t</b>: the
+     value is <b>9.8 * 10 = 98.0</b> and the dimensions are
+     <b>l/t**2 * t = lt/t**2 = l/t</b>.
+    For multiplication, as an example, the dimensions are added:
+       <b>9.8(l=1,m=0,t=-2) * 10(l=0,m=0,t=1) = 98.0(l=1,m=0,t=-1)</b> where
+       the resulting dimensions are <b>l = 1+0 = 1</b>, <b>m = 0+0 = 0</b>,
+       and <b>t = -2+1 = -1</b>.
+</li></ol>
+<h3>Details</h3>
+<ul>
+<li>Define a class named <b>Dimensional</b> in a module named
+      <b>dimensional.py</b>
+<p>
+</p></li><li>Define an <b>__init__</b> method that has one required parameter, and
+       optional parameter names in the order <b>l, m, t</b> (whose arguments
+       should be <b>int</b> and whose default values are <b>0</b>).
+    This method should raise <b>AssertionError</b>(s) if any argument matching
+     one of the optional parameters is not a <b>int</b>.
+    <p>
+    Objects in the <b>Dimensional</b> class are immutable: the methods you will
+       write should never bind any instance name (except  <b>__init__</b>,
+       which initializes them) but exclusively returns newly constructed
+       <b>Dimensional</b> objects with the correct values and dimensions.
+    I suggest using the instance names <b>l</b>, <b>m</b>, and <b>t</b> (which
+       mirror the parameter names).
+</p><p>
+</p></li><li>Define a <b>__repr__</b> method that returns a string, which when passed to
+         <b>eval</b> returns a newly constructed rational with the same value
+         (<b>==</b>) to the object <b>__repr__</b> was called on.
+    As an additiona requirement for <b>__repr__</b>, include named parameters
+      initialized by only non-0 values: <b>__repr__(Dimensional(9.8,1,0,-2))</b>
+      should return <b>'Dimensional(9.8,l=1,t=-2)'</b>
+<p>
+</p></li><li>Define a <b>__str__</b> method that returns a string, with the value
+      followed by a triple of dimensions (in the order <b>l, m, t</b>),
+      including those that are <b>0</b>: so calling
+      <b>__str__(Dimensional(9.8,1,0,-2))</b> should return
+      <b>'9.8(1,0,-2)'</b>.
+<p>
+</p></li><li>Define a <b>__getitem__</b> method that that returns the value,
+      length dimension, mass dimension, time dimension, or a tuple of all three
+      dimensions for the string parameters <b>'value'</b>, <b>'l'</b>,
+      <b>'m'</b>, <b>'t'</b>, and <b>'d'</b> respectively.
+    If any other argument value is used as a key, raise <b>KeyError</b>.
+<p>
+Hint: I frequently wrote code that made use of the following two facts:
+</p><ul>
+<li><b>g['d']</b> returns a tuple of the length, mass, and time dimensions
+       (in that order).
+</li><li>If <b>g['d']</b> returns <b>(1,0,-2)</b> then the call
+       <b>Dimension(9.8,*g['d'])</b> is equivalent to the call
+       <b>Dimension(9.8,1,0,-2)</b>.
+    That is, <b>*</b> applied to a tuple in a function/method call expands the
+       tuple's value into different argument positions.
+</li></ul>
+<p>
+</p></li><li>Define a method names <b>format</b> that takes s length-3 string as an
+      argument; it represents one-character abbreviations of the units for the
+      dimensions: <b>'mgs'</b> represents <b>m</b>eter for length, <b>g</b>ram
+        for mass, and <b>s</b>econd for time.
+    It returns a string with the value of the <b>Dimensional</b> followed by
+      a space and its units (if the dimensions are all <b>0</b> there is no
+      space), such that
+      (a) each unit appears as <b>unit**power</b> although <b>**power</b> is
+          implicit with a <b>power</b> of 1.
+      (b) if there are negative powers, there is a <b>/</b> followed by
+            the negative powers (which appear in absolute value form);
+          if there are no negative powers, there is no <b>/</b>.
+      (c) if there are no positive powers, and there are negative powers,  there
+            is a <b>1</b> for the positive powers in the numerator.
+    For example, <b>g.format('mgs')</b> returns <b>9.8 m/s**2</b>.
+    See the batch-self-check file for more examples.
+<p>
+</p></li><li>Define all the underscore methods needed to ensure the prefix +/- work
+      correctly: <b>+</b> returns the same value and dimensions, while <b>-</b>
+      returns the negated value with the same dimensions.
+<p> 
+</p></li><li>Define all the underscore methods needed to ensure that the add, subtract,
+      multiply, and divide (/) operators produce the correct answers when their
+      operands are any combination of <b>Dimensional</b> and either
+      <b>int</b> or <b>float</b> values.
+    If Python tries to apply an +/- operator to two <b>Dimensional</b>
+      values with different dimensions, or to an <b>int</b>/<b>float</b> value
+      and a <b>Dimensional</b> value with any non-<b>0</b> dimensions, raise a
+      <b>DimensionError</b> indicating the mismatched dimensions.
+    See the <b>Problem Summary</b> section for more details.
+    If Python tries to apply an arithmetic operator to a <b>Dimensional</b>
+      and any other type of value (besides <b>Dimensional</b> or <b>int</b> or
+      <b>float</b>) raise the standard <b>TypeError</b> exception with the
+      standard messsage about unsupported operand types: see what <b>1+'a'</b>
+      produces.
+    <p>
+    Hint: (a) I wrote two methods to check for correct types and dimensions (one
+      used in the add/subtract methods and one used in the multiply/divide
+      methods); each raises the appropriate exception for any violation.
+    (b) I wrote two methods that return the value/dimensions for their argument
+      whose result depends on whether the argument is of type
+      <b>int</b>/<b>float</b> or <b>Dimensional</b>.
+    These four methods simplified all my arithmetic methods (which typically
+      included just two statements: one to check the arguments; one to return
+      the result (if no exceptions were raised when the arguments were checked).
+</p><p>
+</p></li><li>Define the underscore method that allows us to raise a <b>Dimensional</b>
+      to any positive or negative <b>int</b> power or to any
+      <b>Dimensional</b> power whose dimensions are all <b>0</b>.
+    Determine both the resulting value and resulting dimensions: the original
+      dimensions multiplied by the power.
+<p>
+</p></li><li>Define all the underscore methods needed to ensure that we can compare two
+       <b>Dimensional</b> values with the six standard relational operators,
+       with any combination of <b>Dimensional</b> and <b>int</b>/<b>float</b>.
+    Regardless of its dimensions, <b>Dimensional</b> values compare with any
+       <b>int</b>/<b>float</b> values; but if Python tries to compare two
+       <b>Dimensional</b> values with different dimensions, raise
+       <b>DimensionError</b> (as with addition and subtraction)
+    Note that these rules are a bit different than for +/-, because for +/-
+      <b>int</b>/<b>float</b> would work only with <b>Dimensional</b> values
+      that had all dimensions <b>0</b>.
+<p>
+</p></li><li>Python automatically provides meanings for <b>+=</b>, <b>-=</b>, 
+      <b>*=</b>, <b>/=</b>, and <b>**=</b>; ensure they are correct or define
+      the needed underscore methods.
+<p>
+</p></li><li>Ensure that
+<ul>
+<li>The <b>abs</b> function works on <b>Dimensional</b> values
+      (the dimensions don't change).
+</li><li>Non-<b>0</b> <b>Dimensional</b> values are interpreted as <b>True</b>.
+</li></ul>
+<p>
+
+
+</p><h3>Testing</h3>
+The <b>dimensional.py</b> module includes a script that calls
+  <b>driver.driver()</b>.
+The project folder contains a <b>bsc1.txt</b> file (examine it) to use for
+   batch-self-checking your class.
+These are rigorous but not exhaustive tests.
+Incrementally write and test your class: for example, getting one arithmetic
+  operator working correctly will create a pattern for the others.
+<p>
+Note that when exceptions are raised, they are printed by the driver but the 
+  <b>Command:</b> prompt sometimes appears misplaced.
+</p><p>
+You can write other code at the bottom of your <b>dimensional.py</b>
+  module to test the <b>Dimensional</b> class, or type code into the driver
+  as illustrated below.
+Notice the default for each command is the command previously entered.
+<b></b></p><pre><b>  Driver started
+  Command[!]: from dimensional import Dimensional as Dim
+  Command[from dimensional import Dimensional as Dim]: g = Dim(9.8,1,0,-2)
+  Command[g = Dim(9.8,1,0,-2)]: print(g)
+  9.8(1,0,-2)
+  Command[print(g)]: print(g.format('mgs'))
+  9.8 m/s**2
+  Command[print(g.format('mgs'))]: print(10*g)
+  98.0(1,0,-2)
+  Command[print(10*g)]: print(10+g)
+  Traceback (most recent call last):
+    File "C:\Users\Pattis\workspace\courselib\driver.py", line 219, in driver
+    ...
+  dimensional.DimensionError: incompatible dimensions for +: 'int' and '(1, 0, -2)'
+  Command[print(10+g)]: quit
+  Driver stopped</b></pre>
+</li></ul></td>
+</tr></tbody>
+</table>
+
+
+<!-- Problem #2 -->
+
+</a><a name="problem6">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Problem #2: Bag Class (iterators)</b></td>
+<td width="80%">
+<h3>Problem Summary:</h3>
+Write a class that represents and defines methods, operators, and iterators
+  for a <b>Bag</b> class.
+Bags are similar to sets, and have similar operations (of which we will
+  implement just the most important) but they can store multiple copies of
+  items.
+Fundamentally, we will store bags as dictionaries (use <b>defaultdict</b>)
+   whose elements are keys and whose values are the number of times the key
+   occurs in the bag.
+<b>You must store Bags using this data type as specified</b>
+<h3>Details</h3>
+<ul>
+<li>Define a class named <b>Bag</b> in a module named <b>bag.py</b>
+<p>
+</p></li><li>Define an <b>__init__</b> method that has one parameter, an iterable of
+       values that initalize the bag.
+    Writing <b>Bag()</b> constructs an empty bag.
+    Writing <b>Bag(['d','a','b','d','c','b','d'])</b> construct a bag with
+      one <b>'a'</b>, two <b>'b'</b>s, one <b>'c'</b>, and three <b>'d'</b>s.
+<p>
+</p></li><li>Define a <b>__repr__</b> method that returns a string, which when passed to
+       <b>eval</b> returns a newly constructed bag with the same value
+       (<b>==</b>) to the object <b>__repr__</b> was called on.
+    For example, for the <b>Bag</b> in the discussion of <b>__init__</b> the
+        <b>__repr__</b> method would print its result as
+       <b>Bag(['a', 'c', 'b', 'b', 'd', 'd', 'd'])</b>.
+    Bags like sets are not sorted, so these 7 values can appear in any order.
+    We might require that information in the list is sorted, but not all values
+      we might put in a bag may be ordered (and therefore not sortable).
+<p>
+</p></li><li>Define a <b>__str__</b> method that returns a string that more compactly
+      shows a bag.
+    For example, for the <b>Bag</b> in the discussion of <b>__init__</b> the
+        <b>__str__</b> method would print its result as
+       <b>Bag(a[1], c[1], b[2], d[3])</b>.
+    Bags like sets are not sorted, so these 7 values can appear in any order.
+<p>
+</p></li><li>Define a <b>__len__</b> method that returns the total number of values in
+      the <b>Bag</b>.
+    For example, for the <b>Bag</b> in the discussion of <b>__init__</b> the
+        <b>__len__</b> method would return <b>7</b>.
+<p>
+</p></li><li>Define a <b>unique</b> method that returns the number of different (unique)
+       values in the <b>Bag</b>.
+    For example, for the <b>Bag</b> in the discussion of <b>__init__</b> the
+        <b>unique</b> method would return <b>4</b>, because there are four
+        different values in the <b>Bag</b>; contrast this method with
+        <b>__len__</b>.
+<p>      
+</p></li><li>Define a <b>__contains__</b> method that returns whether or not its
+      argument is in the <b>Bag</b> (one or more times).
+<p>
+</p></li><li>Define a <b>count</b> method that returns the number of times its argument
+      is in the <b>Bag</b>: <b>0</b> if the argument is not in the <b>Bag</b>.
+<p>
+</p></li><li>Define an <b>add</b> method that adds its argument to the <b>Bag</b>: if
+      that value is already in the <b>Bag</b>, its count is incremented by
+      <b>1</b>; if it is not already in the <b>Bag</b>, it is added to the
+      <b>Bag</b> with a count of <b>1</b>.
+<p>
+</p></li><li><b>remove</b> removes its argument from the <b>Bag</b>: if that value is
+        already in the <b>Bag</b>, its count is decremented by <b>1</b> (and if
+        the count reduces to <b>0</b> it is removed from the <b>dict</b>; if it
+        is not in the <b>Bag</b>, raise a <b>ValueError</b> exception, with an
+        appropriate message that includes the value that could not be removed.
+<p>
+</p></li><li>Define <b>__eq__</b>/<b>__ne__</b> methods that return whether one
+      <b>Bag</b> is equal/not equal to another: contains the same values the
+      same number of times.
+    Comparing a <b>Bag</b> for equality to a non-<b>Bag</b> should raise a
+       <b>TypeError</b>.
+    Be careful and ensure that this method does not change either <b>Bag</b>.
+<p>
+</p></li><li>Define an <b>__iter__</b> method that that returns an object on which
+      <b>next</b> can be called to produce every value in the <b>Bag</b>: all
+      <b>len</b> of them.
+    For example, for the <b>Bag</b> in the discussion of <b>__init__</b>, 
+      the following code
+<b><pre>  for i in x:
+      print(i,end='')</pre></b>
+would print
+<b><pre>  acbbddd</pre></b>
+    Bags like sets are not sorted, so these 7 values can appear in any order.
+<p>
+Ensure that the iterator produces those values in the <b>Bag</b> at the time
+      the iterator starts executing; so mutating the <b>Bag</b> during
+      iteration will <b>not</b> affect what values it produces.
+</p><p>
+   Hint: I defined a generator as a class method to do this job.
+</p></li></ul>
+I have shown only examples of <b>Bag</b>s storing strings, because they are
+  convenient to write.
+But bags can store any type of data.
+The <b>__repr__</b>, <b>__str__</b>, and <b>__iter__/__next__</b> methods must
+  be written independently: neither should call the other to get things done.
+<p>
+</p><h3>Testing</h3>
+The <b>bag.py</b> module includes a script that calls <b>driver.driver()</b>.
+The project folder contains a <b>bsc2.txt</b> file (examine it) to use for
+   batch-self-checking your class.
+These are rigorous but not exhaustive tests.
+Incrementally write and test your class; check each method as you write it.
+<p>
+Note that when exceptions are raised, they are printed by the driver but the 
+  <b>Command:</b> prompt sometimes appears misplaced.
+</p><p>
+You can write other code at the bottom of your <b>bag.py</b> module to test the
+  <b>Bag</b> class, or type code into the driver as illustrated below.
+Notice the default for each command is the command previously entered.
+<b></b></p><pre><b>  Driver started
+  Command[!]: from bag import Bag
+  Command[from bag import Bag]: b = Bag(['d','a','b','d','c','b','d'])
+  Command[b = Bag(['d','a','b','d','c','b','d'])]: print(b)
+  Bag(a[1], b[2], c[1], d[3])
+  Command[len(b)]: print(len(b))
+  7
+  Command[print(len(b))]: print(b.count('d'))
+  3
+  Command[print(b.count('d'))]: quit
+  Driver stopped</b></pre>
+</td>
+</tr></tbody>
+</table>
+
+
+<!-- Problem #3 -->
+
+</a><a name="problem6">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Problem #3: Module of Decorators (iterators)</b></td>
+<td width="80%">
+<h3>Problem Summary:</h3>
+Write the following iterator decorators (iterators that operate on iterators)
+  using Python generators.
+Write each function to be self contained, not calling any other functions or
+  generators and do not use  <b>itertools.py</b> module (or any other module
+  that would trivialize this code); you may also not call the <b>zip</b>
+  function.
+<ul>
+<li><b>transform</b> takes any iterable and any function whose domain includes
+      all the iterated values: it produces transformed (by the function)
+      values. For example
+<b><pre>  for i in transform('abCdeFg',str.upper):
+      print(i,end='')</pre></b>
+   produces the values <b>'A'</b>, <b>'B'</b>, <b>'C'</b>, <b>'D'</b>,
+     <b>'E'</b>, <b>'F'</b>, and <b>'G'</b>.
+<p>
+</p></li><li><b>running_count</b> takes any iterable and any predicate function
+      (taking one argument and returning a <b>bool</b> value): it produces a
+      running count of how many values up to (and including) the one just
+      iterated over, satisfied the predicate. For example
+<b><pre>  for i in count('bananastand', lambda x : x in 'aeiou'): # is vowel
+    print(i,end=' ')</pre></b>
+   produces the values <b>0</b>, <b>1</b>, <b>1</b>, <b>2</b>, <b>2</b>,
+      <b>3</b>, <b>3</b>, <b>3</b>, <b>4</b>, <b>4</b>, and <b>4</b>.
+<p>
+</p></li><li><b>n_with_pad</b> takes any iterable, an int <b>n</b> and a <b>pad</b> 
+      (whose default value is <b>None</b>): it produces the first <b>n</b>
+      values from the iterable, padded by <b>pad</b> if there are fewer than
+     <b>n</b> values in the iterable.
+<b><pre>  for i n_with_pad('abcdefg',3):
+    print(i,end=' ')</pre></b>
+   produces the values <b>'a'</b>, <b>'b'</b> and <b>'c'</b>
+<b><pre>  for i n_with_pad('abcdefg',10,'?'):
+    print(i,end=' ')</pre></b>
+   produces the values <b>'a'</b>, <b>'b'</b>, <b>'c'</b>, <b>'d'</b>,
+   <b>'e'</b>, <b>'f'</b>, <b>'g'</b>, <b>'?'</b>, <b>'?'</b> and <b>'?'</b>.
+   Hint: use a <b>for</b> loop with a <b>try/catch</b> and explicit calls to
+   <b>iter</b> and <b>next</b>.
+<p>
+</p></li><li><b>sequence</b> takes any number of iterables as parameters: it produces
+     all the values in the first iterable, followed by all in the second, ... ,
+     all values in the last iterable. For example
+<b><pre>  for i in sequence('abcd','ef','ghij'):
+      print(i,end='')</pre></b>
+     produces the values <b>'a'</b>, <b>'b'</b>, <b>'c'</b>, <b>'d'</b>,
+     <b>'e'</b>, <b>'f'</b>, <b>'g'</b>, <b>'h'</b>, <b>'i'</b>, and <b>'j'</b>,
+     <b>'k'</b>.
+<p>
+</p></li><li><b>alternate</b> takes any number of iterables as parameters: it produces
+     the first value from the first parameter, then the first value from the
+     the second parameter, ..., then the first value from the last parameter;
+     then the second value from the first parameter, then the second value from
+     the the second parameter, ..., then the second value from the last
+     parameter; etc. If an iteratable produces no more values, it disappears
+     from the alternation, and the process continues until there are no more
+     iterables left.
+<b><pre>  for i in sequence('abcde','fg','hijk'):
+      print(i,end='')</pre></b>
+     produces the values <b>'a'</b>, <b>'f'</b>, <b>'h'</b>, <b>'b'</b>,
+     <b>'g'</b>, <b>'i'</b>, <b>'c'</b>, <b>'j'</b>, <b>'d'</b>, <b>k</b>, and
+     <b>'e'</b>.
+   Hint: use a <b>for</b> loop nested in <b>while</b> loop with a
+     <b>try/catch</b> and explicit calls to <b>iter</b> and <b>next</b>, along
+     with a list of still active iteratables.
+<p>
+</p></li><li><b>Extra credit</b>:
+  <ul>
+    <li>Write a method name <b>flatten</b> that returns every value nested in
+          any iterable data type (except for string: return strings as
+          themselves, not their individual characters.
+        When iterating through a dictionary, iterated through just its keys.
+        For example
+<b><pre>  for i in flatten([1,2,[3,4,(5,6,7,{'abc':1,'xyz':2}),8,9],10]):
+    print(i,end=' ')</pre></b>
+    Prints as: <b>1 2 3 4 5 6 7 xyz abc 8 9 10</b>
+    <p>
+    Note that this iterator does not control the order that <b>sets</b> or keys
+       of <b>dicts</b> are iterated through (we could if we used <b>sorted</b>),
+        although iteration through lists and tuples is always sequential.
+    Hint: use iteration and recursion and one use of <b>type</b> to check for
+      strings.
+</p></li></ul>
+<h3>Testing</h3>
+The <b>generator.py</b> module includes a script that calls
+  <b>driver.driver()</b>.
+The project folder contains a <b>bsc3.txt</b> file (examine it) to use for
+   batch-self-checking your class.
+These are rigorous but not exhaustive tests.
+Incrementally write and test your class; check each function as you write it.
+<p>
+I have also provided the <b>generatordriver.py</b> module, which has the same
+  tests as <b>bsc3.txt</b> but in a form more amenable for debugging these
+  generators.
+</p></li></ul></td>
+
+</tr></tbody>
+</table>
+
+
+</a></body></html>
