@@ -1,0 +1,16 @@
+use CODAZEN;
+
+/* a. Get the names and departments of all managers */
+select first_name, last_name, department_ids from Manager;
+
+/* b. Get all employees who are “MALE” */
+select * from Employee where gender = 'M';
+
+/* c. Get the name of the department that does not have manager */
+select * from Department d INNER JOIN Manager m where find_in_set(d.id, m.department_ids) < 0;
+
+/* d. Get the salary, first name, last name, and gender of the employee(s) that is/are currently hired with the lowest salary */
+select s.id, s.salary from Salary s INNER JOIN Employee e on s.id = e.id where salary = (select min(salary) from Salary);
+
+/* e. Get the name and salary of the highest paid employee in “ENGINEERING” that is not a manager */
+select e.first_name,e.last_name,s.salary from Employee e INNER JOIN Salary s on e.id = s.id where s.salary = (select max(salary) from Employee e INNER JOIN Salary s on e.id = s.id INNER JOIN Department d where find_in_set(d.id, e.department_ids) AND d.name = 'ENGINEERING');
