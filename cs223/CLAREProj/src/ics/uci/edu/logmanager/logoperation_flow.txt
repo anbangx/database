@@ -1,0 +1,12 @@
+Keep maximum LSN# in LSN.log
+
+Initial Start : 
+1. Read LSN from LSN.log
+   if LSN.log does not exist, create one and assign it to 1
+
+When called : 
+1. Read LSN in memory. 
+2. Increase LSN.
+3. Write INT LSN,INT COMMIT_YN, INT CHECKPOINT_YN, INT XID, INT OPERATION_TYPE, INT STRING TABLE, INT NUM_BEFORE_REC, INT NUM_AFTER_REC, STRING BEFORE_IMAGE, STRING AFTER_IMAGE
+4. WRITE LSN TO LSN.log
+
