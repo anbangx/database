@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Presenting KML file on the Google Maps</title>
+<script type="text/javascript" src="jquery-1.10.1.min.js"></script>  
+<script type="text/javascript">  
+$(function(){
+    $("#fil1").change(function(){
+        $("#form1").submit();
+    });
+});
+</script> 
+
+</head>
+
+<body> 
+<center><H2>Presenting KML file on the Google Maps.<br><br> Please select KML files on Local Disk</H2>
+<form action="upload_file.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
+  <label for="fileField"></label>
+  <input type="file" name="file" id="fil1">
+</form>
+</center>
+</body>
+</html>
+
