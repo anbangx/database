@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+  <name> Anbang's Diary on May 29, 2013</name>
+<Style id="iconstyle1">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/paddle/red-circle_maps.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+<Style id="iconstyle2">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/paddle/blu-circle_maps.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+<Style id="iconstyle3">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/paddle/grn-circle_maps.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+<Style id="iconstyle4">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/paddle/ylw-circle_maps.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+    <Style id="linestyle1">
+      <LineStyle>
+        <width>3</width>
+         <color>ff0000ff</color>
+      </LineStyle>
+    </Style>
+    <Style id="linestyle2">
+      <LineStyle>
+        <width>3</width>
+        <color>ffff0000</color>
+      </LineStyle>
+    </Style>
+    <Style id="linestyle3">
+      <LineStyle>
+        <width>3</width>
+        <color>ff00ff00</color>
+      </LineStyle>
+    </Style>
+    <Style id="linestyle4">
+      <LineStyle>
+        <width>3</width>
+        <color>ff00ffff</color>        
+      </LineStyle>
+    </Style>
+    <Placemark>
+        <name>DBH</name>
+        <Snippet>May 29, 2013 00:13:55</Snippet>
+        <description><![CDATA[<b>This is Bold</b><br>This is <a href="http://www.naver.com">Link to Naver</a><br><img width="100" height="100" border="0" src="http://www.ics.uci.edu/~okjm/test.jpg"><br>]]></description>
+        <styleUrl>#iconstyle1</styleUrl>
+        <Point>
+          <coordinates>-117.8354,33.641565,0</coordinates>
+        </Point>
+      </Placemark>
+    <Placemark>
+        <name>First Move</name>
+        <Snippet>This is snippet</Snippet>
+        <description><![CDATA[This is description in LineString Part]]></description>
+        <styleUrl>#linestyle1</styleUrl>
+        <LineString>
+        <tessellate>1</tessellate>
+          <coordinates> -117.8354,33.641565,0 -117.840746,33.643529,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+    <Placemark>
+        <name>Second Spot</name>
+        <description>Attached to the ground. Intelligently places itself at the height of the underlying terrain.</description>
+        <styleUrl>#iconstyle2</styleUrl>
+        <Point>
+          <coordinates>-117.840746,33.643529,0</coordinates>
+        </Point>
+      </Placemark>
+<Placemark>
+        <name>Second Move</name>
+        <Snippet>This is snippet</Snippet>
+        <description><![CDATA[This is description in LineString Part]]></description>
+        <styleUrl>#linestyle2</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>-117.840746,33.643529,0 -117.84112,33.645942,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+<Placemark>
+        <name>Third Spot</name>
+        <description>Attached to the ground. Intelligently places itself at the height of the underlying terrain.</description>
+        <styleUrl>#iconstyle3</styleUrl>
+        <Point>
+          <coordinates>-117.84112,33.645942,0</coordinates>
+        </Point>
+      </Placemark>
+<Placemark>
+        <name>Third Move</name>
+        <Snippet>This is snippet</Snippet>
+        <description><![CDATA[This is description in LineString Part]]></description>
+        <styleUrl>#linestyle3</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>-117.84112,33.645942,0 -117.842764,33.650102,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+<Placemark>
+        <name>Fourth Spot</name>
+        <description>Attached to the ground. Intelligently places itself at the height of the underlying terrain.</description>
+        <styleUrl>#iconstyle4</styleUrl>
+        <Point>
+          <coordinates>-117.842764,33.650102,0</coordinates>
+        </Point>
+      </Placemark>
+<Placemark>
+        <name>Fourth Move</name>
+        <Snippet>This is snippet</Snippet>
+        <description><![CDATA[This is description in LineString Part]]></description>
+        <styleUrl>#linestyle4</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>-117.842764,33.650102,0 -117.841419,33.645013,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+<Placemark>
+        <name>Fifth Spot</name>
+        <description>Attached to the ground. Intelligently places itself at the height of the underlying terrain.</description>
+         <styleUrl>#iconstyle5</styleUrl>
+        <Point>
+          <coordinates>-117.841419,33.645013,0</coordinates>
+        </Point>
+      </Placemark>
+<Placemark>
+        <name>Sixth Spot</name>
+        <description>Attached to the ground. Intelligently places itself at the height of the underlying terrain.</description>
+        <Point>
+          <coordinates>-117.833557,33.641518,0</coordinates>
+        </Point>
+      </Placemark>
+  </Document>
+</kml>

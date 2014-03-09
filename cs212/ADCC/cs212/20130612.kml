@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+<name>===== Anbang's Dairy on 20130612</name>
+<Style id="iconstyle0">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/A.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle1">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/B.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle2">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/C.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle3">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/D.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle4">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/E.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle5">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/F.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle6">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/G.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle7">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/H.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle8">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/I.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle9">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/J.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle10">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/K.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle11">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/L.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle12">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/M.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle13">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/N.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle14">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/O.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle15">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/P.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle16">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/Q.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle17">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/R.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle18">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/S.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle19">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/T.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle20">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/U.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle21">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/V.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle22">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/W.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle23">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/X.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle24">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/Y.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle25">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/Z.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="linestyle0">
+<LineStyle>
+<width>5</width>
+<color>ff0033cc</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle1">
+<LineStyle>
+<width>5</width>
+<color>ffff9933</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle2">
+<LineStyle>
+<width>5</width>
+<color>ff333399</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle3">
+<LineStyle>
+<width>5</width>
+<color>ffcccc66</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle4">
+<LineStyle>
+<width>5</width>
+<color>ff9999ff</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle5">
+<LineStyle>
+<width>5</width>
+<color>ff666600</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle6">
+<LineStyle>
+<width>5</width>
+<color>ffcc99cc</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle7">
+<LineStyle>
+<width>5</width>
+<color>ff99cc99</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle8">
+<LineStyle>
+<width>5</width>
+<color>ff000066</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle9">
+<LineStyle>
+<width>5</width>
+<color>ffffff99</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle10">
+<LineStyle>
+<width>5</width>
+<color>ff6666cc</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle11">
+<LineStyle>
+<width>5</width>
+<color>ff999933</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle12">
+<LineStyle>
+<width>5</width>
+<color>ffcc99ff</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle13">
+<LineStyle>
+<width>5</width>
+<color>ffcc9900</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle14">
+<LineStyle>
+<width>5</width>
+<color>ffccff99</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle15">
+<LineStyle>
+<width>5</width>
+<color>ffffcc99</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle16">
+<LineStyle>
+<width>5</width>
+<color>ffffcccc</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle17">
+<LineStyle>
+<width>5</width>
+<color>ffff99cc</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle18">
+<LineStyle>
+<width>5</width>
+<color>ffcc6699</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle19">
+<LineStyle>
+<width>5</width>
+<color>ff993366</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle20">
+<LineStyle>
+<width>5</width>
+<color>ff660033</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle21">
+<LineStyle>
+<width>5</width>
+<color></color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Placemark>
+<name>[P0] Starting Point (00:01:44 , 0min)</name>
+<Snippet></Snippet>
+<description><![CDATA[]]></description>
+<styleUrl>#iconstyle0</styleUrl>
+<Point>
+<coordinates>-117.837086,33.642593,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>[Transitioning: P0 -> P1] (00:01:44 , 5min)</name>
+<Snippet></Snippet>
+<description><![CDATA[Start: 00:01:44 , End: 00:07:09 , Duration: 5min<br><br></table><br>]]></description>
+<styleUrl>#linestyle0</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>-117.837086,33.642593,0 -117.839669,33.642866,0 -117.843738,33.641804,0 -117.845675,33.641582,0 -117.849129,33.642664,0 -117.849137,33.644308,0 -117.848781,33.646461,0 -117.845931,33.648762,0 -117.84357,33.649226,0 -117.84189,33.650885,0 -117.840388,33.65171,0 </coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>[P1] Bridge Road (00:07:09 , 26min)</name>
+<Snippet></Snippet>
+<description><![CDATA[Start: 00:07:09 , End: 00:33:09 , Duration: 26min<br><br></table><br>]]></description>
+<styleUrl>#iconstyle1</styleUrl>
+<Point>
+<coordinates>-117.840388,33.65171,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>[Transitioning: P1 -> P2] (00:33:26 , 4min)</name>
+<Snippet></Snippet>
+<description><![CDATA[Start: 00:33:26 , End: 00:36:56 , Duration: 4min<br><br></table><br>]]></description>
+<styleUrl>#linestyle1</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>-117.840388,33.65171,0 -117.83949,33.651748,0 -117.837055,33.651217,0 -117.837078,33.649622,0 -117.83532,33.646028,0 -117.835365,33.644373,0 -117.833575,33.640977,0 </coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>[P2] 6110 Palo Verde Road (00:36:56 , 430min)</name>
+<Snippet>GC: 1, FB: 1, SMS: 4, Call: 8, Picture: 7</Snippet>
+<description><![CDATA[Start: 00:36:56 , End: 07:46:56 , Duration: 430min<br><br><b>[GC] <a href=https://www.google.com/calendar/event?eid=MjVtZjgxODU5ZG1jZ2d2dWtpZDkyZHRiOTQgdGVzdGNzMjEyQG0>Study for CS212</a></b>  from 07:00:00   to 08:00:00 <br><br><b>[FB] <a href=http://www.facebook.com/100002955868742/posts/387524104689448>Good luck on final~</a> </b> Time: 01:21:59  Type: Post<br><br><b>[SMS]</b> At 00:50:53 ,I sent a text to [+1 949-572-3458]: <br>"加油"<br><b>[SMS]</b> At 00:51:33 ,I got a text from [+19495723458]: <br>"还没睡吗？"<br><b>[SMS]</b> At 00:51:51 ,I got a text from [+19495723458]: <br>"我再干一会。。你早点休息吧"<br><b>[SMS]</b> At 00:52:00 ,I sent a text to [+1 949-572-3458]: <br>"还没看完，再半小时。"<br><br><b>[Call]</b> At 04:06:52 , I got a call from Shiqi Deng(19495723458)<br><b>[Call]</b> At 05:25:10 , I called Wei Dai(9493940934)<br><b>[Call]</b> At 05:25:11 , I called (+19726768983)<br><b>[Call]</b> At 05:26:54 , I got a call from Wei Dai(19493940934)<br><b>[Call]</b> At 05:27:43 , I called Wei Dai(19493940934)<br><b>[Call]</b> At 06:33:41 , I got a call from Wei Dai(19493940934)<br><b>[Call]</b> At 06:36:34 , I called Wei Dai(19493940934)<br><b>[Call]</b> At 06:58:38 , I called Wei Dai(9493940934)<br><br><b>[Pic]</b><table border="0" cellspacing="20" cellpadding="20"><tr><td>At 01:01:00 <br><a alt="1_0612.jpg" href="https://students.ics.uci.edu/~taewok2/1_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="1_0612.jpg" src="https://students.ics.uci.edu/~taewok2/1_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 02:01:00 <br><a alt="2_0612.jpg" href="https://students.ics.uci.edu/~taewok2/2_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="2_0612.jpg" src="https://students.ics.uci.edu/~taewok2/2_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 03:01:00 <br><a alt="3_0612.jpg" href="https://students.ics.uci.edu/~taewok2/3_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="3_0612.jpg" src="https://students.ics.uci.edu/~taewok2/3_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 04:01:00 <br><a alt="4_0612.jpg" href="https://students.ics.uci.edu/~taewok2/4_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="4_0612.jpg" src="https://students.ics.uci.edu/~taewok2/4_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><tr><td>At 05:01:00 <br><a alt="5_0612.jpg" href="https://students.ics.uci.edu/~taewok2/5_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="5_0612.jpg" src="https://students.ics.uci.edu/~taewok2/5_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 06:01:00 <br><a alt="6_0612.jpg" href="https://students.ics.uci.edu/~taewok2/6_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="6_0612.jpg" src="https://students.ics.uci.edu/~taewok2/6_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 07:01:00 <br><a alt="7_0612.jpg" href="https://students.ics.uci.edu/~taewok2/7_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="7_0612.jpg" src="https://students.ics.uci.edu/~taewok2/7_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td></table><br>]]></description>
+<styleUrl>#iconstyle2</styleUrl>
+<Point>
+<coordinates>-117.833575,33.640977,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>[P3] 1-25 East Peltason Drive (07:47:00 , 442min)</name>
+<Snippet>GC: 2, Call: 4, Picture: 8</Snippet>
+<description><![CDATA[Start: 07:47:00 , End: 15:09:00 , Duration: 442min<br><br><b>[GC] <a href=https://www.google.com/calendar/event?eid=c2d0aWRrMWltOWlldTQ4bGZ0ZW9mOXE5NDhfMjAxMzA2MTJUMTYzMDAwWiB0ZXN0Y3MyMTJAbQ>CS212(MD) Class</a></b>  from 09:30:00   to 11:00:00   at DBH<br><b>[GC] <a href=https://www.google.com/calendar/event?eid=NjJiczZnNGFybmNtcWppYzZuYXFrOTNxbWcgdGVzdGNzMjEyQG0>CS212 Project Final Report Review</a></b>  from 11:00:00   to 13:00:00 <br><br><b>[Call]</b> At 07:56:52 , I got a call from Shiqi Deng(19495723458)<br><b>[Call]</b> At 09:50:39 , I called Jianfeng Jia(19496789893)<br><b>[Call]</b> At 09:50:40 , I called (+19165722097)<br><b>[Call]</b> At 12:53:39 , I called Shiqi Deng(+19495723458)<br><br><b>[Pic]</b><table border="0" cellspacing="20" cellpadding="20"><tr><td>At 08:01:00 <br><a alt="8_0612.jpg" href="https://students.ics.uci.edu/~taewok2/8_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="8_0612.jpg" src="https://students.ics.uci.edu/~taewok2/8_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 09:01:00 <br><a alt="9_0612.jpg" href="https://students.ics.uci.edu/~taewok2/9_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="9_0612.jpg" src="https://students.ics.uci.edu/~taewok2/9_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 10:01:00 <br><a alt="10_0612.jpg" href="https://students.ics.uci.edu/~taewok2/10_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="10_0612.jpg" src="https://students.ics.uci.edu/~taewok2/10_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 11:01:00 <br><a alt="11_0612.jpg" href="https://students.ics.uci.edu/~taewok2/11_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="11_0612.jpg" src="https://students.ics.uci.edu/~taewok2/11_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><tr><td>At 12:01:00 <br><a alt="12_0612.jpg" href="https://students.ics.uci.edu/~taewok2/12_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="12_0612.jpg" src="https://students.ics.uci.edu/~taewok2/12_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 13:01:00 <br><a alt="13_0612.jpg" href="https://students.ics.uci.edu/~taewok2/13_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="13_0612.jpg" src="https://students.ics.uci.edu/~taewok2/13_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 14:01:00 <br><a alt="14_0612.jpg" href="https://students.ics.uci.edu/~taewok2/14_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="14_0612.jpg" src="https://students.ics.uci.edu/~taewok2/14_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 15:01:00 <br><a alt="15_0612.jpg" href="https://students.ics.uci.edu/~taewok2/15_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="15_0612.jpg" src="https://students.ics.uci.edu/~taewok2/15_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td></table><br>]]></description>
+<styleUrl>#iconstyle3</styleUrl>
+<Point>
+<coordinates>-117.840328,33.643158,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>[P4] 2004 Los Trancos Drive (15:09:34 , 530min)</name>
+<Snippet>Picture: 8</Snippet>
+<description><![CDATA[Start: 15:09:34 , End: 23:59:34 , Duration: 530min<br><br><b>[Pic]</b><table border="0" cellspacing="20" cellpadding="20"><tr><td>At 16:01:00 <br><a alt="16_0612.jpg" href="https://students.ics.uci.edu/~taewok2/16_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="16_0612.jpg" src="https://students.ics.uci.edu/~taewok2/16_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 17:01:00 <br><a alt="17_0612.jpg" href="https://students.ics.uci.edu/~taewok2/17_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="17_0612.jpg" src="https://students.ics.uci.edu/~taewok2/17_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 18:01:00 <br><a alt="18_0612.jpg" href="https://students.ics.uci.edu/~taewok2/18_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="18_0612.jpg" src="https://students.ics.uci.edu/~taewok2/18_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 19:01:00 <br><a alt="19_0612.jpg" href="https://students.ics.uci.edu/~taewok2/19_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="19_0612.jpg" src="https://students.ics.uci.edu/~taewok2/19_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><tr><td>At 20:01:00 <br><a alt="20_0612.jpg" href="https://students.ics.uci.edu/~taewok2/20_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="20_0612.jpg" src="https://students.ics.uci.edu/~taewok2/20_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 21:01:00 <br><a alt="21_0612.jpg" href="https://students.ics.uci.edu/~taewok2/21_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="21_0612.jpg" src="https://students.ics.uci.edu/~taewok2/21_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 22:01:00 <br><a alt="22_0612.jpg" href="https://students.ics.uci.edu/~taewok2/22_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="22_0612.jpg" src="https://students.ics.uci.edu/~taewok2/22_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td><td>At 23:01:00 <br><a alt="23_0612.jpg" href="https://students.ics.uci.edu/~taewok2/23_0612.jpg" target="_blank"><img width="80" height="80" border="0" alt="23_0612.jpg" src="https://students.ics.uci.edu/~taewok2/23_0612.jpg" />&nbsp;&nbsp;&nbsp;</a>  </td></table><br>]]></description>
+<styleUrl>#iconstyle4</styleUrl>
+<Point>
+<coordinates>-117.840693,33.643535,0</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>

@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+<name>===== Anbang's Dairy on 20130607</name>
+<Style id="iconstyle0">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/A.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle1">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/B.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle2">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/C.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle3">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/D.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle4">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/E.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle5">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/F.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle6">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/G.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle7">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/H.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle8">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/I.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle9">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/J.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle10">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/K.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle11">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/L.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle12">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/M.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle13">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/N.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle14">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/O.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle15">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/P.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle16">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/Q.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle17">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/R.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle18">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/S.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle19">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/T.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle20">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/U.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle21">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/V.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle22">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/W.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle23">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/X.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle24">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/Y.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="iconstyle25">
+<IconStyle>
+<Icon>
+<href>http://www.google.com/mapfiles/kml/paddle/Z.png</href>
+</Icon>
+</IconStyle>
+</Style>
+<Style id="linestyle0">
+<LineStyle>
+<width>5</width>
+<color>ff0033cc</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle1">
+<LineStyle>
+<width>5</width>
+<color>ffff9933</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle2">
+<LineStyle>
+<width>5</width>
+<color>ff333399</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle3">
+<LineStyle>
+<width>5</width>
+<color>ffcccc66</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle4">
+<LineStyle>
+<width>5</width>
+<color>ff9999ff</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle5">
+<LineStyle>
+<width>5</width>
+<color>ff666600</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle6">
+<LineStyle>
+<width>5</width>
+<color>ffcc99cc</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle7">
+<LineStyle>
+<width>5</width>
+<color>ff99cc99</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle8">
+<LineStyle>
+<width>5</width>
+<color>ff000066</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle9">
+<LineStyle>
+<width>5</width>
+<color>ffffff99</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle10">
+<LineStyle>
+<width>5</width>
+<color>ff6666cc</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle11">
+<LineStyle>
+<width>5</width>
+<color>ff999933</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle12">
+<LineStyle>
+<width>5</width>
+<color>ffcc99ff</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle13">
+<LineStyle>
+<width>5</width>
+<color>ffcc9900</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle14">
+<LineStyle>
+<width>5</width>
+<color>ffccff99</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle15">
+<LineStyle>
+<width>5</width>
+<color>ffffcc99</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle16">
+<LineStyle>
+<width>5</width>
+<color>ffffcccc</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle17">
+<LineStyle>
+<width>5</width>
+<color>ffff99cc</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle18">
+<LineStyle>
+<width>5</width>
+<color>ffcc6699</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle19">
+<LineStyle>
+<width>5</width>
+<color>ff993366</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle20">
+<LineStyle>
+<width>5</width>
+<color>ff660033</color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Style id="linestyle21">
+<LineStyle>
+<width>5</width>
+<color></color>
+<colorMode>random</colorMode>
+</LineStyle>
+</Style>
+<Placemark>
+<name>[P0] Starting Point (00:01:42 , 3min)</name>
+<Snippet></Snippet>
+<description><![CDATA[]]></description>
+<styleUrl>#iconstyle0</styleUrl>
+<Point>
+<coordinates>-117.842124,33.642717,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>[Transitioning: P0 -> P1] (00:01:42 , 5min)</name>
+<Snippet>GC: 1</Snippet>
+<description><![CDATA[Start: 00:01:42 , End: 00:06:57 , Duration: 5min<br><br><b>[GC] <a href=https://www.google.com/calendar/event?eid=dWMxZGw1dGRybmc4OGQ0YTBjajFiMWhjcHMgdGVzdGNzMjEyQG0>0607 Appointment2</a></b>  from: 12:00:00   to: 12:30:00 <br><br></table><br>]]></description>
+<styleUrl>#linestyle0</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>-117.842124,33.642717,0 -117.837468,33.642446,0 -117.834294,33.640774,0 -117.830509,33.639333,0 -117.828252,33.644349,0 </coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>[P1] 680 California Avenue (00:06:57 , 22min)</name>
+<Snippet></Snippet>
+<description><![CDATA[Start: 00:06:57 , End: 00:28:57 , Duration: 22min<br><br></table><br>]]></description>
+<styleUrl>#iconstyle1</styleUrl>
+<Point>
+<coordinates>-117.828252,33.644349,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>[P2] 680 California Avenue (00:29:05 , 71min)</name>
+<Snippet>FB: 1</Snippet>
+<description><![CDATA[Start: 00:29:05 , End: 01:40:05 , Duration: 71min<br><br><b>[FB] <a href=http://www.facebook.com/100002955868742/posts/385271234914735>haha</a> </b> Time: 01:04:59  Type: Post<br><br></table><br>]]></description>
+<styleUrl>#iconstyle2</styleUrl>
+<Point>
+<coordinates>-117.829809,33.641604,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>[Transitioning: P2 -> P3] (01:41:00 , 1min)</name>
+<Snippet>GC: 1</Snippet>
+<description><![CDATA[Start: 01:41:00 , End: 01:41:58 , Duration: 1min<br><br><b>[GC] <a href=https://www.google.com/calendar/event?eid=dWMxZGw1dGRybmc4OGQ0YTBjajFiMWhjcHMgdGVzdGNzMjEyQG0>0607 Appointment2</a></b>  from: 12:00:00   to: 12:30:00 <br><br></table><br>]]></description>
+<styleUrl>#linestyle1</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>-117.829809,33.641604,0 -117.834163,33.640628,0 -117.832436,33.64262,0 </coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>[P3] 7108 Palo Verde Road (01:41:58 , 162min)</name>
+<Snippet></Snippet>
+<description><![CDATA[Start: 01:41:58 , End: 04:23:58 , Duration: 162min<br><br></table><br>]]></description>
+<styleUrl>#iconstyle3</styleUrl>
+<Point>
+<coordinates>-117.832436,33.64262,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>[Transitioning: P3 -> P4] (04:24:22 , 3min)</name>
+<Snippet>GC: 1</Snippet>
+<description><![CDATA[Start: 04:24:22 , End: 04:27:47 , Duration: 3min<br><br><b>[GC] <a href=https://www.google.com/calendar/event?eid=dWMxZGw1dGRybmc4OGQ0YTBjajFiMWhjcHMgdGVzdGNzMjEyQG0>0607 Appointment2</a></b>  from: 12:00:00   to: 12:30:00 <br><br></table><br>]]></description>
+<styleUrl>#linestyle2</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>-117.832436,33.64262,0 -117.835776,33.640686,0 -117.833586,33.641592,0 </coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>[P4] 6110 Palo Verde Road (04:27:47 , 867min)</name>
+<Snippet>GC: 2, FB: 5, Call: 5</Snippet>
+<description><![CDATA[Start: 04:27:47 , End: 18:54:47 , Duration: 867min<br><br><b>[GC] <a href=https://www.google.com/calendar/event?eid=amZyamY2MHZjamxxb2RtYjg0cWd0MWNvc2sgdGVzdGNzMjEyQG0>0607 Appointment</a></b>  from: 11:30:00   to: 12:00:00 <br><b>[GC] <a href=https://www.google.com/calendar/event?eid=dWMxZGw1dGRybmc4OGQ0YTBjajFiMWhjcHMgdGVzdGNzMjEyQG0>0607 Appointment2</a></b>  from: 12:00:00   to: 12:30:00 <br><br><b>[FB] <a href=http://www.facebook.com/100002955868742/posts/385570894884769>I am here.</a> </b> Time: 17:02:04  Type: Post<br><b>[FB] <a href=http://www.facebook.com/100002955868742/posts/385544524887406>http://www.baidu.com/</a> </b> Time: 15:05:00  Type: Post<br><b>[FB] <a href=http://www.facebook.com/100002955868742/posts/385537364888122>Hard!!!! --- cs212 test</a> </b> Time: 14:29:49  Type: Post<br><b>[FB] <a href=http://www.facebook.com/100002955868742/posts/385448061563719>Boring.  --- cs212 test</a> </b> Time: 09:32:53  Type: Post d  http://www.baidu.com/<br><b>[FB] <a href=http://www.facebook.com/100002955868742/posts/385447968230395>Prerequisites
+This module requires that you have s</a> </b> Time: 09:32:33  Type: Post<br><br><b>[Call]</b> At 07:02:53 , I got a call from Nan Zhang(19492872651)<br><b>[Call]</b> At 07:16:55 , I called Nan Zhang(9492872651)<br><b>[Call]</b> At 08:59:38 , I got a call from (18009578394)<br><b>[Call]</b> At 09:16:35 , I got a call from (19495005898)<br><b>[Call]</b> At 12:45:12 , I got a call from (13852293020)<br><br></table><br>]]></description>
+<styleUrl>#iconstyle4</styleUrl>
+<Point>
+<coordinates>-117.833586,33.641592,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>[Transitioning: P4 -> P5] (18:55:13 , 0min)</name>
+<Snippet>GC: 1</Snippet>
+<description><![CDATA[Start: 18:55:13 , End: 18:55:32 , Duration: 0min<br><br><b>[GC] <a href=https://www.google.com/calendar/event?eid=dWMxZGw1dGRybmc4OGQ0YTBjajFiMWhjcHMgdGVzdGNzMjEyQG0>0607 Appointment2</a></b>  from: 12:00:00   to: 12:30:00 <br><br></table><br>]]></description>
+<styleUrl>#linestyle3</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>-117.833586,33.641592,0 -117.835562,33.643452,0 -117.835315,33.644892,0 </coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>[P5] 500-550 East Peltason Drive (18:55:32 , 10min)</name>
+<Snippet></Snippet>
+<description><![CDATA[Start: 18:55:32 , End: 19:05:32 , Duration: 10min<br><br></table><br>]]></description>
+<styleUrl>#iconstyle5</styleUrl>
+<Point>
+<coordinates>-117.835315,33.644892,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>[Transitioning: P5 -> P6] (19:05:36 , 7min)</name>
+<Snippet>GC: 1</Snippet>
+<description><![CDATA[Start: 19:05:36 , End: 19:12:23 , Duration: 7min<br><br><b>[GC] <a href=https://www.google.com/calendar/event?eid=dWMxZGw1dGRybmc4OGQ0YTBjajFiMWhjcHMgdGVzdGNzMjEyQG0>0607 Appointment2</a></b>  from: 12:00:00   to: 12:30:00 <br><br></table><br>]]></description>
+<styleUrl>#linestyle4</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>-117.835315,33.644892,0 -117.841966,33.655488,0 -117.83907,33.653866,0 -117.836902,33.651809,0 -117.834666,33.651075,0 -117.832514,33.651156,0 -117.828932,33.652839,0 -117.826944,33.653506,0 -117.825627,33.651699,0 -117.824763,33.650376,0 -117.819775,33.65032,0 -117.818653,33.648882,0 -117.819952,33.647118,0 -117.819593,33.645614,0 -117.819526,33.643227,0 -117.821263,33.636682,0 -117.819581,33.634734,0 -117.818113,33.633612,0 </coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>[P6] Sierra Boca Road (19:12:23 , 255min)</name>
+<Snippet></Snippet>
+<description><![CDATA[Start: 19:12:23 , End: 23:27:23 , Duration: 255min<br><br></table><br>]]></description>
+<styleUrl>#iconstyle6</styleUrl>
+<Point>
+<coordinates>-117.818113,33.633612,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>[P7] 8100 Palo Verde Road (23:27:27 , 32min)</name>
+<Snippet></Snippet>
+<description><![CDATA[Start: 23:27:27 , End: 23:59:27 , Duration: 32min<br><br></table><br>]]></description>
+<styleUrl>#iconstyle7</styleUrl>
+<Point>
+<coordinates>-117.832602,33.641535,0</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>
