@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>About Our Work</title>
+<link href="css/inner.css" rel="stylesheet" type="text/css" />
+<link href="css/prettyPhoto.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!--******************************  Main Wrapper  ******************************-->
+
+<div id="main_wrapper"><!-- Start of main_wrapper -->
+	
+    <div id="top_phone">
+    Outstanding Search Engine
+    </div>
+
+    <div class="full_width"><!-- Start of full_width -->
+    
+    <h2>About Our Work</h2>
+    <div class="hr"></div>
+    
+    <h3>Crawl the ics.uci.edu domain</h3>    
+    <p> We started by crawling the whole ics.uci.edu domain in the second project. We take the maximum depth of crawler as 20 and store all the URLs and texts in the web pages we crawled.We run the crawler with the filter excluding the question mark('?') and the hyphen('-').
+		We stored all the data collected and compare the result of the most common words and 2-gram words.
+    </p>
+    <br>
+    
+    <h3>Build index</h3>    
+    <p> We build our index by processing all the data and output the number of documents, the number of words
+      	, the number of unique words, common words, common 2-grams and so on.
+    </p>
+    <br>
+    
+    <h3>Develop page ranking criteria</h3>    
+    <p> We developed page ranking criterias mainly based on the following aspects.
+    	Anchor text: using Field.setBoost(8.0f) in index time to add weight to anchor text;
+		Title: using Field.setBoost(5.0f) in index time to add weight to title;
+		Non-HTML content(Text): using Field.setBoost(1.0f) in index time to add weight to
+		content;
+		Text Characteristics: get the bold fonts and some special characters from html
+		content and add more weight to these characters in index time;
+		Page Rank: a. transfer outgoing link to matrix; b. use hadoop to implement page rank
+		algorithm; c. generate the top 30 pages;
+		In final step, assigning different weights to the previous technologies. And make use of
+		Lucene to adjust the weight to anchor text, title and content and compare the results in
+		order to generate the best parameters.
+    </p>
+    <br>
+    
+    <h3>Build up UI</h3>    
+    <p> We build up the user interface mainly by compiling in HTML. There are mainly two page instances. 
+    	First is the home page of our search engine. It contain a search box, a submit icon, two links to 
+    	Google.com and UCI home page respectively, three other links to some explanation about our UI.
+    	Second is the result show page, which contain a text representing area, a search box and a submit icon,
+    	and some interesting links. Learn more tells you about how we carry out the whole project.
+    </p>
+    <div class="hr"></div>
+    
+</div><!-- End of full_width -->
+    
+</div><!-- End of main_wrapper -->
+
+<!--******************************  FOOTER SECTION  ******************************-->
+
+<div id="footer_wrapper"><!-- start of footer wrapper -->
+
+<div id="footer_container"><!-- start of footer container -->
+
+<div id="footer_left"><!-- start of footer left -->
+    <div class="download_button"><!-- Start of download_button -->
+            &nbsp;&nbsp;&nbsp;<a href="about_our_work.html"><img src="img/learn_more_button.png" width="197" height="54" alt="Learn More" /></a>
+   	</div><!-- End of download_button -->            
+</div><!-- end of footer left -->
+
+<div id="footer_middle"><!-- start of footer middle -->
+	<img src="img/google_white.png" width="124" height="48" alt="logo" />
+    <br /><br />
+    Inspired by Google
+</div><!-- end of footer middle -->
+
+<div id="footer_right"><!-- start of footer right -->
+	<h4>Contact Us Through</h4>
+	<ul class="social">
+	       	<li><a href="https://www.facebook.com/" title="facebook" class='fade'><img src="img/social_facebook.png" width="30" height="30" alt="facebook" /></a></li>
+			<li><a href="http://www.linkedin.com/" title="LinkedIn" class='fade'><img src="img/social_linkedin.png" width="30" height="30" alt="linkedin" /></a></li>
+			<li><a href="https://mail.google.com" title="Email Us" class='fade'><img src="img/social_email.png" width="30" height="30" alt="email us" /></a></li>
+			<li><a href="https://twitter.com/" title="Twitter" class='fade'><img src="img/social_twitter.png" width="30" height="30" alt="Twitter" /></a></li>
+	    </ul>
+</div><!-- end of footer right -->
+
+</div><!-- end of footer container -->
+
+</div><!-- end of footer wrapper -->
+</body>
+</html>

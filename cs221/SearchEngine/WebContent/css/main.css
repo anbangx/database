@@ -1,0 +1,464 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* Qloud Landing Page */
+
+
+@font-face {
+    font-family: 'QlassikBoldRegular';
+    src: url('qlassikbold_tb-webfont.eot');
+    src: url('qlassikbold_tb-webfont.eot?iefix') format('eot'),
+         url('qlassikbold_tb-webfont.woff') format('woff'),
+         url('qlassikbold_tb-webfont.ttf') format('truetype'),
+         url('qlassikbold_tb-webfont.svg#webfontHQOIymR5') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+	background-image:url(../img/bground.jpg);
+	margin: 0px;
+	padding: 0px;
+	background-repeat:repeat-x;
+	}
+	
+#main_wrapper {
+	width: 960px;
+	margin: 0 auto;
+	background-image:url(../img/page_header.png);
+	background-repeat:no-repeat;
+	background-position:-13px 233px;
+	min-height: 500px;
+	}
+	
+img {
+	border: none;
+}
+	
+p {
+	font-family:QlassikBoldRegular;
+	font-size:16px;
+	color: #525252;
+	line-height: 18px;
+	font-weight: normal;
+	}
+	
+a {
+	font-family:QlassikBoldRegular;
+	font-size:16px;
+	color: #c72e03;
+	line-height: 18px;
+	}
+	
+h1 {
+	font-family:QlassikBoldRegular;
+	font-size:48px;
+	color: #3a3a3a;
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	}
+	
+h3 {
+	font-family:QlassikBoldRegular;
+	font-size:24px;
+	color: #2c2c2c;
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	}
+	
+	
+h4 {
+	font-family:QlassikBoldRegular;
+	font-size:18px;
+	color: #ffffff;
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	}
+	
+blockquote {	
+	background-image: url("../img/quotes.png");
+    background-position: left top;
+    background-repeat: no-repeat;
+    float: left;
+    margin: 23px 0 0;
+    padding: 0 0 0 33px;
+    text-align: left;
+    width: 430px;
+	font-family:QlassikBoldRegular;
+	font-size:16px;
+	color: #525252;
+	font-style:oblique;
+}
+
+pre {
+	font-family:QlassikBoldRegular;
+	font-size:13px;
+	color: #888888;
+	float: right;
+	text-align: right;
+	}
+	
+div.hr hr { display: none;}	
+div.hr { 
+	height: 30px; 
+	background: url(../img/hr.png) no-repeat scroll center;
+	clear: both;
+	margin: 30px 0 20px 0;
+	}
+	
+.orange_title {
+	font-family:QlassikBoldRegular;
+	font-size:36px;
+	color: #c72e03;
+	font-weight: normal;
+}
+
+.gray_title {
+	font-family:QlassikBoldRegular;
+	font-size:36px;
+	color: #3a3a3a;
+	font-weight: normal;
+}
+	
+	
+.intro_text {
+	font-family:QlassikBoldRegular;
+	font-size:16px;
+	color: #525252;
+	line-height: 18px;
+	margin-top: 25px;
+	font-weight: normal;
+	}
+	
+#top_logo {
+	float: left;
+	width: 200px;
+	height: 50px;
+	margin-top: 15px;
+}
+
+
+#top_phone {
+	float: right;
+	width: 400px;
+	font-family:QlassikBoldRegular;
+	font-size:24px;
+	color: #ded7cf;
+	text-align: right;
+	font-weight: normal;
+	margin-top: 25px;
+}
+
+#top_tryit {
+	float: right;
+	width: 400px;
+	font-family:QlassikBoldRegular;
+	font-size:24px;
+	color: #ded7cf;
+	text-align: right;
+	font-weight: normal;
+	margin-top: 25px;
+}
+
+.left_container {
+	width: 410px;
+	float: left;
+	margin-top: 50px;
+	text-align:left;
+	clear: left;
+	}
+	
+.benefits_wrapper {
+	width: 410px;
+	float: left;
+	margin-top: 35px;
+	text-align:left;
+	}
+	
+.benefit_item {
+	float: left;
+	width: 410px;
+	text-align: left;
+	margin-top: 23px;
+}
+
+.benefit_item_right {
+	float: left;
+	width: 460px;
+	text-align: left;
+	margin-top: 23px;
+}
+
+.benefit_item_first {
+	float: left;
+	width: 410px;
+	text-align: left;
+	margin-top: 40px;
+}
+
+.benefit_item img, .benefit_item_first img, .benefit_item_right img {
+	float: left;
+	margin-right: 20px;
+}
+
+.benefit_item p, .benefit_item_first p, .benefit_item_right p {
+	font-family:QlassikBoldRegular;
+	font-size:14px;
+	color: #525252;
+	line-height: 16px;
+}
+	
+.download_button {
+	float: left;
+	margin: 25px 0 0 0;
+}
+
+.download_button a {
+	font-family:QlassikBoldRegular;
+	font-size:14px;
+	color: #c72e03;
+	line-height: 25px;
+	text-decoration:underline;
+	}
+	
+.download_button a:hover {
+	color: #525252;
+	text-decoration:underline;
+	}
+	
+.right_container {
+	width: 517px;
+	float: right;
+	background-image:url(../img/right_sidebar.png);
+	background-repeat:no-repeat;
+	height: 622px;
+	margin-top: 50px;
+	}
+	
+#video_top {
+	width: 482px;
+	margin: 17.5px 0 0 17.5px;
+}
+
+.right_content {
+	width: 482px;
+	margin: 27px 0 0 26.5px;
+}
+
+.right_content2 {
+	width: 482px;
+	margin: 26px 0 0 26.5px;
+	float: right;
+}
+
+.right_content .orange_title, .full_width  .orange_title {
+	font-family:QlassikBoldRegular;
+	font-size:28px;
+	color: #c72e03;
+	font-weight: normal;
+}
+
+.right_content .gray_title, .full_width  .gray_title {
+	font-family:QlassikBoldRegular;
+	font-size:28px;
+	color: #3a3a3a;
+	font-weight: normal;
+}
+
+.right_content .download_button img {
+	float: left;
+	margin: 0 20px 0 0px;
+}
+
+
+#footer_wrapper {
+	clear: both;
+	background-image:url(../img/footer_bground.jpg);
+	background-repeat:repeat-x;
+	min-height:186px;
+	margin-top: 0 auto;
+	}
+	
+#footer_container {
+	margin: 0 auto;
+	width: 960px;
+	}
+	
+#footer_left {
+	float: left;
+	width: 400px;
+	margin-top: 44px;
+	}
+	
+#footer_middle {
+	float: left;
+	width: 170px;
+	margin-top: 44px;
+	color: #8f8d8b;
+	font-size: 12px;
+	font-family:QlassikBoldRegular;
+	text-align:center;
+	}
+
+#footer_right {
+	float: right;
+	width: 300px;
+	text-align:right;
+	margin-top: 44px;
+	}
+	
+#footer_right ul.social li {
+	display: inline;
+	margin: 0 0 0 7px;
+	padding:2px 0 0 0;
+	}
+	
+.social {
+	padding:0;
+	}
+	
+.social img, img.a {
+	padding:2px 0 0 0;
+	}
+	
+.social a:hover {
+	filter: gray;
+	}
+	
+.full_width {
+	margin: 0 auto;
+	width: 960px;
+	padding-bottom:50px;
+	}
+	
+.full_width ul.gallery li {
+	display: inline;
+	margin: 0 17px 0 0;
+	}
+	
+#gallery {
+	padding:20px 0 20px 0;
+	}
+	
+#gallery img, img.a {
+	padding:2px 0 0 0;
+	}
+	
+ul {
+	margin:20px 0 0 0;
+	padding: 0;
+	list-style:none;
+	list-style-position: inside;
+	line-height: 1.8em;
+	list-style-type:disc;
+	}
+	
+li {
+	padding: 0 0 0 0;
+	margin:0;
+	font-family:QlassikBoldRegular;
+	font-size:12px;
+	}
+	
+
+	
+	
+
+/***********************************************************************************************************************
+ STYLES FOR Tipsy Rollovers
+************************************************************************************************************************/
+
+.tipsy { padding: 5px; font-size: 11px; opacity: 1.0; filter: alpha(opacity=100); background-repeat: no-repeat;  background-image: url(../img/tipsy.gif); margin-top: 10px; 	color:#1F242F; font-family: Helvetica, Arial, sans-serif; }
+  .tipsy-inner { padding: 5px 8px 4px 8px; background-color: #0969a6; color: white; max-width: 500px; text-align: center; }
+  .tipsy-inner { -moz-border-radius:3px; -webkit-border-radius:3px; }
+  .tipsy-north { background-position: top center; }
+  .tipsy-south { background-position: bottom center;}
+  .tipsy-east { background-position: right center; }
+  .tipsy-west { background-position: left center; }
+  
+  
+ .pp_nav p {
+	font-family:QlassikBoldRegular;
+	font-size:20px;
+	color: #8d8e92;
+	letter-spacing:-.05em;
+	margin:10px 0 5px 15px;
+	z-index:9999;
+	text-shadow: none;
+	}
+	
+.pp_description {
+	font-family:QlassikBoldRegular;
+	font-size:20px;
+	color: #8d8e92;
+	letter-spacing:-.05em;
+	margin:10px 0 5px 15px;
+	z-index:9999;
+	text-shadow: none;
+	}
+	
+	
+/***********************************************************************************************************************
+ STYLES FOR CONTACT FORM
+************************************************************************************************************************/
+
+.contact_wrapper {
+	float: left;
+	}
+
+.input-submit {
+	background-image: url(../img/subscribe.png);
+	width: 87px;
+	height: 35px;
+	background-repeat:no-repeat;
+	border: none;
+	cursor: pointer;
+	background-color: transparent;
+	line-height:  42px;
+}
+
+input[type=text] {
+ background-color: #E2DCD7;
+ border: none;
+ font-family:QlassikBoldRegular;
+ color: #333333;
+ font-size:14px;
+ width: 150px;
+ padding: 8px;
+  -moz-border-radius: 3px;
+border-radius: 3px;
+float: left;
+margin-right: 10px;
+}
+
+input[type=text]:focus {
+ border: none;
+  -moz-border-radius: 3px;
+border-radius: 3px;
+}
+
+.form_error {
+	border:  1px solid #406a27;
+}
+
+#thanks {
+	border:  1px solid #bcbcbc;
+	width: 400px;
+	padding: 0px 10px 0px 0px;
+	background-color:#f2f3ea;
+	text-align: left;
+}
+
+#contactmessage {
+	clear:both;
+	padding-top: 20px;
+	font-family:QlassikBoldRegular;
+	font-size:20px;
+	color: #ffffff;
+	text-align:left;
+}
+	
