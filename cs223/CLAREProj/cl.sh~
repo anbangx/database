@@ -1,0 +1,3 @@
+#! /bin/sh
+#execute Client
+java -cp ".:./lib/*:./ics/uci/edu/table:./ics/uci/edu/rmi:./lib/httpcore-4.0.1.jar:" ics.uci.edu.rmi.Client

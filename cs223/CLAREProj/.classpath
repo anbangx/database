@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/aws-java-sdk-1.3.33.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/aws-java-sdk-1.3.33-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/aws-java-sdk-1.3.33-sources.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/aws-java-sdk-flow-build-tools-1.3.33.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/commons-logging-1.1.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/commons-logging-1.1.1-sources.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/commons-logging-adapters-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/commons-logging-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/commons-logging-tests.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/fluent-hc-4.2.3.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/httpclient-4.2.3.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/httpclient-cache-4.2.3.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/httpcore-4.2.2.jar"/>
+	<classpathentry kind="lib" path="/home/anbangx/EEE/workspace/CLAREProj/lib/httpmime-4.2.3.jar"/>
+	<classpathentry kind="src" path="/CLAREProject"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
