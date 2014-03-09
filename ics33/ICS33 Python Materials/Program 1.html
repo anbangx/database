@@ -1,0 +1,1092 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Program 1</title>
+</head>
+
+<body bgcolor="white">
+
+<center>
+<h1>Program 1</h1>
+<h1>
+Iteration and Major Data Types:<br>
+List, Tuple, Set, and Dict (and Open for files)
+</h1>
+<p>
+</p><h2>ICS-33: Intermediate Programming<br>
+</h2>
+<p>
+</p></center>
+
+
+<!-- Introduction -->
+
+<a name="Introduction">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Introduction</b></td>
+<td width="80%">
+This programming assignment is designed to ensure that you know how to use
+  combinations of Python's most important data types to model and
+  compactly write code that solves a wide variety of different programming 
+  problems.
+The kind of abstract thinking that goes into modeling solutions to these
+  programming problems with these data types (and iteration over them) is
+  critical to your development as computer scientists.
+<p>
+There are five parts to this assignment (and and extra credit part at the end).
+In each you will be asked to write a module that contains a few functions
+  and a script at the bottom, which ties these functions together to solve
+  the problem.
+</p><p>
+You should download the 
+  <a href="http://www.ics.uci.edu/%7Epattis/ICS-33/assignments/program1/program1.zip">program1</a> project folder and use it to create an
+  Eclipse project.
+You will create each modules in this project, and submit each module
+  separately in Checkmate.
+The project folder contains no modules, but it does contain all the data files
+  you need to test/debug you modules.
+</p><p>
+You should work on this assignment in pairs, with someone in your lab section.
+Try to find someone who lives near you, with similar programming skills,
+  and work habits/schedule: e.g., talk about whether you prefer to work
+  mornings, nights, or weekends; what kind of commitment you will make to submit
+  program early.
+If you believe that it is impossible for you to work with someone, because of
+  some special reason(s), you should send me email stating them and asking for
+  special permission to work alone (which I do grant, but not frequently).
+</p><p>
+<b>Only one student should submit all parts of the the assignment</b>, but both
+  student's names should appear in the comments at the top of
+  <b>each submitted .py</b> file.
+It should look something like
+</p><pre><b>
+# Romeo Montague, Lab 1
+# Juliet Capulet, Lab 1
+# We certify that we worked cooperatively on this programming
+#   assignment, according to the rules for pair programming</b></pre>
+If you do not know what the terms <b>cooperatively</b> and/or
+  <b>rules for pair programming</b> mean, please read about
+  <a href="http://www.ics.uci.edu/%7Epattis/common/handouts/pairprogramming.html">Pair Programming</a> 
+  before starting this assignment.
+Please turn in each program <b>as you finish it</b>, so that I can accurately
+  assess the progress of the class as a whole during this assignment.
+<p>
+Print this document and carefully read it, marking any parts that contain
+  important detailed information that you find (for review before you turn in
+  the files).
+The code you write should be as compact and elegant as possible, using 
+  appropriate Python idioms.
+You should familiarize yourselves with the <b>safe_open</b> function in the
+  <b>goody</b> module and all the functions in the <b>prompt</b> module, both
+  of which you should have installed in your <b>courselib</b> folder as part
+  of the Eclipse/Python installation.
+Recall how to use the <b>sep</b> and <b>end</b> parameters in the <b>print</b>
+  function.
+</p><p>
+</p><p>
+This assignment has 5 parts: pairs should work on each part together.
+Parts 1-3 are going to be worth 14 points each; parts 4-5 are to be worth 9
+  points each.
+This skewing of points towards the simpler parts means students finishing the
+  first 3 parts correctly will have a 70% average; those finishing the first 4 
+  parts correctly will have an 85% average; but to get an A on this 
+  assignment requires solving all parts correctly.
+Remember I'm going to be running MOSS on the parts of this assignment.
+</p><p>
+Finally, reread the section on <b>Time Management</b> from Programming
+  Assignment 0 before starting this assignment.
+</p></td>
+</tr></tbody>
+</table>
+
+
+<!-- Problem 1 -->
+
+</a><a name="problem1">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Problem #1: Reachability</b></td>
+<td width="80%">
+<h3>Problem Summary:</h3>
+<ul>
+<li> Write a script that prompts the user to enter the name of
+  a file representing a graph.
+</li><li>Read the information in the file, storing the graph in a dictionary.
+</li><li>Print the graph.
+</li><li>Repeatedly prompt the user for a starting node in the graph, and compute and
+      print all the nodes that are reachable from it by following edges in the
+      graph.
+</li></ul>
+<h3>Input and Output</h3>
+Read a file of pairs of node names (representing edges) in a directed
+  graph, building a <b>dict</b> whose key is a <b>str</b> source node and whose
+  value is a <b>set</b> of <b>str</b> destination nodes that are each
+  reachable from the source node key.
+We write this informally as <b>dict[str] -&gt; set{str}</b>
+<p>
+Two nodes appear on each line: first the source node, then the destination
+  node, with these node names separated by one semicolon character.
+For example, the input file <b>graph1.txt</b> contains the following
+  lines (which could appear in this order, or any other):
+<b></b></p><pre><b>  c;f
+  b;d
+  a;c
+  c;e
+  d;g
+  a;b
+  e;d
+  f;g
+  f;d</b></pre>
+which represent the graph
+<p>
+<img src="Program%201_files/graph.gif">
+</p><p>
+Print the graph, one source node per line (the source nodes are printed
+  alphabetically) followed by the set of all the destination nodes that the
+  source can immediately reach.
+The graph above would print as
+<b></b></p><pre><b>  Graph: source -&gt; {destination} edges
+     a -&gt; {'c', 'b'}
+     b -&gt; {'d'}
+     c -&gt; {'f', 'e'}
+     d -&gt; {'g'}
+     e -&gt; {'d'}
+     f -&gt; {'g', 'd'}</b></pre>
+<p>
+Note that the source nodes are <b>sorted</b> alphabetically, but the <b>set</b>
+   of desintation nodes does <b>not have to be sorted</b>:
+  in fact it makes no sense to talk about sorted <b>sets</b>; we could talk
+  about a sorted <b>list</b> whose contents came from a <b>set</b>.
+Note that because node <b>g</b> is not a source node (it is only a
+  destination node), it does not appear first on any line (and appears only
+  in the <b>sets</b> for source nodes <b>d</b> and <b>f</b>.
+</p><p>
+Note that there are multiple data files for this program: <b>graph1.txt</b>,
+  <b>graph2.txt</b> and <b>graph3.txt</b>; test/debug your program on 
+  the first file; when you are done, test it on the last two.
+Draw the graph represented by each for to ensure that your code correctly
+  prints it and computes the nodes reachable from any source node (which you
+  can do by eyeballing the graphs: they are small).
+</p><p>
+Repeatedly prompt the user for a starting node in the graph (until <b>quit</b>
+  is entered) and compute and print all the nodes that are reachable from it by
+  following edges in the graph.
+Reject any node not present in the graph.
+An example interaction (processing the graph above) might be
+<b></b></p><pre><b>  Enter starting node: e
+  From e the reachable nodes are {'g', 'e', 'd'}
+
+  Enter starting node: a
+  From a the reachable nodes are {'g', 'f', 'e', 'd', 'c', 'b', 'a'}
+
+  Enter starting node: quit</b></pre>
+<h3>Functions and Script</h3>
+<ul>
+<li><b>read_graph</b> has an open (file) parameter; it returns the <b>dict</b>
+     representing the graph
+    (mine is 9 lines).
+</li><li><b>print_graph</b> has a <b>dict</b> parameter (representing the graph); it
+    returns nothing, but it prints the graph in the appropriate form
+     (mine is 4 lines).
+</li><li><b>reachable</b> has a <b>dict</b> parameter (representing the graph) and
+    a <b>str</b> start node in the graph (technically a key in the <b>dict</b>;
+    it returns a <b>set</b> of all the nodes reachable from it by following
+    edges in the graph
+   (mine is 9 lines).
+</li><li>Write a script at the bottom of this module that calls these functions
+   to solve the problem
+   (mine is 7 lines).
+<p>
+I am supplying these number of lines not as requirements, but ballpark estimate
+  of the amount of code you should write.
+</p><p>
+Here is the basic algorithm for computing reachability; it is simple to explain
+  and not (very) complicated to implement.
+But, you have to understand these instructions and carefully translate them into
+  Python.
+You should hand-simulate this algorithm using the graph above, and verify that
+  it produces the results you expect before coding it.
+You might be tempted to use recursion, but please don't: unless recursion is
+  done very carefully, it will run forever on graphs with cycles: one of the
+  input files is a graph with cycles.
+</p><ol>
+<li>To compute all the reachable nodes in a graph, create a <b>set</b>
+   (initially empty) of reached nodes and a <b>list</b> (initially containing
+   the  parameter start node) of nodes that we are going to explore (to find
+   nodes they can reach).
+<p>
+</p></li><li>While the <b>exploring list</b> still has nodes, remove the first one
+    (recall the <b>pop</b> method for lists) and put it into the
+    <b>reached set</b>; for all its destination nodes that are not
+   already in the <b>reached set</b>, put them in the <b>exploring list</b>.
+<p>
+</p></li><li>When the <b>exploring list</b> becomes empty (can you argue that this always
+    will happen -there is no infinite looping), return the <b>reached set</b>.
+</li></ol>
+<p>
+Print the set containing all these node labels.
+When debugging this algorith, print the <b>set</b> and <b>list</b> after every
+  interesting change, or use the debugger to see how these change.
+</p></li></ul>
+<h3>Sample Interaction</h3>
+The program, as specified, will have the following interaction:
+  user-typed information appears in <i>italics</i>.
+Your output should "match" this one (sets will match if they have the same
+  contents, independent of their order).
+You should also check that it works for other starting nodes, and
+  a variety of starting nodes in the other graphs.
+
+<b><pre>  Enter file with graph: <i>graph1.txt</i>
+
+  Graph: source -&gt; {destination} edges
+    a -&gt; {'c', 'b'}
+    b -&gt; {'d'}
+    c -&gt; {'f', 'e'}
+    d -&gt; {'g'}
+    e -&gt; {'d'}
+    f -&gt; {'g', 'd'}
+
+  Enter starting node: <i>e</i>
+  From e the reachable nodes are {'g', 'e', 'd'}
+
+  Enter starting node: x
+    Entry Error: 'x';  Not a source node
+    Please enter a legal String
+
+  Enter starting node: <i>a</i>
+  From a the reachable nodes are {'g', 'f', 'e', 'd', 'c', 'b', 'a'}
+
+  Enter starting node: quit</pre></b>
+</td>
+</tr></tbody>
+</table>
+
+
+<!-- Problem #2 -->
+
+</a><a name="problem6">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Problem #2: Instant Runoff Voting</b></td>
+<td width="80%">
+<h3>Problem Summary:</h3>
+<ul>
+<li> Write a script that prompts the user to enter the name of
+       a file representing the preference of a sequence of voters.
+</li><li>Read the information in the file, storing it in a dictionary.
+</li><li>Print the voter preference.
+</li><li>Repeatedly display the vote count for ballots (sorted both by candidate
+      and numerically), eliminating from the election the candidate receiving
+      the fewest votes, until one candidate (the winner) or no candidates
+      (a tie) remain.
+</li></ul>
+This form of election is known as <b>instant runoff voting</b>.
+Every voter submits a ballot that ranks all the candidates the election, from
+  from most favorite candidate to least favorite (we will use a <b>list</b>
+  for this purpose: earlier in the list means more favored).
+During the first ballot, votes are counted for each of the candidates according
+  to the rankings of the voters.
+Then the candidate(s) with the fewest number of votes are removed from the
+  election: if more than one candidate receives the least number of votes, they
+  all are removed from the election.
+During the second ballot, votes are tallied for the <b>remaining candidates</b>
+  (there are at least 1 fewer candidates); if a voter's first ranked candidate
+  is not still in the  election, then his/her second ranked candidate should
+  receive the vote; but if his/her second ranked cnadidate has been removed
+  from the election, then his/her third ranked candidate should receive the
+  vote ...).
+This ballot process continues until either 1 candidate remains, or 0 candidates
+  remain (meaning that all the remaining candidates tallied the same number
+  of votes).
+<h3>Input and Output</h3>
+Read a file of voters and their ranking of the candidates, separated
+  by semicolons, building a <b>dict</b> whose key is each voter and whose
+  value is a list of candidates ranked by that voter (they appear in the
+  file in order, from most favorite to least favorit)
+We write this informally as <b>dict[str] -&gt; list[str]</b>.
+<p>
+
+For example, the input file <b>votepref1.txt</b> contains the following
+  lines (which could appear in this order, or any other):
+<b></b></p><pre><b>  A;X;Y;Z
+  B;Y;Z;X
+  C;Y;Z;X
+  D;Z;Y;X
+  E;Z;Y;X</b></pre>
+The first line means, voter <b>A</b> ranks candidate <b>X</b> first,
+  candidate <b>Y</b> second, and candidate <b>Z</b> third.
+The second line means, voter <b>B</b> ranks candidate <b>Y</b> first,
+  candidate <b>Z</b> second, and candidate <b>X</b> third.
+Each line will have a unique voter and a permutation of all the 
+  candidates running.
+<p>
+Print all the associations in this <b>dict</b>, one per line (the voters are
+  printed alphabetically) using the following form.
+Each line contains the voter and his/her complete ranking of the candidates.
+For example, the file above would produce:
+<b></b></p><pre><b>  Voter Preferences
+     A  -&gt;  ['X', 'Y', 'Z']
+     B  -&gt;  ['Y', 'Z', 'X']
+     C  -&gt;  ['Y', 'Z', 'X']
+     D  -&gt;  ['Z', 'Y', 'X']
+     E  -&gt;  ['Z', 'Y', 'X']</b></pre>
+<p>
+Note that the voter names are <b>sorted</b> alphabetically, but the <b>list</b>
+  of preference appear the same order they appeared in the file.
+There are multiple data files for this program: <b>votepref1.txt</b>, 
+  <b>votepref2.txt</b> and <b>votepref3.txt</b>; test/debug your program on the
+  first file; when you are done, test it on the rest.
+</p><p>
+Start with all the candidates.
+Evaluate the ballot to determine how many votes each candidate received.
+Print this vote count two ways: sorted alphabetically and sorted numerically
+  (in decreasing order).
+Remove the candidate(s) receiving the fewest votes, and repeat this process
+  until only one or no candidates remain.
+Finally, print the outcome of the election: a single candidate winner or a tie.
+An example interaction (processing the graph above) might be
+<b></b></p><pre><b>  Vote count on ballot #1 with candidates (alphabetically) = {'X', 'Y', 'Z'}
+    X  -&gt;  1
+    Y  -&gt;  2
+    Z  -&gt;  2
+
+  Vote count on ballot #1 with candidates (numerical) = {'Y', 'X', 'Z'}
+    Y  -&gt;  2
+    Z  -&gt;  2
+    X  -&gt;  1
+
+  Vote count on ballot #2 with candidates (alphabetically) = {'Y', 'Z'}
+    Y  -&gt;  3
+    Z  -&gt;  2
+
+  Vote count on ballot #2 with candidates (numerical) = {'Y', 'Z'}
+    Y  -&gt;  3
+    Z  -&gt;  2
+
+  Winner is  {'Y'}</b></pre>
+The first ballot consisted of all three candidates, <b>X</b>, <b>Y</b>, 
+  and <b>Z</b>.
+For this ballot, the votes were counted and printed; candidate <b>X</b>
+  received the fewest number of votes so is eliminated from the next ballot.
+The second ballot consisted of two candidates, <b>Y</b> and <b>Z</b>.
+For this ballot, the votes were counted and printed; candidate <b>Z</b>
+  received the fewest number of votes so is eliminated from the next ballot.
+There is only one candidate remaining so <b>Y</b> is declared the winner.
+An alternative outcome might be
+<b>No winner: election is a tie among candidate remaining on the last ballot</b>
+<h3>Functions and Script</h3>
+<ul>
+<li><b>print_dict</b> has a <b>str</b> title, any kind of <b>dict</b>, a
+      <b>function</b>(default <b>None</b>) and <b>bool</b> (default
+      <b>False</b>)as parameters and returns nothing; but it
+      prints the title followed by the dictionary in the appropriate form and
+      order (specified  by the function and <b>bool</b>).
+    The function determines the ordering and the <b>bool</b> determines whether
+      to reverse it: like the <b>key</b> and <b>reverse</b> parameters used to
+      sort in Python.
+    This function is used to print both the voter preference <b>dict</b> and
+      the vote count <b>dict</b> for each ballot
+     (mine is 4 lines).
+</li><li><b>read_voter_preferences</b> has an open (file) parameter; it returns the
+       <b>dict</b> representing each voter and his/her preferences: 
+       <b>dict[str] -&gt; list[str]</b>
+      (mine is 6 lines).
+</li><li><b>evaluate_ballot</b> has a <b>dict</b> of voter preference 
+         (<b>dict[str] -&gt; list[str]</b> read above) and a
+         <b>set</b> of the remaining candidates as parameters; it returns
+         a dictionary whose keys are these candidates and whose values are the
+         number of votes they received on this ballot, based on the description
+         of <b>instant runnoff voting</b>:
+         <b>dict[str] -&gt; int</b>.
+       Remember to count only one vote per voter, for his/her highest ranked
+         candidate stil in the election
+      (mine is 8 lines).
+</li><li><b>remaining_candidates</b> has a <b>dict</b> as a parameter whose keys are
+          candidates and whose values are the number of votes they received
+          (<b>dict[str] -&gt; int</b>); it returns a set containing all those
+          candidates remaining in the election (the one(s) receiving the
+          fewest number of votes are absent).
+       Note that if all the candidates receive the same number of votes, then
+         this function returns an empty <b>set</b>.
+       (mine is 3 lines).
+</li><li>Write a script at the bottom of this module the calls these functions
+   to solve the problem
+   (mine is 13 lines).
+</li></ul>
+<h3>Sample Interaction</h3>
+The program, as specified, will have the following interaction:
+  user-typed information appears in <i>italics</i>.
+Your output should match this one.
+<pre><b>  Enter file with voter preferences: <i>votepref1.txt</i>
+
+  Voter Preferences
+    A  -&gt;  ['X', 'Y', 'Z']
+    B  -&gt;  ['Y', 'Z', 'X']
+    C  -&gt;  ['Y', 'Z', 'X']
+    D  -&gt;  ['Z', 'Y', 'X']
+    E  -&gt;  ['Z', 'Y', 'X']
+  
+  Vote count on ballot #1 with candidates (alphabetically) = {'Z', 'Y', 'X'}
+    X  -&gt;  1
+    Y  -&gt;  2
+    Z  -&gt;  2
+
+  Vote count on ballot #1 with candidates (numerical) = {'Y', 'X', 'Z'}
+    Y  -&gt;  2
+    Z  -&gt;  2
+    X  -&gt;  1
+
+  Vote count on ballot #2 with candidates (alphabetically) = {'Y', 'Z'}
+    Y  -&gt;  3
+    Z  -&gt;  2
+
+  Vote count on ballot #2 with candidates (numerical) = {'Y', 'Z'}
+    Y  -&gt;  3
+    Z  -&gt;  2
+
+  Winner is  {'Y'}</b></pre>
+<p>
+You can also try processing the <b>votepref2.txt</b> file (which leads to
+  a <b>No winner</b> result) and <b>votepref3.text</b>.
+</p></td>
+</tr></tbody>
+</table>
+
+
+
+<!-- Problem 3 -->
+
+</a><a name="problem3">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Problem #3: Finite Automata</b></td>
+<td width="80%">
+<h3>Problem Summary:</h3>
+<ul>
+<li> Write a script that prompts the user to enter the name of
+       a file representing a finite automaton: indicating its <b>states</b> and
+       input-&gt;state <b>transitions</b>.
+</li><li>Read the information in the file, storing it in a dictionary.
+</li><li>Print the finite automaton.
+</li><li>Prompt the user for to enter the name of a file storing the start-state
+      and inputs to process (each line in the file contains this combination).
+</li><li>Repeatedly process these lines computing the results of the finite
+      automaton on each input, and then display the results.
+</li></ul>
+A <b>finite  automaton</b> (FA) is an machine that is sometimes called
+  Deterministic Finite Automaton (DFA).
+An FA is described by its <b>states</b> and its <b>transitions</b>:
+  each <b>transition</b> for a <b>state</b> specifies an <b>input</b> and what
+  <b>state</b> in the FA that input leads to.
+We can illustrate a FA as a graph with labelled edges (see below).
+<p>
+
+</p><h3>Input and Output</h3>
+Read a file that describes a FA: each line contains a state and an
+  arbitrary number of input-&gt;state <b>transitions</b>.
+Build a <b>dict</b> such that each keys is a <b>str</b> state and whose
+   values is another <b>dict</b> specifying of the transitions from that state:
+   this second <b>dict</b> has keys that are <b>str</b> inputs and 
+   values are <b>str</b> states.
+The first token on each line is the <b>str</b> state and the remaining tokens
+  (always coming in pairs) are <b>str</b> inputs and states.
+All tokens are separated by one semicolon character.
+We write this informally as
+  <b>dict[str] -&gt; (dict[str] -&gt; str)</b>.
+<p>
+
+For example, the input file <b>faparity.txt</b> contains the following lines
+  (which could appear in this order, or any other):
+<b></b></p><pre><b>  even;0;even;1;odd
+  odd;0;odd;1;even</b></pre>
+Here is a picture of the <b>parity</b> FA.
+It graphically illustrates the two <b>states</b> (<b>even</b> and <b>odd</b>)
+  and their <b>transitions</b>, using <b>inputs</b> (<b>0</b> and <b>1</b>)
+  that always lead back to one of these two states.
+<p>
+
+<img src="Program%201_files/parity.jpg">
+</p><p>
+
+Here, the state <b>even</b> (meaning it has seen an even number of <b>1</b>
+  inputs so far) is a key in the main <b>dict</b>.
+It's value is a <b>dict</b> with two key/value pairs <b>0</b>/<b>even</b>
+  and <b>1</b>/<b>odd</b>.
+It means that in the <b>even</b> state, if the input is a <b>0</b> the
+  FA stays in the <b>even</b> state; if the input is a <b>1</b> the
+  FA goes to the <b>odd</b> state.
+And similarly (the next line) means that for the <b>odd</b> state, if the input
+  is a <b>0</b> the FA stays in the <b>odd</b> state; if the input is a
+  <b>1</b> the FA goes back to the <b>even</b> state.
+So, seeing an input of <b>0</b> keeps the FA in the same state;
+  seeing an input of <b>1</b> flips the FA into the other state.
+</p><p>
+
+Print the finite automaton, one state (and its transitions) per line;
+  the states are printed alphabetically and the transition <b>dict</b>
+  for each state is printed as a list of input/state items (tuples) such that
+  these are printed alphabetically by the inputs.
+</p><p>
+For example, the file above would produce:
+<b></b></p><pre><b>  Finite Automaton Description
+    even transitions: [('0', 'even'), ('1', 'odd')]
+    odd transitions: [('0', 'odd'), ('1', 'even')]</b></pre>
+<p>
+Note that there are multiple data files for this program: <b>faparity.txt</b>
+  and <b>fadivisibleby3.txt</b>; test/debug your program on 
+  the first file; when you are done, test it on the last file.
+Draw the FA represented by each for to ensure that your code correctly
+  prints and computes with it.
+</p><p>
+Repeatedly process lines from a second input file, computing the results of the
+  finite automaton for a start-state and its inputs; then print out all the
+  results in a special form.
+Each line in the file contains a start-state followed by a sequence of inputs.
+The start-state will be a state in the FA (is a key in the outer <b>dictdict</b>).
+</p><p>
+For example, the input file <b>fainputparity.txt</b> contains the following
+  three lines:
+<b></b></p><pre><b>  even;1;0;1;1;0;1
+  odd;1;0;1;1;0;1
+  even;1;0;1;1;0;x</b></pre>
+For example, the first line means, the start-state is <b>even</b> and the
+  inputs are <b>1</b>, <b>0</b>, <b>1</b>, <b>1</b>, <b>0</b>, and <b>1</b>.
+<p>
+The result of processing each line is to print the start-state, and then each
+  input and the new state it transitions to, and finally print the stop-state.
+For the <b>parity</b> FA and the first line in this file, it should print
+<b></b></p><pre><b>Start state = even
+  input = 1; new state = odd
+  input = 0; new state = odd
+  input = 1; new state = even
+  input = 1; new state = odd
+  input = 0; new state = odd
+  input = 1; new state = even
+Stop state = even</b></pre>
+<p>
+
+</p><h3>Functions and Script</h3>
+<ul>
+<li><b>read_fa</b> has an open (file) parameter; it returns the <b>dict</b>
+     representing the finite automaton; <b>hint</b>: I used splicing and the
+     <b>zip</b> function to build the inner <b>dict</b>s.
+     (mine is 6 lines).
+</li><li><b>print_fa</b> has a <b>dict</b> parameter (representing the fa); it
+    returns nothing,  but it prints the fa in the appropriate form
+     (mine is 4 lines).
+</li><li><b>process</b> has a <b>dict</b> parameter (representing the fa),
+    a <b>str</b> parameter (representing the start-state), and a <b>list</b>
+    parameter (representing a list of <b>str</b> inputs); it returns a
+    <b>list</b> that contains the start-state followed by <b>tuples</b> that
+    show the input and resulting state after each transition.
+    For the example shown above, <b>process</b> returns the following
+    <b>list</b>.
+<b><pre>['even', ('1', 'odd'), ('0', 'odd'), ('1', 'even'), ('1', 'odd'), ('0', 'odd'), ('1', 'even')]</pre></b>
+    Finally, if an input is illegal (is not the key in some transition for the
+    current state), say
+    <b>'x'</b>, then <b>process</b> should terminate with the last
+    <b>tuple</b> in the <b>list</b> indicating a problem: <b>('x', None)</b>
+   (mine is 10 lines).
+</li><li><b>interpret</b> has a <b>list</b> parameter (the result produced by
+    <b>process</b>; it returns nothing, but it prints the results of processing
+    a fa on an input.
+    See how it prints the <b>list</b> shown above in the output further above.
+    Also see the <b>Sample Interaction</b> below to see how it prints
+    <i>input errors</i> (in the last example)
+   (mine is 9 lines).
+</li><li>Write a script at the bottom of this module that calls these functions
+      to solve the problem.
+    Note that the script loops over the lines in the second file
+   (mine is 7 lines).
+</li></ul>
+<p>
+
+</p><h3>Sample Interaction</h3>
+The program, as specified, will have the following interaction:
+  user-typed information appears in <i>italics</i>.
+Your output should match this one.
+<b></b><pre><b>  Enter file with finite automaton: faparity.txt
+
+  Finite Automaton
+    even transitions: [('0', 'even'), ('1', 'odd')]
+    odd transitions: [('0', 'odd'), ('1', 'even')]
+
+  Enter file with start-state and input: fainputparity.txt
+  
+  Starting new simulation
+  Start state = even
+    Input = 1; new state = odd
+    Input = 0; new state = odd
+    Input = 1; new state = even
+    Input = 1; new state = odd
+    Input = 0; new state = odd
+    Input = 1; new state = even
+  Stop state = even
+  
+  Starting new simulation
+  Start state = odd
+    Input = 1; new state = even
+    Input = 0; new state = even
+    Input = 1; new state = odd
+    Input = 1; new state = even
+    Input = 0; new state = even
+    Input = 1; new state = odd
+  Stop state = odd
+  
+  Starting new simulation
+  Start state = even
+    Input = 1; new state = odd
+    Input = 0; new state = odd
+    Input = 1; new state = even
+    Input = 1; new state = odd
+    Input = 0; new state = odd
+    Input = x; illegal input; terminated
+  Stop state = None</b></pre>
+<p>
+You can also try the <b>fadivisibleby3.txt</b> finite automaton file, which
+  determines whether an integer (sequence of digits) is divisible by 3: it is
+  if the  finite automaton stops in state <b>rem0</b>.
+Its input files are <b>fainput1divisibleby3.txt</b> (which represents the 
+  number <b>12,435,711</b>, which is divisible by 3)
+  and <b>fainput2divisibleby3.txt</b> (which represents the number <b>823</b>,
+  which is not divisible by 3).
+</p></td>
+</tr></tbody>
+</table>
+
+
+<!-- Problem 4 -->
+
+</a><a name="problem4">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Problem #4: Non-Deterministic FA</b></td>
+<td width="80%">
+<h3>Problem Summary:</h3>
+<li> Write functions and a script that solve for a Non-Deterministic Finite
+       Automaton the same problem that was solved for a Deterministic Finite
+       Automaton in Problem #3 (above).
+<p>
+A non-deterministic finite automaton (NDFA) is machine described by its
+  <b>states</b> and its <b>transitions</b>:
+  each <b>transition</b> for a <b>state</b> specifies an <b>input</b> and what
+  <b>state</b> (or <b>states</b>: that what makes it non-deterministic) that
+  input leads to.
+We can illustrate a NDFA as a graph with labelled edges (see below).
+The critical difference is that a NDFA can have multiple edges with the same
+  label going to different states (we'll see how to handle such transitions
+  below).
+</p><p>
+
+</p><h3>Input and Output</h3>
+Read a file that describes a NDFA: each line contains a state and an
+  arbitrary number of input-&gt;state <b>transitions</b>.
+Build a <b>dict</b> such that each keys is a <b>str</b> state and whose
+   values is another <b>dict</b> specifying of the transitions from that state:
+   this second <b>dict</b> has keys that are <b>str</b> inputs and 
+   values are <b>sets</b> of <b>str</b> states: all the states a particular
+   input can lead to.
+The first token on each line is the <b>str</b> state and the remaining tokens
+  (always coming in pairs) are <b>str</b> inputs and states.
+All tokens are separated by one semicolon character.
+We write this informally as
+  <b>dict[str] -&gt; (dict[str] -&gt; set{str})</b>.
+<p>
+
+For example, the input file <b>ndfaendin01.txt</b> contains the following lines
+  (which could appear in this order, or any other):
+<b></b></p><pre><b>  start;0;start;1;start;0;near
+  near;1;end
+  end</b></pre>
+Here is a picture of the <b>endin01</b> NDFA.
+It graphically illustrates the three <b>states</b> (<b>start</b>, <b>near</b>,
+  and <b>end</b>) and their <b>transitions</b>, using <b>inputs</b> (<b>0</b>
+  and <b>1</b>).
+<p>
+
+<img src="Program%201_files/endin01.jpg">
+</p><p>
+
+Here, the state <b>start</b> is a key in the main <b>dict</b>.
+It's value is a <b>dict</b> with two key/value pairs <b>0</b> mapping to the
+  <b>set</b> containing <b>start</b> and <b>near</b> and <b>1</b> mapping to
+  the <b>set</b> containing just <b>start</b>.
+It means that in the <b>start</b> state, if the input is a <b>0</b> the
+  NDFA can stay in the <b>start</b> state or it can go to the <b>near</b>
+  state; if the input is a <b>1</b> the NSFA must stay in the <b>start</b>
+  state.
+And similarly the next line means that in the <b>near</b> state, if the
+  input is a <b>1</b> the NDFA must go into the <b>end</b> state.
+The last line means that the <b>end</b> state has no transitions out of it.
+</p><p>
+
+Print the ndfa, one state (and its transitions) per line;
+  the states are printed alphabetically and the transition <b>dict</b>
+  for each state is printed as a list of input/set of state items (tuples)
+  such that these are printed alphabetically by the inputs.
+Note that the state <b>end</b> is a key in the main <b>dict</b>, whose
+  associated transitions are an empty <b>dict</b>
+</p><p>
+
+For example, the file above would produce:
+<b></b></p><pre><b>  Non-Deterministic Finite Automaton
+    end transitions: []
+    near transitions: [('1', {'end'})]
+    start transitions: [('0', {'near', 'start'}), ('1', {'start'})]</b></pre>
+<p>
+Note that there is only one pair of data files for this program.
+</p><p>
+Repeatedly process lines from a second input file, computing the results of the
+  non-determinisitc finite automaton for a start-state and its inputs; then
+  print out all the results in a special form.
+Each line in the file contains a start-state followed by a sequence of inputs.
+The start-state will be a state in the FA (is a key in the outer <b>dictdict</b>).
+</p><p>
+For example, the input file <b>ndfainputendin01.txt</b> contains the following
+  two lines:
+<b></b></p><pre><b>  start;1;0;1;1;0;1
+  start;1;0;1;1;0;0</b></pre>
+For example, the first line means, the start-state is <b>start</b> and the
+  inputs <b>1</b>, <b>0</b>, <b>1</b>, <b>1</b>, <b>0</b>, and <b>1</b>.
+<p>
+
+
+The result of processing each line is to print the start-state, and then each
+  input and the new states (plural) it could transition to (the <b>could</b>
+  is what makes it non-deterministic), and finally print the stop-states.
+For the <b>ndfaendin01</b> NDFA and the first line in this file, it should print
+<b></b></p><pre><b>  Start state = start
+    Input = 1; new possible states = {'start'}
+    Input = 0; new possible states = {'near', 'start'}
+    Input = 1; new possible states = {'end', 'start'}
+    Input = 1; new possible states = {'start'}
+    Input = 0; new possible states = {'near', 'start'}
+    Input = 1; new possible states = {'end', 'start'}
+  Stop state(s) = {'end', 'start'}</b></pre>
+<p>
+
+Note especially that in the <b>start</b> state, if the input is a <b>0</b>,
+  then the NDFA can either remain in the <b>start</b> state or go into the
+  <b>near</b> state.
+For this program, we keep track of all states that the NDFA can be in,
+  using a <b>set</b> of <b>new possible states</b>.
+For the next input, <b>1</b>, we can be either in the <b>start</b> state
+  (from the <b>start</b> state, an input of <b>1</b> allows us to stay in the
+  <b>start</b> state) or the <b>end</b> state (from the <b>near</b> state, an
+  input of <b>1</b> allows us to transition to the <b>end</b> state).
+Thus, we keep track of the <b>set</b> of states the NDFA can be in, and the
+  new <b>set</b> of states the NDFA can be in after processing the next input.
+In this example, because <b>'end'</b> is included in the stop-states, this
+  input does end in <b>01</b>.
+</p><p>
+</p><h3>Functions and Script</h3>
+<ul>
+<li><b>read_ndfa</b> has an open (file) parameter; it returns the <b>dict</b>
+     representing the non-deterministic finite automaton; <b>hint</b>: I used
+     splicing and the <b>zip</b> function to build the inner <b>dict</b>s, and
+     I called the <b>setdefault</b> function for the inner <b>dict</b>
+    (alternatively I could have built them as <b>defaultdict</b>s: see the
+     standard  <b>collections</b> module)
+    (mine is 9 lines).
+</li><li><b>print_ndfa</b> has a <b>dict</b> parameter (representing the ndfa); it
+    returns nothing,  but it prints the ndfa in the appropriate form
+     (mine is 4 lines).
+</li><li><b>process</b> has a <b>dict</b> parameter (representing the ndfa),
+    a <b>str</b> parameter (representing the start-state), and a <b>list</b>
+    parameter (representing a list of <b>str</b> inputs); it returns a
+    <b>list</b> that contains the start-state followed by <b>tuples</b> that
+    show the input and resulting st of states after each transition.
+    For the example shown above, <b>process</b> returns the following
+    <b>list</b>.
+<b><pre>  ['start', ('1', {'start'}), ('0', {'start', 'near'}), ('1', {'start', 'end'}), ('1', {'start'}),
+    ('0', {'start', 'near'}), ('1', {'start', 'end'})]</pre></b>
+    Finally, if an input is illegal (is not the key in some transition for the
+    current state), just ignore it
+   (mine is 11 lines; 7 using a double-comprehension).
+    
+</li><li><b>interpret</b> has a <b>list</b> parameter (the result produced by
+    <b>process</b>; it returns nothing, but it prints the results of processing
+    a ndfa on an input.
+    See how it prints the <b>list</b> shown above in the output further above
+   (mine is 5 lines).
+</li><li>Write a script at the bottom of this module that calls these functions
+      to solve the problem.
+    Note that the script loops over the lines in the second file
+   (mine is 7 lines).
+</li></ul>
+<p>
+
+</p><h3>Sample Interaction</h3>
+The program, as specified, will have the following interaction:
+  user-typed information appears in <i>italics</i>.
+Your output should "match" this one (recall the order of values in sets is
+  not important).
+<b><pre>  Enter file with non-deterministic finite automaton: <i>ndfaendin01.txt</i>
+
+  Non-Deterministic Finite Automaton
+    end transitions: []
+    near transitions: [('1', {'end'})]
+    start transitions: [('0', {'near', 'start'}), ('1', {'start'})]
+
+  Enter file with start-state and input: ndfainputendin01.txt
+
+  Starting new simulation
+  Start state = start
+    Input = 1; new possible states = {'start'}
+    Input = 0; new possible states = {'near', 'start'}
+    Input = 1; new possible states = {'end', 'start'}
+    Input = 1; new possible states = {'start'}
+    Input = 0; new possible states = {'near', 'start'}
+    Input = 1; new possible states = {'end', 'start'}
+  Stop state(s) = {'end', 'start'}
+  
+  Starting new simulation
+  Start state = start
+    Input = 1; new possible states = {'start'}
+    Input = 0; new possible states = {'near', 'start'}
+    Input = 1; new possible states = {'end', 'start'}
+    Input = 1; new possible states = {'start'}
+    Input = 0; new possible states = {'near', 'start'}
+    Input = 0; new possible states = {'near', 'start'}
+  Stop state(s) = {'near', 'start'}</pre></b>
+<p>
+In Week #2 of this course we will cover EBNF and regular expressions, which
+  relate to the files below.
+You can run these files on your code to ensure they produce the correct results.
+</p><p>
+The <b>ndfatrain.txt</b> file is a non-deterministic finite automaton
+  that determines whether an train (sequence of characters representing
+  different kinds of cars) is a legal train according to Chapter Exercise #7
+  in the ENBF lecture.
+Its input files are <b>ndfainput1train.txt</b> (which represents a legal train:
+  end in the state <b>done</b>) and <b>ndfainput2train.txt</b> (which
+  represents an illegal train).
+</p><p>
+The <b>ndfare.txt</b> file is a non-deterministic finite automaton translation
+  of the regular expression <b>((a*|b)cd)+</b>. 
+Its input files are <b>ndfainput1re.txt</b> (which matches: ends with
+  <b>last</b> as one possible state) and <b>ndfainput2re.txt</b> (which doesn't
+  match).
+</p></li></td>
+</tr></tbody>
+</table>
+  
+
+
+<!-- Problem #5 -->
+
+</a><a name="problem5">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Problem #5: Word Generator</b></td>
+<td width="80%">
+<h3>Problem Summary:</h3>
+<ul>
+<li> Write a script that prompts the user to enter the <b>order statistic</b>
+  (a positive number) and the name of a file of text.
+</li><li>Read the file of text, storing a special <b>corpus</b> dictionary.
+</li><li>Print the corpus dictionary.
+</li><li>Prompt the user to enter the orderstatistic number of words, and the number
+      of words to generate, then print a list of that many words randomly
+      generated from the corpus.
+</li></ul>
+Your program will "learn" the word pattern of an author (based on some
+  "order statistic" and reading a large sample of the author's writing) and
+  then generate random text following the author's word patterns.
+<p>
+</p><h3>Input and Output</h3>
+After prompting for the order statistic, read a file of words, building a
+  <b>dict</b> storing data described as:
+  <b>dict[tuple[str<sup>n</sup>]] -&gt; list[str]</b>.
+Here the <b>dict</b>'s keys are <b>tuple</b>s of <b>n</b> words (<b>n</b>
+  is the order statistic) and each key's value is a <b>list</b> of all the
+  words in the text that follow these words:
+  e.g., if <b>n</b> were <b>2</b>, the <b>dict</b> would contain a key for every
+  pair of words appearing next to each other in the text, and a value that is a
+  <b>list</b> of all the words following this key (no matter where the pair
+  occurs, with NO DUPLICATES allowed in  the values list).
+<p>
+The easiest way to read the words one at a time is to use an iterator over the
+  result returned by the function <b>goody.read_file_values</b>, which is
+  passed an <b>open</b> object to read from.
+Build the <b>dict</b> by "prereading" <b>n</b> words (by calling <b>next</b>) 
+  into a list (assume that this is always possible; how might it not be?); then
+  read the next word and put it in as a value associated with the <b>list</b> of
+  pre-read words; then, drop the oldest word in the <b>list</b>, and add this
+  next word to the end of the list (always keeping the list length at
+  <b>n</b>); read the next word, and repeat the process for this word,
+  continuing until there are no words to read.
+You can use a normal for iterator over the values remaining.
+Remember to convert this <b>list</b> to a <b>tuple</b> before using it as a key
+  in the <b>dict</b>.
+</p><p>
+For a simple example, the file <b>wginput1.txt</b> contains the following
+  lines (it could have all this information on one line or more lines):
+<b></b></p><pre><b>  a b c b a d c b a d
+  c a a b a a d</b></pre>
+  
+<p>
+Print all the associations in the <b>dict</b>, one per line in standard lexical
+  order; after printing all associations, print the length of the smallest and 
+ largest <b>list</b> that is a value in the <b>dict</b>.
+Each line contains an <b>n</b> word <b>tuple</b>, followed by the <b>list</b>
+   of unique words that follow them in the text.
+In standard lexical order, the keys appear in order relative to the first word 
+  in the <b>tuple</b>; for all first words that are the same, they appear in
+  order relative to the second word in the <b>tuple</b>; for all first and
+  second words that are the same, they appear in order relative to the thrid
+  word in the <b>tuple</b>; etc. (see the example below).
+</p><p>
+For example, the file above would produce:
+<b></b></p><pre><b>  Corpus
+    ('a', 'a') can be followed by any of ['b', 'd']
+    ('a', 'b') can be followed by any of ['c', 'a']
+    ('a', 'd') can be followed by any of ['c']
+    ('b', 'a') can be followed by any of ['d', 'a']
+    ('b', 'c') can be followed by any of ['b']
+    ('c', 'a') can be followed by any of ['a']
+    ('c', 'b') can be followed by any of ['a']
+    ('d', 'c') can be followed by any of ['b', 'a']
+  min/max = 1/2</b></pre>
+<p>
+For example, <b>('a','d')</b> appears three times in the text above, twice
+  followed by <b>'c'</b> and once followed by nothing (at the end of the file);
+  <b>('a','b')</b> appears twince in the file above, first followed by
+  <b>'c'</b> and second followed by <b>'a'</b>.
+</p><p>
+
+Prompt the user for the words to start with (there are order statistic number
+  of them) and the number of random words after that to generate.
+Produce the list of words and print it. 
+</p><p>
+A random 10 word list, after the words <b>a</b> and <b>d</b> might
+  print as
+</p><pre><b>    Random text = ['a', 'd', 'c', 'a', 'a', 'd', 'c', 'a', 'a', 'd', 'c', 'b']</b></pre>
+In the result we start with <b>a d</b> (specified by the user), we
+  know only <b>c</b> can come next; then using <b>d c</b> we know that
+  either <b>b</b> or <b>a</b> must come next; it randomly chooses <b>a</b>...
+<p>
+
+</p><h3>Functions and Script</h3>
+<ul>
+<li><b>read_corpus</b> has an order statistic parameter and and open (file)
+     parameter; it returns the <b>dict</b> representing the corpus of
+     words in a file
+    (mine is 9 lines).
+</li><li><b>print_corpus</b> has a <b>dict</b> parameter (representing the corpus);
+     it returns nothing, but it prints the corpus in the appropriate form
+     followed the min and max value <b>list</b> lengths
+     (mine is 8 lines).
+</li><li><b>produce text</b> has a <b>dict</b> parameter (representing the corpus),
+    a <b>list</b> parameter (representing the starting words), and an <b>int</b>
+    count parameter (representing the number of additional words to generate);
+    it returns a <b>list</b> that contains the the staring words followed by
+    the generated words.
+    <b>Hint</b>: use two lists (<b>list[str]</b>) both starting out with these
+       starting words words.
+    The first will always contain the current <b>n</b> words (to be coverted to
+      a <b>tuple</b> and used as a key in the <b>dict</b>); the second will
+      contain all the generated words.
+    Generate a random next word from the <b>dict</b> using the <b>choice</b>
+      function in the <b>random</b> modulesb: add it to both lists; then,
+      drop the first word from the first list, so it remains a list of length
+      <b>n</b>; repeat until you have generated the required number of words.
+    <b>Warning</b>: you might have to stop prematurely if you generate the last
+      <b>n</b> words in the text, and if these words occur nowhere else.
+    That is because in this case, there is no random word to generate following
+      them; in this case append a None to the end of the list of words and
+      immediately return that list (mine is 11 lines).
+    A slightly more elegant solution in Python uses only one list, copying the
+       last order-statistic values of it into a tuple when needed for a key to
+       the dictionary (e.g., l[-os:]; mine using this approach is 9 lines).
+</li><li>Write a script at the bottom of this module that calls these functions
+      to solve the problem.
+   (mine is 8 lines).
+</li></ul>
+<h3>Sample Interaction</h3>
+The program, as specified, will have the following interaction:
+  user-typed information appears in <i>italics</i>.
+Your output should match this one.
+<pre><b>  Enter order statistic: <i>2</i>
+  Enter file to process: <i>wginput1.txt</i>
+  Corpus
+    ('a', 'a') can be followed by any of ['b', 'd']
+    ('a', 'b') can be followed by any of ['c', 'a']
+    ('a', 'd') can be followed by any of ['c']
+    ('b', 'a') can be followed by any of ['d', 'a']
+    ('b', 'c') can be followed by any of ['b']
+    ('c', 'a') can be followed by any of ['a']
+    ('c', 'b') can be followed by any of ['a']
+    ('d', 'c') can be followed by any of ['b', 'a']
+  min/max = 1/2
+  
+  Enter 2 words to start with
+  Enter word 1: <i>a</i>
+  Enter word 2: <i>d</i>
+  Enter # of words to generate: <i>10</i>
+  Random text = ['a', 'd', 'c', 'a', 'a', 'd', 'c', 'a', 'a', 'd', 'c', 'b']</b></pre>
+<p>
+You can also try reading a much larger file included in this project
+  folder <b>wghuck.txt</b>, Mark Twain's, "The Adventures of Huckleberry Finn".
+I tried it with an order statistic of 3.
+The corpus has over 90,000 entries; the biggest key triple had an
+associated value with 46 unique words in it.
+The key was <b>('out', 'of', 'the')</b> and its associated value was the list
+</p><pre><b>  ['window', 'face', 'woods', 'fourth', 'front', 'jacket', 'hole', 'canoe', 'middle',
+   "ferryboat's", 'cottonwood', "captain's", 'river', 'fog', 'range', 'presbyterian', 'tree',
+   'nest', 'wagon-troughs', 'reach', 'store', 'way', 'wigwam', 'ark', 'room', 'corner', 'grave',
+   'nonesuch', 'trouble', 'kitchen', 'old', 'first', 'hardest', 'nigger-patch', 'sugar-bowl',
+   'window-hole', 'brass', 'spoon', 'house', 'tooleries', 'bag', 'office', 'post-office', 'cabin',
+   'path', 'chains']</b></pre>
+<p>
+With the appropriate modification, we can use this same program to
+  read/generate music or DNA sequences or any other data made of symbols.
+</p></td>
+</tr></tbody>
+</table>
+
+
+
+<!-- Problem #5 -->
+
+</a><a name="problem5">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Extra Credit</b></td>
+<td width="80%">
+Write up all three answers in the file <b>extracredit.txt</b> and drop them off
+  on checkmate.
+<ol>
+<li>Specify a fa that is equivalent to the ndfa that finds inputs that end
+      in <b>01</b>.
+    It must identify some state that is stopped in only for input ending in 01
+    (the <b>end</b> state in the ndfa).
+</li><li>What is interesting about the results of the election using the
+      <b>votepref3.txt</b> input file?
+    How could we add another voter, such that his/her preferences allow X to
+      win on the first ballot?
+</li><li>In the word generator program we used a <b>dict</b> value that was a
+      <b>list</b> of words that was to contain no duplicates?
+    Why can't we just use a <b>set</b> (what would break in our code)?
+    If we wanted to use a set how could we modify the code to work correctly
+      (what is the smallest and/or fastest modification)?
+</li></ol></td>
+</tr></tbody>
+</table>
+
+</a></body></html>

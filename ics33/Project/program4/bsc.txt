@@ -1,0 +1,155 @@
+# Setup
+c-->from imp import reload
+c-->import checkannotation
+c-->reload(checkannotation)
+c-->from checkannotation import Check_Annotation as ca
+c-->from checkannotation import Check_All_OK, Check_Any_OK
+#Check: None
+c-->def f(x : None): pass
+c-->f = ca(f)
+c-->f(2)
+#Check: types
+c-->def f(x : int) -> str: return 0
+c-->f = ca(f)
+^-->f(2)-->AssertionError
+^-->f('abc')-->AssertionError
+c-->def f(x : list): pass
+c-->f = ca(f)
+c-->f([1,2])
+^-->f({1,2})-->AssertionError
+#Check: []
+c-->def f(x : [int]): pass
+c-->f = ca(f)
+c-->f([1,2])
+^-->f({1,2})-->AssertionError
+^-->f(['a',2])-->AssertionError
+^-->f([1,'b'])-->AssertionError
+^-->f(['a','b'])-->AssertionError
+c-->def f(x : [int,str]): pass
+c-->f = ca(f)
+c-->f([1,'b'])
+^-->f([1])-->AssertionError
+^-->f([1,2])-->AssertionError
+^-->f(['a','b'])-->AssertionError
+c-->def f(x : [[str]]): pass
+c-->f = ca(f)
+c-->f([['a','b'],['c','d']])
+^-->f([[1,'b'],['c','d']])-->AssertionError
+^-->f([['a',2],['c','d']])-->AssertionError
+^-->f([['a','b'],[3,'d']])-->AssertionError
+^-->f([['a','b'],['c',4]])-->AssertionError
+#Check: ()
+c-->def f(x : (int,)): pass
+c-->f = ca(f)
+c-->f((1,2))
+^-->f([1,2])-->AssertionError
+^-->f(('a',2))-->AssertionError
+^-->f((1,'b'))-->AssertionError
+^-->f(('a','b'))-->AssertionError
+c-->def f(x : (int,str)): pass
+c-->f = ca(f)
+c-->f((1,'b'))
+^-->f((1))-->AssertionError
+^-->f((1,2))-->AssertionError
+^-->f(('a','b'))-->AssertionError
+c-->def f(x : ((str,),)): pass
+c-->f = ca(f)
+c-->f((('a','b'),('c','d')))
+^-->f(((1,'b'),('c','d')))-->AssertionError
+^-->f((('a',2),('c','d')))-->AssertionError
+^-->f((('a','b'),(3,'d')))-->AssertionError
+^-->f((('a','b'),('c',4)))-->AssertionError
+#Check: mixed []()
+c-->def f(x : [(str,)]): pass
+c-->f = ca(f)
+c-->f([('a','b'),('c','d')])
+^-->f([(1,'b'),('c','d')])-->AssertionError
+^-->f([('a',2),('c','d')])-->AssertionError
+^-->f([('a','b'),(3,'d')])-->AssertionError
+^-->f([('a','b'),('c',4)])-->AssertionError
+c-->def f(x : ([str],)): pass
+c-->f = ca(f)
+c-->f((['a','b'],['c','d']))
+^-->f(([1,'b'],['c','d']))-->AssertionError
+^-->f((['a',2],['c','d']))-->AssertionError
+^-->f((['a','b'],[3,'d']))-->AssertionError
+^-->f((['a','b'],['c',4]))-->AssertionError
+#Check: dict
+c-->def f(x : {str : int}): pass
+c-->f = ca(f)
+c-->f({'a':1,'b':2})
+^-->f([('a',1),('b',2)])-->AssertionError
+^-->f({0:1,'b':2})-->AssertionError
+^-->f({'a':'x','b':2})-->AssertionError
+^-->f({'a':1,0:2})-->AssertionError
+^-->f({'a':1,'b':'x'})-->AssertionError
+c-->def f(x : {str : int, int : str}): pass
+c-->f = ca(f)
+^-->f({'a':1})-->AssertionError
+#Check: set
+c-->def f(x : {str}): pass
+c-->f = ca(f)
+c-->f({'a','b'})
+^-->f(['a','b'])-->AssertionError
+c-->def f(x : {str,int}): pass
+c-->f = ca(f)
+^-->f({'a'})-->AssertionError
+#Check: frozenset
+c-->def f(x : frozenset([str])): pass
+c-->f = ca(f)
+c-->f(frozenset({'a','b'}))
+^-->f(['a','b'])-->AssertionError
+^-->f({'a','b'})-->AssertionError
+c-->def f(x : frozenset({str,int})): pass
+c-->f = ca(f)
+^-->f(frozenset({'a'}))-->AssertionError
+#Check: lambda
+c-->def f(x : lambda x : x >= 0): pass
+c-->f = ca(f)
+c-->f(3)
+^-->f(-1)-->AssertionError
+c-->def f(x : lambda x,y : x >= 0): pass
+c-->f = ca(f)
+^-->f(3)-->AssertionError
+c-->def f(x : [lambda x : x >= 0]): pass
+c-->f = ca(f)
+c-->f([0,1,0])
+^-->f([0,1,-1])-->AssertionError
+^-->f([0,1,'a'])-->AssertionError
+#Check: return annotations using _return
+c-->def f(x : None)->int: return x
+c-->f = ca(f)
+c-->f(3)
+^-->f('abc')-->AssertionError
+#Check: NotPresentClass
+c-->class NotSupportProtocol: pass
+c-->def f(x : NotSupportProtocol): pass
+c-->f = ca(f)
+^-->f(3)-->AssertionError
+#Check: All/Any: Keys are strings 3 or smaller, values are str or int
+c-->def f(x : {Check_All_OK(str,lambda x : len(x)<=3):Check_Any_OK(str,int)}): pass
+c-->f = ca(f)
+c-->f({'a' : 1, 'b': 2, 'c':'c'})
+^-->f({'a' : 1, 'bcde': 2, 'c':'c'})-->AssertionError
+^-->f({'a' : 1, 'b': 1., 'c':'c'})-->AssertionError
+#Check: String (with Eval)
+c-->def f(x : 'x>=0'): pass
+c-->f = ca(f)
+c-->f(1)
+^-->f(-1)-->AssertionError
+^-->f('a')-->AssertionError
+c-->def f(x,y : 'x<y'): pass
+c-->f = ca(f)
+c-->f(3,5)
+^-->f(5,3)-->AssertionError
+^-->f(3,'a')-->AssertionError
+#Check: Bag
+c-->from bag import Bag
+c-->def f(x : Bag([str])): pass
+c-->f = ca(f)
+^-->f(Bag(['a',1]))-->AssertionError
+c-->def f(x : Bag([lambda x : x > 0])): pass
+c-->f = ca(f)
+^-->f(Bag(['a',1]))-->AssertionError
+e-->Bag(['a','a','b']) == Bag(['a','b','a'])-->True
+==-->Bag(['a','a','b'])-->Bag(['a','b','a'])

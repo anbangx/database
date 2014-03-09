@@ -1,0 +1,11 @@
+c->Point = pnamedtuple('Point', 'x y')->
+c->p = Point(0,2)->
+e->p._get_x()->0
+e->p._get_y()->2
+e->repr(p)->Point(x=0,y=2)
+e->p[0]->0
+e->p[1]->2
+c->q = p._replace(x=-1)->
+e->repr(q)->Point(x=-1,y=2)
+e->repr(p)->Point(x=0,y=2)
+e->repr(p)->Just to see what a failure looks like

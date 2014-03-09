@@ -1,0 +1,801 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Program 4</title>
+</head>
+<body bgcolor="white">
+
+<center>
+<h1>Program 4</h1>
+<h1>
+Checking Annotations
+</h1>
+<p>
+</p><h2>ICS-33: Intermediate Programming<br>
+</h2>
+<p>
+</p></center>
+
+
+<!-- Introduction -->
+
+<a name="Introduction">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Introduction</b></td>
+<td width="80%">
+This programming assignment is designed to show how we can get Python to check
+  function annotations whenever annotated functions are called.
+For each of Python's built-in data types, we will develop an interpretation
+  (and write code to check that interpretation) of how the data type specifies
+  type information that is checkable when a function is called.
+<p>
+
+For example, we specified the main <b>dict</b> for the NDFA in Programming
+  Assignment #1 by the notation
+<b></b></p><pre><b>  dict[str]-&gt;(dict[str]-&gt;set[str])</b></pre>
+Recall the outer-<b>dict</b> associates a <b>str state</b> key with a value
+  that is an inner-<b>dict</b>; and the inner-<b>dict</b> associates a 
+ <b>str transition</b> with a value that is a set of <b>str states</b>.
+In our annotation checker, we will use an alternative notation to specify this
+  type information equivalently and compactly:
+<b><pre>  {str : {str : {str}}}</pre></b>
+Note that this is an actual data structure in Python, where <b>str</b> is
+  a reference to the string class object.
+It is an outer-<b>dict</b> whose single key is <b>str</b> and whose associated
+  value is an inner-<b>dict</b> whose single key is a <b>str</b> and whose
+  value is a <b>set</b> that contains just element, <b>str</b>.
+<p>
+
+We will write the <b>Check_Annotation</b> class and use it as a decorator for
+  functions whose annotations we want to check each time the function is called.
+Internally it will overload the <b>__call__</b> method to call the function only
+  after checking its annotation by using mutual recursion (not direct
+  recursion), in a natural way, to process the nesting of data types inside
+  data types illustrated in the notation above.
+We will write code that ensures that this checking works for the standard
+  classes defined in Python.
+The code will also know how to process a special annotation-checking protocol
+  (via the <b>__check_annotation__</b> method) that we can implement in any
+  new classes that we write, so that that class can become part of the
+  annotation language (I have done this for two classes; you can do it for the
+  <b>Bag</b> class for extra credit).
+</p><p>
+
+I suggest that you look at the code in the modules that appear in the project
+  folder that you will download.
+Then (see the detailed instructions in this document) we can add/test/debug
+  capabilities for each of the built-in data types we can use in the annotation
+  language, iteratively enhancing our code until we can use all the built-in
+  data types in annotations.
+Once we do this for <b>list</b> (about a dozen lines; the biggest of my
+  checking functions), all the others are variants and therefore much easier to
+  write (but still with some interesting details).
+</p><p>
+
+Download the 
+  <a href="http://www.ics.uci.edu/%7Epattis/ICS-33/assignments/program4/program4.zip">program4</a> project folder and use it to create an
+  Eclipse project.
+We can test our class (put it in the <b>checkannotation.py</b> module, which
+  already includes some useful code) at the end of the class itself, or in a
+  special driver that is included, which uses a batch file to test progressively
+  more and more complex data types in the annotation language.
+</p><p>
+
+It is recommend that you work on this assignment in pairs, with someone in your
+  lab section.
+Try to find someone who lives near you, with similar programming skills,
+  and work habits/schedule: e.g., talk about whether you prefer to work
+  mornings, nights, or weekends; what kind of commitment you will make to submit
+  program early.
+<!---
+If you believe that it is impossible for you to work with someone, because of
+  some special reason(s), you should send me email stating them and asking for
+  special permission to work alone (which I do grant, but not frequently).
+--->
+</p><p>
+
+<b>Only one student should submit all parts of the the assignment</b>, but both
+  student's names should appear in the comments at the top of
+  <b>each submitted .py</b> file.
+It should look something like
+</p><pre><b>
+# Romeo Montague, Lab 1
+# Juliet Capulet, Lab 1
+# We certify that we worked cooperatively on this programming
+#   assignment, according to the rules for pair programming</b></pre>
+<p>
+If you do not know what the terms cooperatively and/or rules for pair
+  programming mean, please read about Pair Programming before starting this
+  assignment.
+</p><p>
+Print this document and carefully read it, marking any parts that contain
+  important detailed information that you find (for review before you turn in
+  the files).
+The code you write should be as compact and elegant as possible, using 
+  appropriate Python idioms.
+</p></td>
+</tr></tbody>
+</table>
+
+
+<!-- Problem 1 -->
+
+</a><a name="problem1">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Problem #1: Check_Annotation</b></td>
+<td width="80%">
+<h3>Problem Summary:</h3>
+Write a class named <b>Check_Annotation</b> that decorates a function, such
+  that when the decorated function is called, the decorator class check's the
+  decorated function's annotation, using the annotation language described
+  below in detail.
+We can use this decorator by writing either
+<b><pre>  def f(params-annotation) -&gt; result-annotation:
+      ...
+  f = Check_Annotation(f)</pre></b>
+or
+<b><pre>  @Check_Annotation
+  def f(params-annotation) -&gt; result-annotation:
+      ...</pre></b>
+which is a special Python syntactic form that expands to the former assignment.
+Thus, when the decorated <b>f</b> is called, Python calls
+  <b>Check_Annotations.__call__</b> in the decorator, which first checks the
+  annotations (and raises an exception if it is not met) and second
+  computes/returns the decorated function <b>f</b>: the original one written.
+<p>
+This class defines four major attributes:
+</p><ul>
+<li>the <b>checking_on</b> instance name to turn off/on annotation checking in
+      all decorated functions; it starts on.
+<p>
+
+</p></li><li>the <b>__init__</b> method to remember the function being decorated and
+      initialize a per-function name that helps controls annotation checking;
+      it also starts on: for a function call to check its annotation, both
+      <b>checking_on</b> and its per-function name must be <b>True</b>: if
+      either is <b>False</b> the annotation is not checked.
+<p>
+
+</p></li><li>the <b>__call__</b> method that intercepts each call to the decorated
+      function and decides whether to check the annotation, and if so
+      implements annotation checking, both for parameters and returned results,
+      if they are specified; if annotation checking succeeds, this method
+      computes/returns the result of calling the decorated function.
+<p>
+
+</p></li><li>the <b>check</b> method (specified in more detail below) that does the
+       annotation checking: it either succeeds silently or raises an
+       <b>AssertionError</b> exception with useful information specified
+       in the details below.
+    Note that the unconditional assertion,
+      <b><pre>  assert False, message</pre></b>
+      is a simple way to raise <b>AssertionError</b> with a message.
+    I wrote many nested helper functions in <b>check</b>, one for each
+      data type annotation that can be checked: e.g., <b>check_dict</b>.
+</li></ul>
+<p>
+
+</p><h3>Details</h3>
+
+Let's explore the meaning of the <b>__call__</b> and <b>check</b> methods in 
+  more detail.
+<ol type="I">
+<li>
+The <b>__call__</b> method intercepts calls to the decorated function;
+  it specifies <b>*args</b> and <b>**kargs</b> to handle all calls,
+  regardless of their parameter structure.
+My method was about 40 lines (but about 17 lines were comments/blank, and
+  7 comprise the <b>param_arg_binding</b> local function supplied in the
+  download; this function computes an <b>ordereddict</b> of the parameter
+  names (each associated to its argument) in the order that the parameters
+  are defined in the function.
+The <b>__call__</b> method
+<ul>
+<li>determines whether to check the annotations (see above); if not just
+       call the decorated function and return its result.
+<p>
+</p></li><li>determines the parameters of the function and the matching arguments
+      they are bound to.
+    The <b>param_arg_bindings</b> function (written locally in this method)
+       returns an ordered dictionary of parameter/value bindings; ordered means
+       that when iterated, keys always appear in the same order: the order the
+       parameters appear in in the function's definition.
+    It uses the various attributes in the <b>inspect</b> module to do the job.
+    You might be interested in reading the documentation for the <b>inspect</b>
+      module: it is quite interesting and many of its (powerful) features are
+      new to Python.
+<p>
+</p></li><li>determines the annotations of the parameters by using the
+      <b>__annotations__</b> attribute of any function object.
+    This name is bound to a dictionary containing as keys every annotated
+      parameter name; the associated value for each parameter name is its
+      annotation.
+    If we defined the function <b>f</b> using
+       <b>def f(x:int,y,z:int):-&gt;str...</b> its <b>__annotations__</b>
+      dictionary is
+<b><pre>{'x': &lt;class 'int'&gt;, 'z': &lt;class 'int'&gt;, 'return': &lt;class 'str'&gt;&gt;}</pre></b>
+Notice that parameter <b>y</b> has no annotation so it does not appear as a key
+  in this dictionary, and the key <b>return</b> is associated with the
+  annotation for the returned value (after the <b>-&gt;</b>).
+<p>
+
+</p></li><li>If any checked annotations (parameters or returned result) raise the
+      <b>AssertionError</b> handle it by printing the relevant source lines
+      for the function (see the <b>getsourcelines</b> function in the 
+      <b>inspect</b> module's documentation) and reraise the exception,
+      skipping the rest of the code in this method.
+  <ul>
+  <li>Checks every parameter that has an annotation
+  <p>
+  </p></li><li>Call the decorated function to compute its returned result (and save it).
+  <p>
+  </p></li><li>If <b>'return'</b> is in the dictionary of annotions:
+     (a) add the result as the value associated with the key <b>_return</b> in
+          the dictionary of parameter and argument bindings; (b) check the
+          annotation for <b>return</b>
+  <p>
+  </p></li><li>Return the result.    
+  </li></ul>
+</li></ul>
+<p>
+
+</p></li><li>
+The <b>check</b> method has the following header
+<b><pre>  def check(self,param,annot,value,check_history=''):</pre></b>
+where
+<ul>
+<li><b>self</b>  is an instance of the <b>Check_Annotation</b> class
+</li><li><b>param</b> is a string that specifies the name of the parameter being
+        checked (or <b>'_return'</b> for checking the returned value)
+</li><li><b>annot</b> is a data structure that specifies the annotation
+</li><li><b>value</b> is the value of <b>param</b> that the annotation should be
+        checked against (to ensure it is legal)
+</li><li><b>check_history</b> is a string that embodies the history of checking the
+       annotation for the parameter to here (it is extended by concatenation in
+       each recursive call to provide context for any annotation violations to
+       be checked later); it is printed after the details of any annotation
+       violation, to suppy context for the failure.
+</li></ul>
+<p>
+
+Each call to <b>check</b> decodes the <b>annot</b> to check, and checks it
+  against the <b>value</b>: <b>check</b>'s body is one big
+    <b>if/elif/.../else</b> determining which local function to call to check
+    the specific annotation (and letting that local function do the real work).
+Most annotations are checked by calling a function defined locally in
+  <b>check</b> that can use the parameters of <b>check</b> freely, because
+  these functions are defined in <b>check</b>'s local scope (in fact these local
+  functions are often parameterless: many get all the information they need
+  from check's parameters).
+The more complicated local functions also call <b>check</b>; so <b>check</b>
+  calls a local function which can call <b>check</b>: this is indirect
+  recursion.
+My method was about 100 lines: about 13 lines were comments/blank, and 60 more
+  appeared in 5 locally declared functions -including one to solve the extra
+  credit part of this assignment- so I had about a dozen lines per local
+  function.
+</p><p>
+
+The annotation checking language comprises the following components
+  (for Python's built-in types).
+I <b>strongly</b> suggest writing/testing each component before moving on to
+  the next: all are similar and understanding/testing/debugging <b>list</b>
+  (the first really interesting one) will supply tremendous insight for writing
+  all.
+<b>Write the required exception messages exactly to match the ones shown.</b>
+
+</p><ul>
+<li><b>annot</b> is <b>None</b>: do nothing (succeed silently).
+    note that <b>def f(x):</b> has no annotation to check for its parameter
+    <b>x</b>, but <b>def f(x:None):</b> has an annotation to check for <b>x</b>,
+    but it never fails.
+    <b>None</b> has more interesting uses inside more complicated data types,
+      illustrated below (see the last example for <b>list</b>).
+<p>
+
+</p></li><li><b>annot</b> is any <b>type</b> (e.g., <b>type(annot) is type)</b>:
+    fail if <b>value</b> is not an instance of the specified type, with an
+       exception messages matching the following examples.
+    The <b>isinstance</b> function (covered in the inheritance lectures)
+       generalizes checking the type of an object.
+    Instead of writing <b>type(x) is someclass</b> we write
+       <b>isinstance(x,someclass)</b>: it checks whether <b>x</b>'s object is
+       constructed from <b>someclass</b> or any base class of
+       <b>someclass</b>, which is the correct test to perform here.
+<p>
+
+For <b>def f(x:int):...</b> called as <b>f('abc')</b> or <b>f(x='abc')</b>
+  the exception message would be:
+<b></b></p><pre><b>AssertionError: 'x' failed annotation check(wrong type): value = 'abc'
+  was type str ...should be type int</b></pre>
+For <b>def f(x:list):...</b> called as <b>f({1,2})</b>
+ the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check(wrong type): value = {1, 2}
+  was type set ...should be type list</pre></b>
+<p>
+All exception messages described in the sections below follow this same general
+  format, although the more complicated ones supply extra context via the
+  <b>check_history</b> parameter.
+
+</p></li><li><b>annot</b> is a <b>list</b> (not the <b>list</b> class object, but an
+        instance of <b>list</b>: a real list of one or more values; see the
+       examples below) where each element in <b>list</b> is an annotation.
+    Fail if
+    <ol>
+    <li><b>value</b> is not a list
+    </li><li><b>annot</b> has just one element-annotation, and any of the elements in
+           the <b>value</b> list fails the element-annotation check
+    </li><li><b>annot</b> has more than one element-annotation, and
+        <ol type="a">
+          <li>the <b>annot</b> and <b>value</b> lists have a different number
+               of elements, or
+          </li><li>any element in the <b>value</b> list fails its corresponding
+               element-annotation check
+        </li></ol>
+    </li></ol>
+<p>
+
+Here are some examples of failures:
+</p><ol>
+<li>For <b>def f(x:[int]):...</b> called as <b>f({1,2})</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check(wrong type): value = {1, 2}
+  was type set ...should be type list</pre></b>
+<p>
+
+</p></li><li>For <b>def f(x:[int]):...</b> called as <b>f([1,'a'])</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check(wrong type): value = 'a'
+  was type str ...should be type int
+list[1] check: &lt;class 'int'&gt;</pre></b>
+Note that when each element in the list is tested, it appends the index it is
+  checking and the annotation it is checking to the <b>check_history</b>
+  (which prints after the actual annotation that fails: here the line starting
+  <b>list[1] check: ...</b>): it means the element at index <b>0</b> did not
+  fail this annotation but the element at index <b>1</b> did.
+<p>
+
+</p></li><li>For <b>def f(x:[int,str]):...</b> called as <b>f([1])</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check(wrong number of elements): value = [1]
+  annotation had 2 elements[&lt;class 'int'&gt;, &lt;class 'str'&gt;]</pre></b>
+<p>
+
+</p></li><li>For <b>def f(x:[int,str]):...</b> called as <b>f([1,2])</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check(wrong type): value = 2
+  was type int ...should be type str
+list[1] check: &lt;class 'str'&gt;</pre></b>
+</li></ol>
+<p>
+
+Note that the annotation <b>def f(x:list):...</b> and the annotation 
+  <b>def f(x:[None]):...</b> have the same meaning (but the former is faster to
+  check): the first checks only that <b>x</b> is an instance of <b>list</b>;
+  the second checks that <b>x</b> is an instance of <b>list</b> and then checks
+  each of its values agains the annotation <b>None</b>, which according to that
+  rule's annotation does not checking and never fails -so really the checks are
+  the same.
+</p><p>
+Likewise note that for <b>def f(x:[int,None]):...</b> called as
+  <b>f([1,'a'])</b> no exception is raised, because the annotation for the list
+  element at index <b>1</b> is <b>None</b>, which according to that rule's
+  annotation does no checking of the list's value at index <b>1</b> and never
+  fails.
+</p><p>
+
+Note also that for <b>def f(x:[[str]]):...</b> called as
+  <b>f([['a','b'],['c','d']])</b> no exception is raised, because the annotation
+  says <b>x</b> is a list containing lists that contain only strings.
+The code to check list annotations will indirectly call itself (recursively) in
+  the process of checking this annotation.
+Think about this now, when there are few data types being processed; it will be
+  natural to perform other recursive annotation checks in the <b>check</b>
+  method.
+In fact, spend a good amount of time simplifying the local function that
+  performs this check, because most of the other annotations listed below look
+  very similar.
+</p><p>
+
+Finally, note if we called <b>f([['a',1],['c','d']])</b> the exception message
+  would be
+</p><pre><b>AssertionError: 'x' failed annotation check(wrong type): value = 1
+  was type int ...should be type str
+list[0] check: [&lt;class 'str'&gt;]
+list[1] check: &lt;class 'str'&gt;</b></pre>
+which indicates that the annotation of <b>list[0]</b> was being checked when the
+  annotation for <b>list[1]</b> was being checked (each of its values should be
+  a <b>list</b> of <b>str</b>), when Python found a non-string that violated
+  the annotation.
+<p>
+
+</p></li><li><b>annot</b> is a <b>tuple</b> (not the <b>tuple</b> class object, but an
+        instance of <b>tuple</b>: a real tuple of values), where each element
+        in <b>annot</b> is an annotation.
+<p>
+
+Structurally, checking tuples is equivalent to checking lists (all 3 rules
+   apply).
+In fact, I parameterized the local function that I originally wrote for checking
+  lists to work for checking tuples as well).
+Of course, the error messages should use the word <b>list</b> and <b>tuple</b>
+  where appropriate.
+<b>Caution</b>: remember for tuples of one value we must write
+     f(x:(int,)):...; notice the comma after <b>int</b>.
+</p><p>
+
+</p></li><li><b>annot</b> is a <b>dict</b> (not the <b>dict</b> class object, but an
+        instance of <b>dict</b>: a real dictonary; see the examples below),
+        with exactly one key: both the key and its associated value are each
+        an annotation.
+    Note, this annotation should work for subclases of <b>dict</b>, e.g.,
+       <b>defaultdict</b>.
+    Check it not by <b>type(annot) is dict</b> but using the <b>isinstance</b>
+       function (covered in the inheritance lectures):
+       <b>isinstance(annot,dict)</b>
+    Fail if
+    <ol>
+    <li><b>value</b> is not a <b>dict</b> or a subclass of <b>dict</b>
+    </li><li><b>annot</b> has more than one key/value association: this is actually
+           a bad/illegal annotation, not a failed annotation
+    </li><li><b>annot</b> has one key/value association, and
+           <ol type="a">
+              <li> any key in the <b>value</b> dictionary fails the
+                     key-annotation check or
+              </li><li>any value in the <b>value</b> dictionary fails the
+                     value-annotation check
+           </li></ol>
+    </li></ol>
+<p>
+
+Here are some examples of failures:
+</p><ol>
+<li>For <b>def f(x:{str : int}):...</b> called as <b>f(['a',0])</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check(wrong type): value = ['a', 0]
+  was type list ...should be type dict</pre></b>
+<p>
+
+</p></li><li>For <b>def f(x:{str : int, int : int}):...</b> called as <b>f({'a':0})</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' annotation inconsistency: dict should have 1 item but had 2
+  annotation = {&lt;class 'str'&gt;: &lt;class 'int'&gt;, &lt;class 'int'&gt;: &lt;class 'int'&gt;}</pre></b>
+<p>
+
+</p></li><li>For <b>def f(x:{str : int}):...</b> called as <b>f({1:0})</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check(wrong type): value = 1
+  was type int ...should be type str
+dict key check: &lt;class 'str'&gt;</pre></b>
+<p>
+
+</p></li><li>For <b>def f(x:{str : int}):...</b> called as <b>f({'a':'b'})</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check(wrong type): value = 'b'
+  was type str ...should be type int
+dict value check: &lt;class 'int'&gt;</pre></b>
+</li></ol>  
+Of course, if a dictionary had many keys, it would check the required
+  annotations for each of its keys and their associated values.
+<p>
+
+</p></li><li><b>annot</b> is a <b>set</b> (not the <b>set</b> class object, but an
+        instance of <b>set</b>: a real set of values; see the examples below)
+        where its has exactly one value that is an annotation.
+    Fail if
+    <ol>
+    <li><b>value</b> is not a <b>set</b>
+    </li><li><b>annot</b> has more than one value: this is actually
+           a bad/illegal annotation, not a failed annotation
+    </li><li><b>annot</b> has one value, and any value in the <b>value</b> set
+           fails the value-annotation check
+    </li></ol>
+<p>
+
+Here are some examples of failures:
+  
+</p><ol>
+<li>For <b>def f(x:{str}):...</b> called as <b>f(['a','b'])</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check(wrong type): value = ['a', 'b']
+  was type list ...should be type set</pre></b>
+<p>
+
+</p></li><li>For <b>def f(x:{str,int}):...</b> called as <b>f({'a',1})</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' annotation inconsistency: set should have 1 value but had 2
+  annotation = {&lt;class 'str'&gt;, &lt;class 'int'&gt;}</pre></b>
+<p>
+
+</p></li><li>For <b>def f(x:{str}):...</b> called as <b>f({'a',1})</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check(wrong type): value = 1
+  was type int ...should be type str
+set value check: &lt;class 'str'&gt;</pre></b>
+</li></ol>  
+<p>
+</p></li><li><b>annot</b> is a <b>frozenset</b> (not the <b>frozenset</b> class object,
+        but an instance of <b>frozenset</b>: a real frozenset of values) where
+        its one value is an annotation.
+<p>
+
+Structurally, checking frozensets are equivalent to checking sets (all 3 rules
+   apply).
+In fact, I parameterized the local function that I originally wrote for checking
+  sets to work for checking frozensets as well, similarly to the general
+  function I wrote for checking lists/tuple.
+Of course, the error messages should use the word <b>set</b> and
+  <b>frozenset</b> where appropriate.
+</p><p>
+
+</p></li><li><b>annot</b> is a <b>lambda</b> (or any function object) that is a
+      predicate with one parameter and returning a value that can be
+      interpreted as a <b>bool</b>.
+    Fail if
+    <ol>
+    <li><b>annot</b> has zero/more than one parameters: this is actually
+           a bad/illegal annotation, not a failed annotation
+    </li><li>Calling the lambda/function on <b>value</b> returns <b>False</b>
+    </li><li>Calling the lambda/function on <b>value</b> raises an exception
+    </li></ol>
+<p>
+
+Note that we can recognize a function/lambda object by calling the
+   <b>inspect</b> module's <b>isfunction</b> predicate; we can determine the
+   number of parameters in a function/lambda object by accessing its
+   <b>__code__.co_varnames</b> attribute.
+You might be interested in reading the documentation for the <b>inspect</b>
+  module: it is quite interesting and many of its (powerful) features are new
+  to Python.
+</p><p>
+
+Here are some examples of failures:  in the first two, the argument fails the
+  <b>lambda</b> directly; in the others the argument is a list on which the
+  <b>lambda</b> is checked for every value and fails for one.
+
+</p><ol>
+<li>For <b>def f(x:lambda x,y : x&gt;0):...</b> called as <b>f(1)</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' annotation inconsistency: predicate should have 1 parameter but had 2
+  predicate = &lt;function &lt;lambda&gt; at 0x02BDDC90&gt;
+list[0] check: &lt;function &lt;lambda&gt; at 0x02BDDC90&gt;</pre></b>
+<p>
+
+</p></li><li>For <b>def f(x:lambda x : x&gt;0):...</b> called as <b>f(0)</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check: value = 0
+  predicate = &lt;function &lt;lambda&gt; at 0x02BDDC90&gt;</pre></b>
+<p>
+
+</p></li><li>For <b>def f(x:[lambda x : x&gt;0]):...</b> called as <b>f([1,0])</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check: value = 0
+  predicate = &lt;function &lt;lambda&gt; at 0x02BDDC90&gt;
+list[1] check: &lt;function &lt;lambda&gt; at 0x02BDDC90&gt;</pre></b>
+Note that in this example we are checking the <b>lambda</b> annotation for
+  every value in a <b>list</b>, just as the annotation <b>[int]</b> would
+  check that every value in a <b>list</b> was an instance of the <b>int</b>
+  class.
+<p>
+
+</p></li><li>For <b>def f(x:[lambda x : x&gt;0]):...</b> called as <b>f([1,'a'])</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' annotation predicate(&lt;function &lt;lambda&gt; at 0x02C9DC90&gt;) raised exception
+  exception = TypeError: unorderable types: str() &gt; int()
+list[1] check: &lt;function &lt;lambda&gt; at 0x02BDDC90&gt;</pre></b>
+
+Note that for <b>def f(x:[lambda x : isinstance(x,int) and x&gt;0]):...</b> called as
+   <b>f([1,'a'])</b> the exception message would be the more reasonable:
+<b><pre>AssertionError: 'x' failed annotation check: value = 'a'
+  predicate = &lt;function &lt;lambda&gt; at 0x02BDDC90&gt;
+list[1] check: &lt;function &lt;lambda&gt; at 0x02BDDC90&gt;</pre></b>
+</li></ol>
+<p>
+
+</p></li><li><b>annot</b> is not any of the above (or <str>, specified in the extra
+    credit part below).
+    Assume it is an object constructed from a class that supports annotation
+      checking, by that class defining the the <b>__check_annotation__</b>
+      method.
+    Fail if
+    <ol>
+    <li>There is no <b>__check_annotation__</b> method in the class: e.g., 
+          calling the <b>__check_annotation__</b> method raises the
+          <b>AttributeError</b> exception (the object was not constructed from a
+          class that supports the annotation checking protocol): this is
+          actually a bad/illegal annotation, not a failed annotation
+    </li><li>calling its <b>__check_annotation__</b> method fails
+    </li><li>calling its <b>__check_annotation__</b> method raises any other
+         exception
+    </li></ol>
+<p>
+
+Note that I have written the <b>Check_All_OK</b> and <b>Check_Any_OK</b>
+  classes that support the annotation checking protocol; check them out.
+</p><p>
+Here are some examples of failures.
+The first assumes the <b>Bag</b> class does not support the annotation
+  checking protocol; the second assumes it does; the third assumes it supports
+  the protocol but raises some other exception (not <b>AssertionError</b>).
+</p><ol>
+<li>For <b>def f(x:Bag([str])):...</b> called as <b>f(Bag('a'))</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' annotation undecipherable: Bag(&lt;class 'str'&gt;[1])</pre></b>
+<p>
+
+</p></li><li>For <b>def f(x:Bag([str])):...</b> called as <b>f(Bag(['a',1]))</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' failed annotation check(wrong type): value = 1
+  was type int ...should be type str
+Bag value check: &lt;class 'str'&gt;</pre></b>
+<p>
+
+</p></li><li>For <b>def f(x:Bag([lambda x : x &gt; 0)):...</b> called as
+  <b>f(Bag(['a',1]))</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' annotation predicate(&lt;function &lt;lambda&amp;rt; at 0x02C5C390&gt;) raised exception
+  exception = TypeError: unorderable types: str() &gt; int()
+Bag value check: &lt;function &lt;lambda&gt; at 0x02C5C390&gt;</pre></b>
+<p>
+
+The <b>checkannotation.py</b> module defines the <b>Check_All_OK</b> and
+  <b>Check_Any_OK</b> classes, which implement the check annotation protocol.
+Note that with the <b>Check_Any_OK</b> class, we can specify that every value in
+  a list must contain a string or integer.
+So for <b>def f(x:[Check_Any_OK(str,int)]):...</b> called as
+  <b>f(['a',1])</b> there is no exception raised.
+Likewise with the <b>Check_All_OK</b> class, we can specify that every value in
+  a list must be an integer and must be bigger than 0.
+So for <b>def f(x:[Check_All_OK(int,lambda x : x &gt; 0)]:...</b> called as
+  <b>f([1,2])</b> there is no exception raised.
+</p></li></ol>
+</str></li></ul>
+
+<b>Extra credit</b>:
+Implement the following annotations as well.
+<ul>
+<li><b>annot</b> is a <b>str</b> object, which when <b>eval</b>uated using a 
+      dictionary in which all the parameters are defined (and the returned 
+      result is the value of the key <b>'_return'</b>) returns a value that can
+      be interpreted as a <b>bool</b>.
+    This specifiction is similar to lambdas/functions, but more general, because
+      the expressions can name multiple names, not just the parameter.
+       Fail if
+    <ol>
+    <li>Evaluating the string returns <b>False</b>
+    </li><li>Evaluating the string raises an exception
+    </li></ol>
+<p>
+
+Here are some examples of failures.
+</p><ol>
+<li>For <b>def f(x,y:'y&gt;x'):...</b> called as <b>f(0,0)</b>
+  the exception message would be:
+<b><pre>AssertionError: 'y' failed annotation check(str predicate: 'y&gt;x')
+  args for evaluation: x-&gt;0, y-&gt;0</pre></b>
+Notice that with this form of annotation, we can check properties that depend on
+  values of multiple parameters (not just type information).
+The values of all the parameters are included in the error message.
+Likewise we can check properties that depend on the returned values.
+For <b>def f(x,y)-&gt;'_result &lt; x or _return &lt; y': return x + y</b> called as
+  <b>f(3, 5)</b> the exception message would be:
+<b><pre>AssertionError: 'return' failed annotation check(str predicate: '_return &lt; x or _return &lt; y')
+  args for evaluation: x-&gt;3, y-&gt;5, _return-&gt;8</pre></b>
+Notice the value of <b>_return</b> is listed with all the parameter values.
+Of course, such strings are easier to read than what Python prints for 
+  lambdas/functions.
+<p>
+
+</p></li><li>For <b>def f(x:'x&gt;0'):...</b> called as <b>f('a')</b>
+  the exception message would be:
+<b><pre>AssertionError: 'x' annotation check(str predicate: 'x&gt;0') raised exception
+  exception = TypeError: unorderable types: str() &gt; int()</pre></b>
+</li></ol>
+<p>
+</p></li><li>Implement <b>__check_annotation__</b> for the <b>Bag</b> class.
+<!--- or the class produced by calling <b>pnamedtuple</b>--->.
+</li></ul>
+
+<h3>A Largish Example: Full Output</h3>
+When I put the following code in the script (before the driver) in the
+  <b>checkannotation.py</b> module).
+<b><pre>  @Check_Annotation
+  def f(x:[[int]]): pass
+    
+  f([[1,2],[3,4],[5,'a']])</pre></b>
+the result printed was the following , although I edited out some of the code
+  that Python displays from my program: lines that start with ...
+<b><pre>--------------------------------------------------------------------------------
+    @Check_Annotation
+    def f(x:[[int]]): pass
+--------------------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Pattis\workspace\33program4\checkannotationsolution.py", line 209, in &lt;module&gt;
+    f([[1,2],[3,4],[5,'a']])
+  File "C:\Users\Pattis\workspace\33program4\checkannotationsolution.py", line 183, in __call__
+    ...my call to self.check
+  File "C:\Users\Pattis\workspace\33program4\checkannotationsolution.py", line 138, in check
+    ...my call to check a list
+  File "C:\Users\Pattis\workspace\33program4\checkannotationsolution.py", line 70, in check_sequence
+    ...my call to check a value in the list
+  File "C:\Users\Pattis\workspace\33program4\checkannotationsolution.py", line 138, in check
+    ...my call to check a list
+  File "C:\Users\Pattis\workspace\33program4\checkannotationsolution.py", line 70, in check_sequence
+    ...my call to check a value in the list
+  File "C:\Users\Pattis\workspace\33program4\checkannotationsolution.py", line 137, in check
+    ...my call to check a type (which failed the assertion causing the following exception)
+AssertionError: 'x' failed annotation check(wrong type): value = 'a'
+  was type str ...should be type int
+list[2] check: [&lt;class 'int'&gt;]
+list[1] check: &lt;class 'int'&gt;</pre></b>
+Feel free to put the small tests show in this document (or in the <b>bsc.txt</b>
+  file) in the same position (before the driver) to test the annotations as you
+  write them.
+
+<h3>Testing</h3>
+The sections above present various tests for elements of the annotation
+  language: they are easy to specify because the parameter annotations
+  involve only the header: the body can be <b>pass</b>; when checking return
+  annotations, we can put one return statement in the body of the code, to
+  return a value that does/doesn't satisfy the annotation.
+<p>
+I provided an <b>if __name__ == '__main__':</b> section in the
+  <b>checkannotation.py</b> module.
+Again, it is easy to test a simple function there by annotating it and then
+  calling it (described in the previous section).
+</p><p>  
+I provided code to call <b>driver.driver()</b> which can be used to run
+  individual and <b>batch_self_check</b>, using the file <b>bsc.txt</b>.
+</p><p>
+Here is an example of running individual tests.
+After importing and abbreviating the name of the <b>Check_Annotation</b>
+  class it defines a simply annotated function, decorates it, and then calls
+  the function with good and bad arguments (which in the latter case rasise
+  an exception because of an annotation failure).
+<b></b></p><pre><b>Command[!]: from checkannotation import Check_Annotation as ca
+Command[from checkannotation import Check_Annotation as ca]: def f(x:int): pass
+Command[def f(x:int): pass]: f = ca(f)
+Command[f = ca(f)]: f(1)
+Command[f(1)]: f('a')
+Traceback (most recent call last):
+  File "C:\Users\Pattis\workspace\courselib\driver.py", line 225, in driver
+    exec(old,local,globl)
+  File "&lt;string&gt;", line 1, in &lt;module&gt;
+  File "C:\Users\Pattis\workspace\33program4\checkannotation.py", line 183, in __call__
+    self.check(p,annot[p],self._args[p])
+  File "C:\Users\Pattis\workspace\33program4\checkannotation.py", line 137, in check
+    '\n  was type '+type_as_str(value)+' ...should be type '+str(annot)[8:-2]+'\n'+check_history
+AssertionError: 'x' failed annotation check(wrong type): value = 'a'
+  was type str ...should be type int
+Command[f('a')]:</b></pre>
+
+When runing <b>batch_self_check</b>, you might want to start by removing
+  all but the earliest test (or comment them out with <b>#</b>) as you start
+  testing your code).
+<p>
+<b>IMPORTANT for running batch-self-check:</b>
+To use the <b>batch_self_check</b> you must remove the part of your
+   <b>__call__</b> method that prints out the source lines when an assertion
+   exception is raised: otherwise Python will raise a strange exception
+   (<b>OSError</b>), which disrupts <b>batch_self_check</b>.
+Comment out the following lines so that your code looks like
+<b></b></p><pre><b>except AssertionError:
+#     print(80*'-')
+#     for l in inspect.getsourcelines(self._f)[0]: # ignore starting line #
+#     print(l.rstrip())
+#     print(80*'-')
+    raise</b></pre>
+
+<p>
+</p><p>
+</p></li></ol></td></tr></tbody>
+</table>
+
+
+</a></body></html>

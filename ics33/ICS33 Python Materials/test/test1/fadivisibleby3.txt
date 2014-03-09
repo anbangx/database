@@ -1,0 +1,3 @@
+rem0;0;rem0;1;rem1;2;rem2;3;rem0;4;rem1;5;rem2;6;rem0;7;rem1;8;rem2;9;rem0
+rem1;0;rem1;1;rem2;2;rem0;3;rem1;4;rem2;5;rem0;6;rem1;7;rem2;8;rem0;9;rem1
+rem2;0;rem2;1;rem0;2;rem1;3;rem2;4;rem0;5;rem1;6;rem2;7;rem0;8;rem1;9;rem2

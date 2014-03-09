@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Program 3</title>
+</head>
+<body bgcolor="white">
+
+<center>
+<h1>Program 3</h1>
+<h1>
+Programs that Write Programs: pnamedtuple
+</h1>
+<p>
+</p><h2>ICS-33: Intermediate Programming<br>
+</h2>
+<p>
+</p></center>
+
+
+<!-- Introduction -->
+
+<a name="Introduction">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Introduction</b></td>
+<td width="80%">
+This programming assignment is designed to show how Python functions can define
+  other Python code (in this case, a class) in an unexpected way: the function
+  can build a huge string that represents the definition of a Python class and
+  then call <b>exec</b> on it, which causes Python to define that class just as
+  if it were written in a file and imported (in which case Python reads the
+  file as a big string and does the same thing).
+Your code will heavily rely on string formatting operations: I suggest using
+  the <b>str.format</b> method to do the replacements: now is a good time to
+  learn about this function if you don't know already know it; but you are free
+  to use whatever string processing tool(s) you want.
+
+<p>
+I suggest that you first read the description below and define/test/debug as
+  much of the <b>Point</b> class as you can, writing it directly in Eclipse
+ (especially the<b>__getitem__</b>, <b>__eq__</b>, and <b>_replace__</b>
+  methods).
+You might want to write a small batch file to help you test this class.
+</p><p>
+Once you have written/debugged the code for the <b>Point</b> class, define the
+  general <b>pnamedtuple</b> function, which when given the appropriate
+  arguments (for the <b>Point</b> class: <b>pnamedtuple('Point', 'x y')</b>)
+  constructs a huge string containing the same code as the <b>Point</b> class
+  you wrote.
+Much of the code from your <b>Point</b> class will be turned into strings and
+  made generic: generalized for calls to <b>pnamedtuple</b> with different
+  arguments.
+Use the <b>.format</b> method to replace the generic parts with the actual
+  strings needed for the class being defined.
+</p><p>
+Download the <a href="http://www.ics.uci.edu/%7Epattis/ICS-33/assignments/program3/program3.zip">program3</a> project folder and use it to
+  create an Eclipse project.
+Read and run the <b>miniexample.py</b> module, which performs a similar but
+  simpler task: it illustrates how to write the <b>keep</b> function as a small
+  string.
+All the elements needed to write the <b>pnamedtuple</b> function appear in here
+  in a simplfied form (see especially the call to the <b>join</b> function).
+Put your <b>pnamedtuple</b> in the <b>pcollections.py</b> module, which can be
+  tested in the standard driver or by writing code in the script at the bottom
+  of the <b>pcollections.py</b> module.
+</p><p>
+It is recommend that you work on this assignment in pairs, with someone in your
+  lab section.
+Try to find someone who lives near you, with similar programming skills,
+  and work habits/schedule: e.g., talk about whether you prefer to work
+  mornings, nights, or weekends; what kind of commitment you will make to submit
+  program early.
+<!---
+If you believe that it is impossible for you to work with someone, because of
+  some special reason(s), you should send me email stating them and asking for
+  special permission to work alone (which I do grant, but not frequently).
+--->
+</p><p>
+<b>Only one student should submit all parts of the the assignment</b>, but both
+  student's names should appear in the comments at the top of
+  <b>each submitted .py</b> file.
+It should look something like
+</p><pre><b>
+# Romeo Montague, Lab 1
+# Juliet Capulet, Lab 1
+# We certify that we worked cooperatively on this programming
+#   assignment, according to the rules for pair programming</b></pre>
+<p>
+If you do not know what the terms <b>cooperatively</b> and/or
+  <b>rules for pair programming</b> mean, please read about
+  <a href="http://www.ics.uci.edu/%7Epattis/common/handouts/pairprogramming.html">Pair Programming</a> 
+  before starting this assignment.
+</p><p>
+Print this document and carefully read it, marking any parts that contain
+  important detailed information that you find (for review before you turn in
+  the files).
+The code you write should be as compact and elegant as possible, using 
+  appropriate Python idioms.
+</p></td>
+</tr></tbody>
+</table>
+
+
+<!-- Problem 1 -->
+
+</a><a name="problem1">
+<hr align="left" width="33%">
+<table rules="none" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><b>Problem #1: pnamedtuple</b></td>
+<td width="80%">
+<h3>Problem Summary:</h3>
+Write a function named <b>pnamedtuple</b> that is passed information about a
+  named tuple: it returns a reference to a class object from which we can
+  construct instances of the specified named tuple.
+We might use this class as follows:
+<b><pre>from pcollections import pnamedtuple
+Point = pnamedtuple('Point', 'x y')
+p = Point(0,0)
+...perform operations on p using methods defined in the Point class</pre></b>
+Please note that although many of the examples in this description use the
+  <b>Point</b> class, your <b>pnamedtuple</b> function must work for all legal
+  calls.
+For example the batch-self-check file uses descriptions (some legal, some
+  not) of the <b>Triple</b> class.
+<p>
+I created six templates (one big, two medium, three small), which are each
+  strings that have parts to fill in using the <b>format</b> method; all but
+  the small strings are triple-quoted, multi-line strings, that look like large
+  chunks of Python code (see <b>miniexample.py</b> in the download to help
+  understand this paragraph, because it has similar templates).
+</p><p>
+Note calling the following <b>format</b> method on the string
+<b></b></p><pre><b>'{name} from {country} tells you {rest}'.format(name='Rich',country='USA',rest='blah..blah..blah')</b></pre>
+returns the string result
+<b><pre>'Rich from USA tells you blah..blah..blah'</pre></b>
+In many cases, the arguments I passed to the <b>format</b> calls were computed
+  by list comprehensions turned into strings by calling the <b>.join</b> method
+  (the opposite of the <b>.split</b> method).
+See the <b>miniexample</b> for an example of everything working together to
+  define a function by filling in a template with <b>.format</b>.
+Finally, my solution is about 100 lines (including blank lines and comments,
+  and a solution to the extra credit part), and that is divided between Python
+  code (70% of the lines) and string templates that specify Python code (30% of
+  the lines).
+<h3>Details</h3>
+<ul>
+<li>Define a function named <b>pnamedtuple</b> in a module named
+    <b>pcollections.py</b> (that is the only name defined in the module, but
+       this function can define local functions: I wrote three short ones).
+    Its header is <b>def pnamedtuple(type_name, field_names, mutable=False):</b>
+      an example call to this function is
+       <b>Point = pnamedtuple('Point', ['x','y'], mutable=False)</b>, which
+       is equivalent to writing <b>Point = pnamedtuple('Point', 'x y')</b> or
+       <b>Point = pnamedtuple('Point', 'x,y')</b>.
+    Using <b>Point</b>, we can then write code like <b>origin = Point(0,0)</b>.
+    <p>
+    A <b>legal name</b> for  the type and fields must start with a letter which
+      can be followed by 0 or more letters, digits, or underscore characters
+     (hint: I used a simple regular expression to verify legal names); also it
+      must not be a Python keyword.
+    Hint: the name <b>kwlist</b> is importable from the <b>keyword</b> module:
+       it is bound to a list of all Python keywords.
+    </p><p>
+    The parameters must have the following structure.
+    </p><ul>
+       <li><b>type_name</b> must be a legal name (see above).
+       <p>
+       </p></li><li><b>field_names</b> must be a list of legal names (see above), or a
+               string in which spaces separate legal names (or commas and
+               optional spaces separate legal names).
+           So, we can specify <b>field_names</b> like <b>['x','y']</b> or
+	      <b>'x y'</b>, or  <b>'x,  y'</b>.
+           If a name is duplicated, just ignore all but its first appearance
+             (hint: I used the <b>unique</b> generator to filter out
+             duplicates).
+    </li></ul>
+    <p>
+    If any of the names are not legal, raise a <b>SyntaxError</b> with
+      an appropriate message.
+</p></li></ul>
+The resulting class that is written should have the following functionality.
+Note that the main job of <b>pnamedtuple</b> is to compute a large string
+  that describes the class; we could define the class by writing the string to
+  a file and then importing the file; instead, the <b>pnamedtuple</b> function
+  returns the class object.
+<ul>
+  <li>Define the class name to be <b>type_name</b>.
+<p>
+</p></li><li>Define an <b>__init__</b> method that has all the field names as parameters
+      (in the order they appear in the second argument to <b>pnamedtuple</b>)
+      and initializes every instance name (using these same names) with the
+      value bound to its parameter.
+    In addition, define the instance names <b>_fields</b> and <b>_mutable</b>,
+       which are bound to a <b>list</b> of all the field names and the
+       <b>bool</b> parameter respectively.
+    For <b>Point</b> described above, the <b>__init__</b> method would be
+<b><pre>    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self._fields = ['x','y']
+        self._mutable = False</pre></b>
+<p>
+The problem here, and throughout the other parts of this is assignment is
+  writing a functon like <b>gen_init</b> such that <b>gen_init(['x','y'])</b>
+  produces the a string representing the <b>__init__</b> function above
+  (including <b>\n</b> at the end of each line).
+</p><p>
+</p></li><li>Define the <b>__repr__</b> method that returns a string, which when passed
+       to <b>eval</b> returns a newly constructed object that has all the same
+       instance names and values(<b>==</b>) as the object <b>__repr__</b>
+        was called on.
+    For <b>Point</b>, if we defined <b>origin = Point(0,0)</b> then calling
+       <b>repr(origin)</b> would return  <b>'Point(x=0,y=0)'</b>.
+    Here is one way to write <b>__repr__</b> for <b>Point</b> using the
+       <b>format</b> method,
+<b><pre>    def __repr__(self):
+        return 'Point(x={x},y={y})'.format(x=self.x,y=self.y)</pre></b>
+       although there are other ways for it to produce the same resulting
+       string.
+<p>
+</p></li><li>Define simple accessor methods for each of the field names.
+    Each method name should start as <b>get_</b> followed by the name of
+       a field.
+    For <b>Point</b>, there would be two accessor methods.
+<b><pre>    def get_x(self):
+        return self.x
+  
+    def get_y(self):
+        return self.y</pre></b>
+    Note that with these methods, if we had a list of <b>Point</b> named
+      <b>lp</b>, we could call <b>lp.sort(key= Point.get_x)</b> to sort the
+      list by their <b>x</b> coordinates.
+    Python's builtin <b>namedtuple</b> does not have this ability but the code
+      it produces for retrieving these values runs a bit faster.
+<p>
+</p></li><li>Define the <b>__getitem__</b> method to overload the <b>[]</b> (indexing
+       operator) for this class: an index of <b>0</b> returns the value of the
+       first field name in the <b>field_names</b> list; an index of <b>1</b>
+       returns the value of the second field name in the <b>field_names</b>
+       list, etc.
+    Also, the index can be a string with the named field.
+    So, for <b>p = Point(1,2)</b> writing <b>p.get_x()</b>, or <b>p[0])</b>, 
+      or <b>p['x']</b> returns a result of <b>1</b>.
+    Raise an <b>IndexError</b> with an appropriate message if the index is out
+       of bounds <b>int</b> or a string that does not name a field.
+    <p>
+    Note that this method can be used by Python to iterate through any class
+       produced by <b>pnamedtuple</b> one index after another.
+    It is also useful for writing the <b>__eq__</b> method: see below.
+    </p><p>
+    Hint: for an <b>int index</b> parameter, combine the <b>self._fields</b>,
+      instance name, the <b>get_</b> methods, and the <b>eval</b> function
+      to write a short solution to this problem; in the case of
+      <b>origin = Point(0,0)</b>, calling <b>origin[1]</b> should construct 
+      the  string <b>'self.get_y()'</b> and return <b>eval('self.get_y()')</b>.
+</p><p>
+</p></li><li>Overload the <b>==</b> operator so that it returns <b>True</b> when the two
+      named tuples come from the same class and have all their name fields
+      bound to equal values.
+    Hint: use <b>__getitem__</b> for each name to check for equality.
+<p>
+</p></li><li>Define a <b>_replace</b> method, which takes <b>**kargs</b> as a parameter
+      (keyword args).
+    This allows the name <b>kargs</b> to be used in the method as a
+       <b>dict</b> of  parameter names and their matching argument values.
+    The semantics of the <b>_replace</b> method depends on the value stored in
+      the instance name <b>self._mutable</b>:
+    <ul>
+    <li>If <b>True</b>, the instance namess of the object it is called on
+           are changed and the method returns <b>None</b>.
+        So, if <b>origin = Point(0,0)</b> and we call
+        <b>origin._replace(y=5)</b>, then <b>print(origin)</b> would
+           display as <b>Point(x=0,y=5)</b> because <b>origin</b> is mutated.
+    <p>
+    </p></li><li>If <b>False</b>, it returns a new object of the same class, whose
+           instance name's values are the same, except for those specified
+           in <b>kargs</b>.
+        So, if <b>origin = Point(0,0)</b> and we call
+        <b>new_origin = origin._replace(y=5)</b>, then
+        <b>print(origin,new_origin)</b> would display as
+        <b>Point(x=0,y=0) Point(x=0,y=5)</b> because <b>origin</b> is not
+           mutated.
+    </li></ul>
+    <p>
+    Define this method to look like
+<b></b></p><pre><b>    def _replace(self,**kargs):
+        if self._mutable:
+            ...
+        else:
+            ...</b></pre>
+    In both <b>...</b> we iterate (through <b>kargs.items()</b> or
+      <b>self._fields</b>) and refer to <b>self.__dict__</b> to retrieve the
+      current values bound to the instance names: this is a bit tricky.
+
+    Use our textbook or web resources to learn more about <b>**kargs</b>; feel
+      free to post specific question on the forum not relating to their actual
+      use in <b>_replace</b> and also, not, "Could someone please explain
+      **kargs to me").
+    <p>
+   The <b>kargexample.py</b> module has a little <b>**kargs</b> demo in it.
+</p><p>
+</p></li><li><b>Extra credit</b>:
+    Define the <b>__setattr__</b> method so after <b>__init__</b> finishes, if
+          the <b>mutable</b> parameter is <b>False</b>, the named tuple will not
+          allow any instance names to be changed: it will raise an
+          <b>AttributeError</b> with an appropriate message.
+</li></ul>
+<p>
+Of course, our <b>pnamedtuple</b> function should work for <b>Point</b> as
+  illustrated above, but should also work for any other legal call.
+The actual <b>namedtuple</b> class in Python is implemented differently, but 
+  this programming assignment requires you to use the implemenation above.
+
+
+</p><h3>Testing</h3>
+The <b>pcollections.py</b> module includes a script that calls
+  <b>driver.driver()</b>.
+The project folder contains a <b>bsc.txt</b> file (examine it) to use for
+   batch-self-checking your function.
+These are rigorous but not exhaustive tests.
+<p>
+Note that when exceptions are raised, they are printed by the driver but the 
+  <b>Command:</b> prompt sometimes appears misplaced.
+</p><p>
+You can write othercode at the bottom of your <b>pcollections.py</b> module to
+  test the <b>pnamedtuple</b> function, or type code into the driver as
+  illustrated below.
+Notice the default for each command is the command previously entered.
+<b></b></p><pre><b>  Driver started
+  Command[!]: from pcollections import pnamedtuple as pnt
+  Command[from pcollections import pnamedtuple as pnt]: Point = pnt('Point', 'x y')
+  Command[Point = pnt('Point', 'x y')]: origin = Point(0,0)
+  Command[origin = Point(0,0)]: p1 = Point(5,2)
+  Command[p1 = Point(5,2)]: print(p1)
+  Point(x=5,y=2)
+  Command[print(p1)]: print(p1.get_x())
+  5
+  Command[print(p1.get_x())]: print(p1[0])
+  5
+  Command[print(p1[0])]: print(p1['x'])
+  5
+  Command[print(p1['x'])]: print(p1['z'])
+  Traceback (most recent call last):
+    File "C:\Users\Pattis\workspace\courselib\driver.py", line 224, in driver
+      exec(old,local,globl)
+    File "<string>", line 1, in <module>
+    File "<string>", line 17, in __getitem__
+  IndexError: Point.__getitem__: index(z) is illegal
+  Command[print(p1['z'])]: p2 = p1._replace(x=2,y=5)
+  Command[p2 = p1._replace(x=2,y=5)]: print(p1,p2)
+  Point(x=5,y=2) Point(x=2,y=5)
+  Command[print(p1,p2)]: quit
+  Driver stopped</string></module></string></b></pre>
+
+<p>
+Files for <b>batch_test</b> (see <b>bt.txt</b> for an example) just contain
+  commands that will be executed; many are calls to the <b>print</b> function,
+  which show the result of the print.
+</p><p>
+Remember that your <b>pnamedtuple</b> function can print on the console, for
+  debugging purposes, the string it is about to <b>exec</b> so you can look for
+  errors there (just eyeball whether the code correct).
+The <b>show_listing</b> function (defined in the <b>pnamedtuple</b> function)
+  display a string on the console, numbering its lines (useful when <b>exec</b> 
+ finds an error: it reports a line number that <b>show_listing</b> shows).
+</p><p>
+Finalkly, I have also included two programs that David Kay published in ICS-31
+  that use Python's <b>namedtuple</b> (with those names changed to
+  <b>pnamedtuple</b>).
+</p></td></tr></tbody>
+</table>
+
+
+</a></body></html>

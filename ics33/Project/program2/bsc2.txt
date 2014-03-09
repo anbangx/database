@@ -1,0 +1,84 @@
+# Setup
+c-->from imp import reload
+c-->import bag
+c-->reload(bag)
+c-->from bag import Bag
+# Test init, repr, and str
+c-->b = Bag()
+e-->repr(b) in ['Bag()','Bag([])']-->True
+e-->str(b)-->Bag()
+c-->b = Bag(['d','a','b','d','c','b','d'])
+e-->all((repr(b).count('\''+v+'\'')==c for v,c in dict(a=1,b=2,c=1,d=3).items()))-->True
+e-->all((v+'['+str(c)+']' in str(b) for v,c in dict(a=1,b=2,c=1,d=3).items()))-->True
+# Test add, len, unique
+c-->b = Bag()
+e-->len(b)-->0
+e-->b.unique()-->0
+c-->b.add('d')
+e-->len(b)-->1
+e-->b.unique()-->1
+c-->b.add('a')
+e-->len(b)-->2
+e-->b.unique()-->2
+c-->b.add('b')
+e-->len(b)-->3
+e-->b.unique()-->3
+c-->b.add('d')
+e-->len(b)-->4
+e-->b.unique()-->3
+c-->b.add('c')
+e-->len(b)-->5
+e-->b.unique()-->4
+c-->b.add('b')
+e-->len(b)-->6
+e-->b.unique()-->4
+c-->b.add('d')
+e-->len(b)-->7
+e-->b.unique()-->4
+e-->all((repr(b).count('\''+v+'\'')==c for v,c in dict(a=1,b=2,c=1,d=3).items()))-->True
+e-->all((v+'['+str(c)+']' in str(b) for v,c in dict(a=1,b=2,c=1,d=3).items()))-->True
+# Test in
+e-->'a' in b-->True
+e-->'b' in b-->True
+e-->'c' in b-->True
+e-->'d' in b-->True
+e-->'e' in b-->False
+# Test count
+e-->b.count('a')-->1
+e-->b.count('b')-->2
+e-->b.count('c')-->1
+e-->b.count('d')-->3
+e-->b.count('e')-->0
+c-->b.add('b')
+c-->b.add('c')
+c-->b.add('x')
+e-->b.count('a')-->1
+e-->b.count('b')-->3
+e-->b.count('c')-->2
+e-->b.count('d')-->3
+e-->b.count('e')-->0
+e-->b.count('x')-->1
+# Test remove
+e-->all((v+'['+str(c)+']' in str(b) for v,c in dict(a=1,b=3,c=2,d=3,x=1).items()))-->True
+c-->b.remove('x')
+e-->all((v+'['+str(c)+']' in str(b) for v,c in dict(a=1,b=3,c=2,d=3).items()))-->True
+c-->b.remove('c')
+c-->b.remove('b')
+e-->all((v+'['+str(c)+']' in str(b) for v,c in dict(a=1,b=2,c=1,d=3).items()))-->True
+^-->b.remove('x')-->ValueError
+# Test ==/!=
+c-->b2 = Bag(['a','b','b','c','d','d','d'])
+c-->b3 = Bag(['a','b','c','d','d','d'])
+e-->b == b2-->True
+e-->b != b2-->False
+e-->b == b3-->False
+e-->b != b3-->True
+e-->b2 == b3-->False
+e-->b2 != b3-->True
+^-->b == 1-->TypeError
+# Test iterator
+e-->[i for i in sorted(b)]-->['a', 'b', 'b', 'c', 'd', 'd', 'd']
+c-->i = iter(b)
+c-->b.add('d')
+c-->b.remove('a')
+e-->[i for i in sorted(b)]-->['b', 'b', 'c', 'd', 'd', 'd', 'd']
