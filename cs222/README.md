@@ -1,4 +1,4 @@
-2012 Fall - Study Notes for uci course CS222
+2012 Fall - Study Notes for uci course CS222, Principle of Database Management
 
 1. Course Website:
 
