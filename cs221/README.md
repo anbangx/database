@@ -6,4 +6,4 @@
 
 12W: http://www.ics.uci.edu/~lopes/teaching/cs221W12/
 
-2. Project Description and Course Notes can be found in folder - “doc”
+2. Project Description and Course Notes can be found in folder - “documents"
