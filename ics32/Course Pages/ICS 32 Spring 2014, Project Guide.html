@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!-- saved from url=(0052)http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="./ICS 32 Spring 2014, Project Guide_files/course.css" type="text/css">
+
+<title>ICS 32 Spring 2014, Project Guide</title>
+<script>window["_GOOG_TRANS_EXT_VER"] = "1";</script></head>
+
+<body>
+
+<div class="navbar">
+
+<p>
+ICS 32 Spring 2014 |
+<a href="http://www.ics.uci.edu/~thornton/ics32/index.html">News</a> |
+<a href="http://www.ics.uci.edu/~thornton/ics32/CourseReference.html">Course Reference</a> |
+<a href="http://www.ics.uci.edu/~thornton/ics32/Schedule.html">Schedule</a> |
+<a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide">Project Guide</a> |
+<a href="http://www.ics.uci.edu/~thornton/ics32/CodeExamples">Code Examples</a> |
+<a href="http://www.ics.uci.edu/~thornton/">About Alex</a>
+</p>
+
+<hr>
+
+</div>
+
+<div class="header">
+
+<p>ICS 32 Spring 2014<br>
+   Project Guide</p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">The projects</p>
+
+<ul>
+  <li><a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/Assignment0">Assignment #0: <i>Setting Up an ICS 32 Development Environment</i></a></li>
+  <li><a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/Project1">Project #1: <i>Begin the Begin</i></a></li>
+  <li><a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/Project2">Project #2: <i>Send Me On My Way</i></a></li>
+  <li><a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/Project3">Project #3: <i>Outside the Wall</i></a></li>
+  <li><a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/Project4">Project #4: <i>The Width of a Circle (Part 1)</i></a></li>
+  <li><a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/Project5">Project #5: <i>The Width of a Circle (Part 2)</i></a></li>
+</ul>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">Goals</p>
+
+<p>This quarter, you'll work on five programming projects, building on your knowledge of Python programming from prerequisite coursework (ICS 31 / CSE 41 or equivalent).  Collectively, the projects are intended to give you the opportunity to improve your skills in a few ways, with such overall goals as these.</p>
+
+<ul>
+  <li>Extending your Python programming skills by learning about new constructs and techniques in the Python language that will not be familiar from prior coursework</li>
+  <li>Beginning to develop your sense of what it means to <i>design</i> software, and learning and using techniques that allow you to write much larger programs than you've written previously
+  </li><li>Embracing automated <i>unit tests</i> as a way to verify that certain parts of your programs are working as they should and are designed in a way that make them useful elsewhere</li>
+  <li>Exploring portions of Python's <i>standard library</i>, the functions and classes that are included and ready to use automatically when you install Python</li>
+  <li>Building confidence in your ability to discover how a library behaves through reading tutorials, searching documentation, and experimentation, even for parts of the library not discussed in lecture or the textbook; this is one of the hallmarks of real-world software development</li>
+  <li>Developing your confidence when working alone, as opposed to doing pair programming; much of your upcoming coursework — and quite likely your future employment, continuing along this path — will require solo effort at least some of the time</li>
+</ul>
+
+<p>As you might expect from the goals above, all five projects will be written in Python, and each will explore new territory — new Python language constructs and techniques, new libraries and real-world problem domains.  You will surely discover that the projects increase in size and difficulty as the quarter goes on, but if you put the appropriate amount of effort into each of them, get questions answered along the way when you're stuck, and understand afterward what you did and why it worked, you'll find that your skill level will rise steadily to match the rising difficulty.</p>
+
+<p>Some projects you will work on in pairs using a technique called <i>pair programming</i>, while the others will give you the opportunity to work individually, a skill that I'd also like to see you begin to develop this quarter.</p>
+
+<p>Some of the projects will include a <i>starting point</i>, in the form of documented code that I provide to you as a means of getting started.  As the quarter progresses, you'll find that you're being asked to write more code, to write more of it from scratch, and to build programs that are made up of a progressively larger number of interacting parts.  There is a method to this madness: not only will this course strengthen your ability to write individual Python functions and classes, but it will also begin to cultivate your understanding of the design of ever-larger programs.  Your projects will be evaluated based not only on how well they work, but also on how well they are designed and written.  Poorly-written code that works will be viewed critically, just as well-written code that has bugs will be.  Don't worry, though; we don't presume that you've had any experience designing your own programs before, so we'll be providing many examples and plenty of help along the way.</p>
+
+<p>By the end of the quarter, when you've successfully worked through all of these projects, you'll be surprised at how much your skills have improved.  And after the course is over, you should be empowered to follow your own interests and explore new libraries and new problem domains that excite you.</p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">Pair programming</p>
+
+<p class="subtitle">What is pair programming?</p>
+
+<p>For some of the projects in the course, you will be required to employ an approach called <i>pair programming</i>.  Pair programming is not just two programmers working separately on a task, with the work divvied up between them.  In pair programming, two programmers share one computer.  One is the <i>driver</i>, who controls the keyboard and mouse.  The other is the <i>navigator</i>, who observes, asks questions, suggests solutions, and thinks about slightly longer-term strategies.  The two programmers switch roles about every 15-20 minutes, the goal being that both partners have complete mental ownership of all the work that's done, even though only one person at a time is typing.  This obligates both partners to communicate with one another about what they do and do not understand, with each partner bringing the other one up to speed when necessary.  In so doing, both partners have a firmer grasp on what they're doing and, at least as importantly, why they're doing it that way.</p>
+
+<p>A pair of programmers (as described here) nearly always beats the stereotypical solitary loner of similar ability.  The pair produces more high-quality code in less time, by far more than a two-to-one margin.  For projects that require pair programming, we'll be requiring you to follow this model, and will be keeping track of students who aren't; we reserve the right to penalize students who routinely refuse to work as pair programmers, or who refuse to do it as described here.  Pair programming involves shared responsibility, and we expect both partners to bear their share of it.</p>
+
+<p>While some industry software development environments use pair programming to (documented) good effect, the reality is that individual programming is still a widely-used strategy in the real world.  Many future courses that you'll take here will require individual work, as well.  Study after study shows that working in pairs at this stage of your development as computer scientists will strengthen your abilities to work individually, as well as in pairs.  Still, we'll only use pair programming for a portion of this course; some projects will require individual work, to acclimate you to the demands of future courses and/or future employers.  Rest assured that successful pairing to this point has made you more ready to work individually than you would have been had you been working individually from the beginning.  Also remember that the course staff — me, the TAs, and the lab tutors — are here to help!</p>
+
+<p class="subtitle">Pairing rules</p>
+
+<p>For each paired assignment, you will be required to select a lab partner <i>who is also enrolled in your lab section</i>.  (For a variety of logistical reasons, pairing of students in different lab sections will not be allowed <i>under any circumstances</i>.)  Additionally, you will be required to partner with someone who you have not partnered with previously in this course.  (If you took ICS 31 previously, you will ideally find partners other than the ones you worked with in that course, as well.)</p>
+
+<p class="subtitle">Pairing advice</p>
+
+<p>The best time to find a partner is at the ICS 32 Help Center during your scheduled lab section.  Don't be shy!  Talk to people!  (Part of the benefit of a university education is the social network that you'll have when you're finished.  True story: Every job I've had since I enrolled as a student at UCI, including this one, was connected fairly directly to my UCI experience.)  If you're having trouble finding a partner, talk to your TA; he or she will be happy to help you find one.</p>
+
+<p>It's not a bad idea to find a partner whose skill level is similar to yours, or one who is more skilled in areas where you are less skilled.  This won't always be possible, and it's sometimes hard to compare skill levels at all, but students tell us (and other data support) that pairs are most productive when the partners are at about the same level.</p>
+
+<p>Still, people often pair up with another whose skills and abilities are different.  The differences may be great or small; one member may have more strengths than the other.  But this is exactly like most real-world working situations.  Part of accomplishing a task is to get the most out of each member and make each member stronger and more productive on subsequent tasks.</p>
+
+<p>A clearly stronger partner may feel frustrated or slowed down by the other partner, but the stronger partner benefits from the teamwork in many ways: The other partner's requests for clarification often point out flaws in the approach or solution, the teamwork skills gained have great value in the job market, and the exercise of providing a clear explanation solidifies and deepen's the explainer's own understanding.</p>
+
+<p>The less strong partner may feel that questions hold the other partner back or that there is no benefit to participating actively, but pair programming studies show that paired work is consistently better than work the stronger partner does individually.  It is part of each partner's job to understand the whole task; that means asking questions when necessary and answering them when possible.</p>
+
+<p class="subtitle">Am I expected to work with my partner outside of the scheduled lab sections?</p>
+
+<p>Generally, yes.  You'll almost certainly need to spend some time working outside of scheduled lab sections, as your scheduled lab section constitutes only two hours per week, but the projects are expected to take substantially longer than that.</p>
+
+<p>Understand, though, that you're not doing pair programming if you're in separate locations talking via instant messages, sending code back and forth via email, or even talking on the phone.  Pair programming requires both partners to be in the same room, sitting behind the same computer, with one acting as the driver and the other acting as the navigator.  I'm not unsympathetic to the fact that scheduling time to work together is difficult, but it's a requirement of the course, and you should be aware of it up front.</p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">Evaluation of your work</p>
+
+<p class="subtitle">Evaluation criteria</p>
+
+<p>Each of your projects will be graded using a 30-point scale.  As you work on your projects, it is naturally your primary goal to write a program that behaves as specified, meeting all requirements specified in the project write-up.  However, writing a correctly-working program is not your sole objective.  As you've no doubt already seen in previous coursework — and we'll see even more clearly as you begin to attack problems that are larger and more complex — there are often many ways to solve a programming problem, but some are more manageable than others.  Some approaches are simpler, some more complex; some yield code that can be read and understood more easily by yourself (and other people!) than others; some are easier to change without requiring changes that cascade throughout your program than others; and so on.  We'd like you to focus on writing programs that tend to be simpler, more readable, and more changeable, and we'll discuss techniques throughout the quarter to achieve those goals.  Since they're an integral part of our work — they dramatically raise the bar on the size of program you can write — these qualities are assessed in the grading process.</p>
+
+<p>Each of your projects will be evaluated on the following basis.</p>
+
+<table class="normal">
+  <tbody><tr class="top">
+    <td>Quality</td>
+    <td>Value</td>
+    <td>Description</td>
+  </tr>
+  <tr>
+    <td>Correctness&nbsp;and&nbsp;Robustness</td>
+    <td>20&nbsp;points</td>
+    <td>When the program is given valid input, does it generate the correct output according to the specification in the project write-up?  Is the output spacing correct, if this is an issue?  In short, does the program do what it's supposed to do for any input that meets the project specifications?  When the program is given unusual or erroneous input, is it handled gracefully?  Programs should not crash in these situations; they should, for example, print informative messages to the user, ask the user for alternative input, or find another way to continue executing (if possible).</td>
+  </tr>
+  <tr>
+    <td>Quality&nbsp;and&nbsp;Design</td>
+    <td>10&nbsp;points</td>
+    <td>Particularly awkward, cumbersome, or inappropriate ways of approaching problems will not score as highly as cleaner, better-designed ones.  Your program should be divided into logical parts, with large functions or classes divided into smaller ones, each encapsulating a single idea or task.  Different kinds of work — interacting with a user, calculating results — should be handled in different functions or classes.  Comments should be used to make a program clear to the reader (though it should be noted that good modularity and well-named identifiers make the commenting burden significantly lighter).  Identifier names should be chosen to reflect their role; the names should be meaningful to the reader.  Type annotations and docstrings must be included on every function.</td>
+  </tr>
+  <tr>
+    <td><b>Total</b></td>
+    <td><b>30&nbsp;points</b></td>
+    <td></td>
+  </tr>
+</tbody></table>
+
+<p>Some projects may be graded somewhat differently; if so, alterations to this grading scale will be included in the project write-up.</p>
+
+<p class="subtitle">Late work</p>
+
+<p>Things happen and ten-week quarters can be unforgiving.  It's not unreasonable to expect that you may find it difficult to finish one of the projects on time, even if you're on top of things most of the time.  I get emails often from students, saying things like <i>If I just had one more day to work on this, I'd get it done!</i>  On the other hand, being consistently behind is a recipe for struggle in this course; we'll be moving quickly, and it will be progressively harder to catch up the farther behind you get.</p>
+
+<p>The best balance between these two realities is that everyone is allowed to have a tough time with a project once this quarter — maybe you underestimated the difficulty of an assignment, maybe you have three midterms and a paper due the same day, maybe you have a sudden outside commitment that can't be avoided.  For this reason, I'm offering the following late work policy:</p>
+
+<p><i>Each student is permitted to submit any one project up to 48 hours late, with no questions asked about why and no prior notification required.</i></p>
+
+<p>For the purposes of clarification, here are some additional details about how this policy works:</p>
+
+<ul>
+  <li>You are not required to notify us in advance — in fact, in all honesty, <i>we'd prefer that you didn't</i>.  (There are a lot of students in this course, so that would represent a lot of extra work for us.)  We know to look for submissions up to 48 hours beyond the deadline of each project.</li>
+  <li>For paired projects, a late submission will apply to both partners and will only be permitted if neither partner has previously submitted a late project.</li>
+  <li>There is a ten-minute grace period after the due date, allowing you time to get your files submitted to Checkmate.  If you submitted your files at 12:08am for an 11:59pm due date, you're fine.  Best not to play with fire, though, if you're already done before 11:59pm; at 12:11am, you'll have used up your one-time extension.  <i>No exceptions!</i></li>
+  <li>The first project that you submit late will fall under this policy; any subsequent project you submit late will not be accepted.  (In other words, you can't submit two projects late, then wait to see which one you get a better score on; we won't be grading the second one.)</li>
+  <li>If any one file is submitted beyond the ten-minute grace period, the entire project is considered late and falls under this policy.</li>
+</ul>
+
+<p>We'll be tracking this throughout the quarter and, of course, will not grant the extension to anyone more than once.  But this should accommodate the unforeseen issues that might otherwise prevent you from finishing a project on time.</p>
+
+<p>Other than this, late work is not accepted in this course.  However, partially complete work can certainly earn partial credit, so if you haven't completed a project and have already used your one-time extension, it's best to submit what you have before the deadline rather than submitting nothing.</p>
+
+<p>Out-of-the-ordinary circumstances sometimes warrant exceptions to this policy; if you are faced with a problem that is preventing you from getting your work done on time, either on a single assignment or chronically, please contact me and we can talk about how best to approach the problem.</p>
+
+<p class="subtitle">Re-evaluation of your work</p>
+
+<p>As projects are graded, you will receive scores and feedback on each in an email from your TA.  If you believe that you've been graded unfairly, your first move is to contact your TA and discuss the issue with him or her directly, as your TA is more familiar with the details of the grading of your work than I would be — the first thing I usually do is to contact the TA, anyway.  Most issues are resolved this way.  Note that we do not reconsider the rubric used to grade your work afterward, but if it was applied unfairly or incorrectly, we can consider an adjustment.</p>
+
+<p>If, after this, you still believe that you haven't been treated fairly, you are welcome to raise the issue with me and I can arbitrate, though I should point out that it is relatively rare that I overrule a TA's judgment.  I've communicated a fair amount with the TAs about grading ahead of time, so they're generally acting on my instructions, so I don't find very often that I think a TA has graded work unfairly.</p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">Submitting your projects</p>
+
+<p>When you complete each project, you must submit it to us electronically.  Follow <a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/SubmittingProjects.html">this link</a> for a detailed description of how to submit your projects.  Understand that we will only accept projects submitted using the procedure described there; we <i>do not</i> accept printed copies of your projects, nor do we accept them via email <i>under any circumstances</i>.</p>
+
+<p>You are responsible for submitting the version of your project that you want graded.  We will grade the most recent submission that you made before the deadline.  Accidentally submitting the wrong version will not be considered grounds for a regrade.</p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">Development environment</p>
+
+<p>The machines in the ICS labs already have the required development environment for ICS 32 installed on them; for those of you who want to do at least some of your work on a machine of you own, you'll need to make sure to install and configure the necessary software.  Note that the tools we're using this quarter may be slightly different from the tools you used in previous courses, and you'll need to be sure that you upgrade to the right versions before proceeding.</p>
+
+<p>If you're planning on using your own machine for at least some of your work, please refer to <a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/Assignment0">Assignment #0</a> for instructions on getting precisely the right versions of these components installed and configured properly for this course.  While we will try to help if you get stuck, please be aware that we realistically cannot support each of your home installations, so you will be responsible for getting these tools installed and configured, and will need to use the machines in the ICS labs as a fallback if you're unable to do so.</p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">Academic honesty</p>
+
+<p class="subtitle">The policy</p>
+
+<p>As ICS 32 or CSE 42 students, you are expected to know and follow the academic honesty policies of both the Bren School of ICS and the University as a whole.  Please take a few minutes to read the policies, which can be found at <a href="http://www.ics.uci.edu/ugrad/policies/#03">this link</a>.</p>
+
+<p>All of your project work is expected to be completed <i>solely by you (and your partner, on paired projects)</i>.  Worker in larger groups and/or sharing of code between students that are not partners is not permitted.  Note that "high-level discussion of course material for better understanding" is permitted and encouraged, but when it comes time to sit down and write code, that is expected to be done by you and you alone.  All submissions are compared to one another using an automated plagiarism detection system.  This system is extraordinarily good at finding similarities between submissions, even when there are superficial differences.  (Note that we also compare your submissions to those submitted during previous quarters whenever one of these assignments was given during a previous quarter, so it is an exceedingly bad idea to turn in, or even refer to, code written by a friend of yours who took the course already.)</p>
+
+<p>Since all of your work is expected to be completed solely by you (and your partner, on paired assignments), you will be held responsible even if you plagiarize only a small portion of someone else's work.</p>
+
+<p>You are not permitted to reuse code that you wrote along with a partner during a previous quarter.  You may only reuse code that you wrote on your own, and you may only reuse it for a project that is not paired this quarter.  (The reason for this rule is simply that I do not want students repeating the course to pair up with someone new and deprive them of the opportunity to work on the project.  Besides, if you're repeating the course, it's generally a good idea to start fresh, to solidify the ideas you missed the first time around.)</p>
+
+<p>Academic honesty is a two-way street.  Providing your code to other students for them to turn in as their own is not permitted any more than turning in someone else's code.  Resist the temptation to give code to your friends "for reference."  Based on my experience, I can say that your "friends" may very well betray you and turn it in, anyway, and then you'll have a lot to answer for.</p>
+
+<p>Naturally, the Midterm and Final Exam are also expected to be individual efforts.  Dishonest behavior during an exam will not be tolerated.</p>
+
+<p>Violators of academic honesty policies are subject to the penalties described in the Bren School of ICS policy.  They are also subject to an immediate course grade of F, and you will not be allowed to drop the course to avoid the grade.  Also be aware that a single documented case of academic dishonesty may preclude you from switching into computing majors, registering for computing minors, joining the ICS Honors Program, and graduating from a computing major with honors.</p>
+
+<p class="subtitle">The lesson</p>
+
+<p>Okay, so the moral of the story is that it's wise to avoid cheating.  I believe that it's relatively rare that students enter a course with the conscious intent to cheat their way through it; why come to UCI if you're not planning to get something out of the coursework?  So why do people cheat every quarter in every course?  The answers vary, but here's the easiest way I can boil down the numerous conversations I've had with students caught cheating in my courses over the years: <i>I fell behind and couldn't figure out how to catch up</i>.  Things happen and ten-week quarters are unforgiving.  You might get sick, you might have issues crop up in your family, you might have misunderstood one of the earlier topics in the course on which later topics dependend, you might have an off-campus job that's demanding too much of your time, you might be trying to decide whether you're on the path you want to be on... Any of those things (and many others) can make it hard to keep up.  You fall a little behind, you fall a little further behind, and pretty soon the situation seems hopeless.  You're under pressure, temptation gets the better of you, and suddenly it seems better to submit someone else's work than to submit nothing.  It's not.</p>
+
+<p>If you feel like you're beginning to slip off course or things are getting beyond your control, the best thing to do is to talk to us <i>sooner rather than later</i>.  We're here to help; we understand.  But the reality of taking large-sized courses at a large-sized institution is that we're not going to know you're in need unless you tell us.  If things are happening in your life, tell us; you don't have to be specific if you're not comfortable with it.  Before the fact, there's often a way to work things out.  After the fact, it's usually too late.</p>
+
+</div>
+
+<div class="history">
+
+<hr>
+
+<ul class="nomarker">
+  <li>Clarification to the policy for re-evaluating work added by Alex Thornton, Winter 2014.</li>
+  <li>Originally written by Alex Thornton, Winter 2013, with substantial portions adapted from a similar page by Alex Thornton, and with the pair programming section partly adapted from a similar page by Norman Jacobson (which, in turn, was adapted from a similar page by David G. Kay).</li>
+</ul>
+
+</div>
+
+
+
+</body></html>

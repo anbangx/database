@@ -1,0 +1,411 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!-- saved from url=(0061)http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/Project2/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="./ICS 32 Spring 2014, Project #2  Send Me On My Way_files/course.css" type="text/css">
+
+<title>ICS 32 Spring 2014, Project #2: Send Me On My Way</title>
+<script>window["_GOOG_TRANS_EXT_VER"] = "1";</script></head>
+
+<body>
+
+<div class="navbar">
+
+<p>
+ICS 32 Spring 2014 |
+<a href="http://www.ics.uci.edu/~thornton/ics32/index.html">News</a> |
+<a href="http://www.ics.uci.edu/~thornton/ics32/CourseReference.html">Course Reference</a> |
+<a href="http://www.ics.uci.edu/~thornton/ics32/Schedule.html">Schedule</a> |
+<a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide">Project Guide</a> |
+<a href="http://www.ics.uci.edu/~thornton/ics32/CodeExamples">Code Examples</a> |
+<a href="http://www.ics.uci.edu/~thornton/">About Alex</a>
+</p>
+
+<hr>
+
+</div>
+
+<div class="header">
+
+<p>ICS 32 Spring 2014<br>
+   Project #2: <i>Send Me On My Way</i></p>
+
+</div>
+
+<div class="section">
+
+<p class="center"><b>Due date and time:</b> <i>Monday, April 28, 11:59pm</i></p>
+
+<p class="center"><i>This project is to be done in pairs using the "pair programming" technique</i></p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">Background</p>
+
+<p>There are relatively few interesting programs written in any programming language that are completely self-contained; almost any program you can think of that would fit the description of being "interesting" in some way will either read its input from or write its output to some source external to the program.  This is what allows us to use the same program to solve different problems — albeit different problems of the same type — and to use those solutions in other programs.</p>
+
+<p>You've no doubt seen, both in previous coursework and in this course, that one way for a program to take external input is to read it from a file.  This is the principle at work when you start a word processor like Microsoft Word by double-clicking on a document stored on your hard drive; the word processor is opened, then it reads the document and displays its contents, along with whatever formatting or art is included within it.  Of course, word processors would be much less useful if they were incapable of opening existing documents.</p>
+
+<p>However, files aren't where the story ends.  Programs are capable of reading input and writing output in other ways, too, and learning how to use other mechanisms in Python programs pushes out the boundaries around what we can accomplish.  Think about the programs you use every day; it doesn't take long to realize that the ones that hold your interest most strongly, that enable the most exciting outcomes, are those that read their input and write their output by connecting to other computers somewhere else in the world via the Internet.  We use many programs — web browsers, email clients, mobile applications, multiplayer games, and more — every day that do this.  So we should want to be able to do the same in the programs we write in Python.</p>
+
+<p>This project allows you to take a first step into a more connected world by introducing you to the use of <i>sockets</i>, objects in Python that represent one end of a connection between one program and another — the other might be on the same machine, on another machine in the same room, or on a machine halfway across the world.  You'll learn about the importance of <i>protocols</i> in the communication between programs, and will implement a game that you can play either standalone (on your own computer) or via your Internet connection.</p>
+
+<p>Along the way, you'll also be introduced in more detail to the use of <i>modules</i> in Python, and to writing programs that are made up of more than one module, a technique that we'll revisit repeatedly as the size and complexity of the programs we write begins to increase.  You'll find that the design decisions you make — such as keeping functions small and self-contained, organizing your functions and other code by putting it into appropriate modules — will be an important part of being able to complete your work.  Additionally, you'll use a small library that I'm providing in order to seed your work on the project.</p>
+
+<p>Be sure to look through the <a href="http://www.ics.uci.edu/~thornton/ics32/CodeExamples">code examples</a> related to sockets and the Internet as we continue covering these topics in lecture; they will provide the background that you'll need in order to implement that part of your program.</p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">Choosing a partner</p>
+
+<p>Before beginning work on this project, choose a partner from among the students who are <i>officially enrolled in the same lab section as you</i>.  You must choose <i>someone other than who your partnered with on the <a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/Project1">previous project</a></i>.  It's fine, even preferable, to read this project write-up on your own ahead of time, though, so you and your partner can hit the ground running when you start working together, but do not start working on your solution until you are partnered up.</p>
+
+<p>Once you've selected a partner, <i>one of you</i> should send an email to the TA of your lab section to notify your TA of your partnership.  Include the names and UCInetIDs of both you and your partner.  (There's no need to send a copy to the instructor; just your TA is fine.)  Notify your TA before 11:59pm on Wednesday, April 16.  If you have not found a partner and notified your TA of the pairing by 11:59pm on Wednesday, April 16, we will assign you a partner sometime on Thursday, April 17, and will notify you via email of your partnership arrangement.  Once your TA has selected a partner for you in this fashion, we will not allow you to switch to another one, so the best way to control your destiny is to choose a partner yourself during your lab section on Wednesday, April 16.</p>
+
+<p>If you're having trouble finding a partner, notify your TA during your lab section, so that you can be assisted in finding one.</p>
+
+<p><i>You will not receive credit on this project if you work on it alone, without the prior consent of the instructor.</i>  (Please note that "prior consent" does not include approaching us the day the project is due, having completed it on your own, and telling us that you haven't been able to find a partner.  Pair programming is a part of the course, and we expected everyone to participate in it when asked.)</p>
+
+<p>As with the <a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/Project1">previous project</a>, if you're taken this course previously — or if you've partnered with someone who has — the previous quarter's code cannot be used, in whole or in part, during your work on the project this quarter, as we expect partnerships to do their own work.</p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">The program</p>
+
+<p>For this project, you'll implement a console-based game that you will initially be able to play on your own computer, but will extend so that you can play via the Internet by connecting to a central, shared server.</p>
+
+<p class="subtitle">The game</p>
+
+<p>For this project, you'll implement a console-based implementation of a game called Connect Four.  The rules of the game are straightforward and many of you may already know them; if you're not familiar with the rules of the game, or haven't seen them in a while, <a href="http://en.wikipedia.org/wiki/Connect_four">Wikipedia's Connect Four page</a> is as good a place to go as any to become familiar with it.</p>
+
+<p>Note that our implementation will include not only the traditional rules regarding dropping pieces into columns, but also the "Pop Out" variation discussed on the Wikipedia page.  While Connect Four boards come in a variety of sizes, our implementation will default to 7x6 (i.e., seven columns and six rows).</p>
+
+<p>Also, one very minor wrinkle that we're adding to the rules on the Wikipedia page is that the red player always moves first.</p>
+
+<p class="subtitle">A starting point: the <i>connectfour</i> module</p>
+
+<p>Unlike the <a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/Project1">previous project</a>, this project begins with a <i>starting point</i>, in the form of a library that I've already implemented that contains the underlying game logic.  You will be required to build your game on top of it (and you will not be allowed to change it), which will be an instructive experience; learning to use other people's libraries without having to make modifications is a valuable ability.  Before proceeding much further with the project, it might be a good idea to spend some time reading through the code, its docstrings, and its comments to get an understanding of what's been provided.  You can also try some focused experimentation in the Python interpreter so you can understand how the provided module works; you'll need that understanding in order to complete your work.</p>
+
+<ul>
+  <li><a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/Project2/connectfour.py"><b>connectfour.py</b></a></li>
+</ul>
+
+<p>Be sure that you respect the constants that are defined in this module.  For example, whenever possible, use <b>connectfour.BOARD_COLUMNS</b> to denote the number of columns on the board, <b>connectfour.BOARD_ROWS</b> to denote the number of rows on the board, and so on.  It should be possible to change the values of these constants to reasonable alternative values and your program should still work (and should adjust if, for example, the number of columns and rows changes).</p>
+
+<p class="subtitle">The requirements</p>
+
+<p>You will actually be writing two programs to satisfy this project.  The vast majority of the code will be shared between the two programs.  In fact, one of your goals is to find a way to reuse as much of it as possible; if you find yourself copying and pasting code between the programs, you should instead consider a way to use the put the code in one place and use it in both.</p>
+
+<p class="subtitle">The first program: a console-only version of Connect Four</p>
+
+<p>One of your two programs will allow you to play one game of Connect Four using only console interaction (i.e., no networks or sockets).  The user is repeatedly shown the current state of the game — whose turn it is and what the board looks like.  The board should always be shown in the following format:</p>
+
+<blockquote><pre>1  2  3  4  5  6  7
+.  .  .  .  .  .  .
+.  .  .  .  .  .  .
+.  .  .  .  .  .  .
+.  .  R  .  .  .  .
+.  .  Y  R  .  .  .
+.  R  R  Y  .  Y  .
+</pre></blockquote>
+
+<p>You have some latitude in how you ask the user to specify a move, but it needs to be clear what the user should do.  Columns should be selected by typing a number between 1 (the far-left column) and 7 (the far-right).</p>
+
+<p>When the user is asked to specify a move but an invalid one is specified (such as dropping into a column that is full), an error message should be printed and the user should be asked again to specify a move.  In general, erroneous input at the console should not cause the program to crash; it should simply cause the user to be asked to specify his or her move again.</p>
+
+<p>The game proceeds, one move at a time, until the game ends, at which point the program ends.</p>
+
+<p class="subtitle">The second program: a networked version of Connect Four</p>
+
+<p>Your second program will instead allow you to play a game of Connect Four via a network, by connecting to a <i>server</i> that I've provided.  Your program always acts as a <i>client</i>.</p>
+
+<p>When this program starts, the user will need to specify the <i>host</i> (either an IP address, such as <b>192.168.1.101</b>, or a hostname, such as <b>www.ics.uci.edu</b>) where a Connect Four server is running, along with the <i>port</i> on which that server is listening.</p>
+
+<p>Additionally, the user should be asked to specify a <i>username</i>.  The username can be anything the user would like, except it cannot contain whitespace characters (e.g., spaces or tabs).  So, for example, <b>boo</b> or <b>HappyTonight</b> are legitimate usernames, but <b>Hello There</b> is not.</p>
+
+<p>Once the user has specified where to connect, the program should attempt to connect to the server.  If the connection is unsuccessful, print an error message specifying why and end the program.  If, on the other hand, the connection is successful, the game should proceed, with the client acting as the red player (and moving first) and the server — which acts as an artificial intelligence — acting as the yellow player.  For red player moves, the user should specify the move at the console, as in your first program; for yellow player moves, the program should instead wait for input via the socket.</p>
+
+<p>As in the first program, the game proceeds, one move at a time, until the game ends, at which point the program ends.</p>
+
+<p class="subtitle">Where is the ICS 32 Connect Four server?</p>
+
+<p>Information about where the server is running will be distributed via email; I'll also keep you posted about planned downtime (e.g., if I need to fix a problem, if I know that the machine where it's running will be down, etc.).  It may be necessary to move the server from time to time; when I do that, I will let everyone know via email.</p>
+
+<p>Please note that the ICS 32 Connect Four server is running on a machine on the ICS network that is not exposed to the open Internet.  In order to connect to it, you will need to be connected to the campus network, which means you'll either need to be on campus <i>or</i> you'll need to be connected to something called the <i>campus VPN</i>, which allows you to access the campus' network from off-campus.</p>
+
+<p>Connecting to the campus VPN requires that you install some software, which you can obtain from UCI's Office of Information Technology at the following link:</p>
+
+<ul>
+  <li><a href="http://www.nacs.uci.edu/security/vpn/">Campus VPN software</a></li>
+</ul>
+
+<p>Open the link above, find the section titled <b>Software VPN</b> (as opposed to <b>WebVPN</b>, which won't work for this purpose), and click the link titled <b>Download the Software VPN</b>.  This will require you to log in with your UCInetID and password, at which point you'll be offered links to Windows, Mac OS X, or Linux versions of the VPN software.  Download the one that's appropriate for your operating system and install it; instructions are available at this link:</p>
+
+<ul>
+  <li><a href="http://www.nacs.uci.edu/security/vpn/vpninstall.html">Installing the campus VPN software</a></li>
+</ul>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">The ICS 32 Connect Four Server Protocol (I32CFSP)</p>
+
+<p class="subtitle">What is a protocol?</p>
+
+<p>Though each of you will be writing a completely separate program, your programs are expected to be able to connect to the ICS 32 Connect Four server via the Internet.  There is only one server that we'll all share, so that requires us to agree on a single way to converse with it, so that each program will know precisely how to inform the other about what moves are being made as the game progresses.</p>
+
+<p>Part of our agreement is that we'll use a standard abstraction for Internet communication called <i>sockets</i>.  A socket is an object that hides the underlying details of a network connection.  Though the underlying network technology is complex, though information is actually sent across the Internet by breaking it up into small pieces and sending those pieces out into the network separately (so that they may arrive at their destination in a different order than they were sent, and so that some parts of it may not arrive at all and will have to be re-sent), a socket hides all of this and makes the connection appear, to your program, to consist of two <i>streams</i>, an input stream and an ouptut stream.  Data placed into the output stream of one program's socket will arrive in the same order in the input stream of the other's.  It is important to realize that networks are <i>unreliable</i>; there's no guarantee that the data you send will ever get to the recipient, but you can be guaranteed that, if it does, it will be placed into the input stream of the recipient's socket in the same order that you sent it.</p>
+
+<p>Using sockets is not enough, though.  Any time you want programs to be able to communicate with the Internet, there needs to be a <i>protocol</i>, which is a set of rules governing what each party will send and receive, and when they will do it.  You can think of a protocol like a very rigidly-defined kind of conversation, with each participating knowing its role, so that it will know what to say and what to expect the other participant to say at any given time.</p>
+
+<p>Many protocols have been defined that govern how various programs send and receive information via the Internet.  For example, the Hypertext Transfer Protocol (HTTP) is what your browser uses to connect to a web server, request a web page, and receive a response.  (That protocol is defined in all of its detail at <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">this link</a>.  It has nothing to do with this project, but if you're curious how a "real" network protocol is defined, look no further.  And note that the primary author of the protocol was here at UCI at the time.)  Since all browsers and all web servers conform to the same HTTP protocol, they can interoperate, even though they are writen by different groups of people, run on different operating systems, and provide different user interfaces.</p>
+
+<p>For this project, we'll need a protocol.  Our protocol is a custom protocol called the <i>ICS 32 Connect Four Server Protocol</i>; since technical people are so fond of acronyms, we'll use an acronym, too: <i>I32CFSP</i>.</p>
+
+<p class="subtitle">The definition of I32CFSP</p>
+
+<p>I32CFSP conversations are relatively simple: they are predominantly centered around sending moves back and forth, with the assumption being that both conversants will be able to determine the game's state simply by applying these moves locally; for this reason, the game's state is not transmitted between conversants.</p>
+
+<p>I32CFSP conversations are between two participants, which we'll call the <i>server</i> and the <i>client</i>.  The server is the participant that listens for and accepts the conversation; the client is the participant that initiates it.  (You'll be implementing the client in this project; I've already implemented the server.)  The client is always the red player and the server is always the yellow player; this means that the client always moves first.  I32CFSP conversations proceed in the following sequence.</p>
+
+<ul>
+  <li>The server awaits a connection from a client</li>
+  <li>The client makes a socket connection to the server</li>
+  <li>The server accepts the client's connection</li>
+  <li>The client sends the characters <b>I32CFSP_HELLO</b>, followed by a space, a <i>username</i> that identifies the user, followed by an end-of-line sequence.  End-of-line sequences are always '\r\n', in Python terms.</li>
+  <li>The server sends the characters <b>WELCOME</b>, followed by a space, followed by the username sent by the client, followed by an end-of-line sequence.</li>
+  <li>The client requests a game against an artificial intelligence by sending the characters <b>AI_GAME</b>, followed by an end-of-line sequence.</li>
+  <li>The server indicates that it's prepared to play a game by sending back the characters <b>READY</b>, followed by an end-of-line sequence.</li>
+  <li>From here, the client and the server alternate sending moves, with the opposite participant moving each time.  This continues until the game has ended.
+    <ul>
+      <li>When a participant wants to drop a piece into a column, the characters <b>DROP <i>col</i></b>, followed by an end-of-line sequence, are sent, where <i>col</i> is the column number (1 being the far left column, 7 being the far right column) into which a piece is to be dropped</li>
+      <li>When a participant wants to pop a piece from the bottom of a column, the characters <b>POP <i>col</i></b>, followed by an end-of-line sequence, are sent instead, where <i>col</i> is the column number (1 being the far left column, 7 being the far right column) from which a piece should be popped</li>
+      <li>More specifically, things proceed as follows:
+        <ul>
+          <li>The client sends its first move, such as <b>DROP 3</b>.
+            <ul>
+              <li>If this is a valid move, the server responds with <b>OKAY</b>, followed by an end-of-line sequence, unless the game is now over, in which case the server responds with <b>WINNER_RED</b> or <b>WINNER_YELLOW</b>, followed by an end-of-line sequence, depending on whether the winner was the red player or the yellow player.</li>
+              <li>If this is not a valid move, the server responds with <b>INVALID</b>, followed by an end-of-line sequence.</li>
+            </ul>
+          </li>
+          <li>If the game is not yet complete, the server now takes its turn to move.  It sends its move in the format specified above (e.g., <b>DROP 5</b> or <b>POP 2</b>).
+            <ul>
+              <li>Immediately following this, the server sends <b>READY</b> if the game is still in progress, or either <b>WINNER_RED</b> or <b>WINNER_YELLOW</b> if there is a winner.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>As soon as the game is over — when the server has sent <b>WINNER_RED</b> or <b>WINNER_YELLOW</b> — both participants close their connections, as the conversation is now over.</li>
+</ul>
+
+<p>An example conversation, for a game in which each player continually drops pieces into the same column, looks like this:</p>
+
+<table class="normal">
+  <tbody><tr class="top">
+    <td>Client</td>
+    <td>Server</td>
+  </tr>
+  <tr>
+    <td><b>I32CFSP_HELLO boo</b></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>WELCOME boo</b></td>
+  </tr>
+  <tr>
+    <td><b>AI_GAME</b></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>READY</b></td>
+  </tr>
+  <tr>
+    <td><b>DROP 3</b></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>OKAY</b></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>DROP 4</b></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>READY</b></td>
+  </tr>
+  <tr>
+    <td><b>DROP 3</b></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>OKAY</b></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>DROP 4</b></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>READY</b></td>
+  </tr>
+  <tr>
+    <td><b>DROP 8</b></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>INVALID</b></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>READY</b></td>
+  </tr>
+  <tr>
+    <td><b>DROP 3</b></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>OKAY</b></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>DROP 4</b></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>READY</b></td>
+  </tr>
+  <tr>
+    <td><b>DROP 3</b></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>WINNER_RED</b></td>
+  </tr>
+</tbody></table>
+
+<p class="subtitle">How you should handle erroneous socket input</p>
+
+<p>Your program is not permitted to assume that all input it receives will be correct.  When it receives input that does not conform to the protocol, your program must immediately close the connection.  (This is a rudimentary, but nonetheless effective, form of security; if someone connects and won't play by the rules, hang up on them.)</p>
+
+<p>While the server is resilient about accepting invalid moves, the client is not; if the server sends an invalid move, the client should close the connection immediately.</p>
+
+<p class="subtitle">A note about the design of I32CFSP</p>
+
+<p>You may wonder why the first message is more cryptic than the others; the first message is <b>I32CFSP_HELLO</b> instead of just <b>HELLO</b>, while the others are mostly regular English words.  Just like it's important that file formats contain enough information to make it clear what format the file is in — for example, the JPEG image format contains the characters <b>Exif</b> in a particular place, as well as a couple of other distinguishing characteristics that have nothing to do with the image they represent — it's also important that a protocol begins with a message that will distinguish it from other protocols.  By starting our conversation with something "special" like <b>I32CFSP_HELLO</b>, the server can be sure that the client intends to have a conversation using our protocol, rather than something else.  (After all, you can connect any program that uses sockets, even a browser, to the ICS 32 Connect Four Server, though the conversation won't get very far before the server realizes that it's receiving the wrong kind of traffic and hangs up.)</p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">Module requirements</p>
+
+<p>Because one of the goals of this project is to explore writing programs consisting of multiple Python modules, you will be required to separate this program into at least the following five modules:</p>
+
+<ul>
+  <li>The provided <b>connectfour.py</b> module is one of the four; it implements the underlying game logic, but performs no interaction with a user and does nothing with sockets or network communication.  You should be able to use this as-is, with no modifications to what's been provided.</li>
+  <li>One module that implements the I32CFSP and all socket handling.  If you're going to connect, read, write, etc., via a socket, you would do that in functions written in this module.</li>
+  <li>One module that implements the console-only user interface and one of the two programs' <i>entry points</i> (i.e., it's got an <b>if __name__ == '__main__':</b> block at the bottom, and is the one you would execute in order to run the console-only version of the game.</li>
+  <li>One module that implements the user interface for the networked version of the game that plays against an artificial intelligence.  It, too, will need an <b>if __name__ == '__main__':</b> block at the bottom, and would be the one you would execute in order to run the networked version of the game.</li>
+  <li>One module that consists of the functions that are the same in both user interfaces.  Examples would include a function that prints the current game board to the console and a function that asks the user what move he or she would like to make next.</li>
+</ul>
+
+<p>Other than <b>connectfour.py</b>, which you should not modify, you can name your modules whatever you'd like, but, as usual, the names should be meaningful and indicate the modules' purpose.  You should also stick to the Python convention of naming your module using all lowercase letters and multiple words (if you have them) separated by underscores (e.g., <b>connectfour_console.py</b> instead of <b>ConnectFourConsole.py</b> or <b>Connect Four Console.py</b>).</p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">Advice about working incrementally</p>
+
+<p>As the programs you write get larger, it becomes progressively more important that you work on them a little bit at a time.  As we've talked about already this quarter, you should always be on the hunt for <i>stable ground</i>, a program that does some part (even some very small part) of what it's supposed to do, but that you can verify.  Once you've got a portion of your program working and verified, you're on stable ground.</p>
+
+<p>I quite often think about what you might call "big-picture" and "small-picture" kinds of stable ground.  I'm generally working toward a bigger-picture goal; within that, I work toward a sequence of smaller-picture goals as I divide up the bigger-picture problem into smaller parts.  I recommend a similar approach here.  There are a lot of ways to cut a problem like this up, but here's one sequence of bigger-picture goals that you might find helpful.</p>
+
+<ul>
+  <li>Familiarize yourself with the code in the provided <i>connectfour.py</i> file, including spending some time in the Python interpreter experimenting with its public functions.</li>
+  <li>Implement the console-only version of the game, but don't worry yet about sockets or networks.  As you work, however, consider what parts of your console version might be reusable in your networked version.  Don't feel the need to break them out into a separate module yet, but at least try to design potentially shared functionality as functions (e.g., a function that takes a game board as a parameter and prints it) that could be moved to another module later.  The onus will be on finding ways to break larger functions into smaller ones.  (Read through the code I wrote in <i>connectfour.py</i> and note how many small utility functions there are, and note how they're often reused in multiple places.  I didn't always write it that way initially.  As I discovered duplication, I took advantage of it by moving the duplicated code into its own functions; you should be thinking of ways to do the same.)</li>
+  <li>Finally, implement the networked version of the game.  You'll find that this presents new challenges — the sockets and the network communication can be tricky — but that a fair amount of the work here will already be done, since it shares at least some of its code with the console version.</li>
+</ul>
+
+<p class="subtitle">Reusing code and how it affects your "Quality and Design" score</p>
+
+<p>While there are two separate programs here — the console version and the networked version — there are substantial similarities between them.  The game still proceeds move by move, the user is still shown the current state of the board before each move is made, the local player(s) are asked to specify a move at the console, and so on.  The parts of your two programs that are the same should be written once.  Your goal, from a design perspective, is to find ways to avoid duplicating code between the two programs.</p>
+
+<p>This is one of the important aspects of your design that we'll be considering when assessing your program's <i>Quality and Design</i> score.</p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">Limitations</p>
+
+<p>All of your socket-related code should use only the <b>socket</b> module from the Python Standard Library to handle any sockets; in general, you'll need to open your own sockets, and do your own reading and writing to them.  Since our protocol is entirely text-based, I suggest using the pseudo-file objects we saw in lecture (which you create by calling <b>makefile</b> on a socket object once it's connected).  There are fuller-featured tools in the standard library, such as <b>asynchat</b> and <b>socketserver</b>, that hide a lot of the underlying details; we may find these modules useful later this quarter, but I'd like you to have the experience of managing your own sockets for this project.</p>
+
+</div>
+
+<div class="section">
+
+<hr>
+
+<p class="title">Deliverables</p>
+
+<p>Only one of the two partners should submit the project; we are aware of the partnerships, so we will be able to figure out which project submissions belong to which pairing.  Put the names and student IDs of both partners in a comment at the top of each of your <b>.py</b> files, then submit the files to Checkmate.  Take a moment to be sure that you've submitted all of your files.</p>
+
+<p>Follow <a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/SubmittingProjects.html">this link</a> for a discussion of how to submit your project via Checkmate.  Be aware that I'll be holding you to all of the rules specified in that document, including the one that says that you're responsible for submitting the version of the project that you want greaded.  We won't regrade a project simply because you submitted the wrong version accidentally.</p>
+
+<p class="subtitle">Do I have to submit <i>connectfour.py</i>?</p>
+
+<p>That's up to you.  It's not necessary, but it doesn't hurt anything.  However, please be aware that we'll be testing your program against the original <i>connectfour</i> module provided here, even if you submit one, because one of the requirements in this project is that you use our <i>connectfour</i> module as-is.</p>
+
+<p class="subtitle">Can I submit after the deadline?</p>
+
+<p>Yes, it is possible, subject to the late work policy for this course, which is described in the section titled <i>Late work</i> at <a href="http://www.ics.uci.edu/~thornton/ics32/ProjectGuide/index.html">this link</a>.</p>
+
+</div>
+
+<div class="history">
+
+<hr>
+
+<ul class="nomarker">
+  <li>Section detailing the selection of partners added by Alex Thornton, Fall 2013.</li>
+  <li>Heavily redesigned and rewritten by Alex Thornton, Spring 2013.</li>
+  <li>Originally written by Alex Thornton, Winter 2013.</li>
+</ul>
+
+</div>
+
+
+
+</body></html>
